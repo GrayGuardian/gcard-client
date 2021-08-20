@@ -1,0 +1,189 @@
+_G.cslongToLuaNumber = function(val)
+    return tonumber(tostring(val))
+end
+_G.stringToBytes = function(str)
+    return {string.byte(str, 1, string.len(str))}
+end
+_G.bytesToString = function(bytes)
+    return string.char(unpack(bytes))
+end
+_G.luaBytesToCsBytes = function(bytes)
+    local data = System.Collections.Generic.List_byte()
+    for index, value in pairs(bytes) do
+        data:Add(value)
+    end
+    return data:ToArray()
+end
+_G.csBytesToLuaBytes = function(bytes)
+    local data = {}
+    for i = 0, bytes.Length - 1 do
+        data[i + 1] = bytes:GetValue(i)
+    end
+    return data
+end
+_G.luaVector3ArrToCsVector3Arr = function(arr)
+    local csArr = System.Array.CreateInstance(typeof(UE.Vector3), #arr)
+    for index, luaPos in ipairs(arr) do
+        local x = luaPos.x or 0
+        local y = luaPos.y or 0
+        local z = luaPos.z or 0
+        csArr:SetValue(UE.Vector3.New(x, y, z), index - 1)
+    end
+    return csArr
+end
+_G.luaVector2ArrToCsVector2Arr = function(arr)
+    local csArr = System.Array.CreateInstance(typeof(UE.Vector2), #arr)
+    for index, luaPos in ipairs(arr) do
+        local x = luaPos.x or 0
+        local y = luaPos.y or 0
+        csArr:SetValue(UE.Vector2.New(x, y), index - 1)
+    end
+    return csArr
+end
+_G.luaCSVector2ArrToCsVector3Arr = function(arr, z)
+    z = z or 0
+    local csArr = System.Array.CreateInstance(typeof(UE.Vector3), arr.Length)
+    for i = 0, arr.Length - 1 do
+        local pos = arr:GetValue(i)
+        csArr:SetValue(UE.Vector3.New(pos.x, pos.y, z), i)
+    end
+    return csArr
+end
+-- 字符串分割
+_G.string.split = function(str, str1)
+    local arr = {}
+    string.gsub(
+        str,
+        '[^' .. str1 .. ']+',
+        function(w)
+            table.insert(arr, w)
+        end
+    )
+    return arr
+end
+-- 字符串倒序查找
+_G.string.rfind = function(str, pattern)
+    local rstr = string.reverse(str)
+    local rpattern = string.reverse(pattern)
+    local t_min, t_max = string.find(rstr, rpattern)
+    if (t_min == nil and t_max == nil) then
+        return nil, nil
+    end
+    local len = string.len(rstr)
+    local min = len - t_max + 1
+    local max = len - t_min + 1
+    return min, max
+end
+-- 数组复制
+_G.table.copy = function(copyTable, table)
+    if table == nil then
+        table = {}
+    end
+    local copy = nil
+
+    copy = function(copyTable, table)
+        if type(copyTable) ~= 'table' then
+            table = copyTable
+        else
+            for k, v in pairs(copyTable) do
+                if type(v) ~= 'table' then
+                    table[k] = v
+                else
+                    table[k] = {}
+                    copy(v, table[k])
+                end
+            end
+        end
+    end
+
+    copy(copyTable, table)
+    return table
+end
+-- 数组成员存在
+_G.table.exist = function(t, value)
+    for k, v in pairs(t) do
+        if v == value then
+            return true
+        end
+    end
+    return false
+end
+-- 数组删除成员
+_G.table.del = function(t, value)
+    for k, v in pairs(t) do
+        if v == value then
+            table.remove(t, k)
+            --t[k] = nil
+            return true
+        end
+    end
+    return false
+end
+-- 数组长度
+_G.table.len = function(t)
+    local num = 0
+    for key, value in pairs(t) do
+        num = num + 1
+    end
+    return num
+end
+-- 是否是数组
+_G.table.isArray = function(t)
+    local i = 0
+    for key, value in pairs(t) do
+        i = i + 1
+        if (i ~= key) then
+            return false
+        end
+    end
+    return true
+end
+_G.util = {}
+-- 序列化对象 打印输出用
+util.serialize = function(obj)
+    local lua = ''
+    if obj == nil then
+        return 'nil'
+    end
+    local t = type(obj)
+    if t == 'number' then
+        lua = lua .. obj
+    elseif t == 'boolean' then
+        lua = lua .. tostring(obj)
+    elseif t == 'string' then
+        lua = lua .. string.format('%q', obj)
+    elseif t == 'table' then
+        lua = lua .. '{ '
+        for k, v in pairs(obj) do
+            lua = lua .. '[' .. util.serialize(k) .. ']=' .. util.serialize(v) .. ', '
+        end
+        local metatable = getmetatable(obj)
+        if metatable ~= nil and type(metatable.__index) == 'table' then
+            for k, v in pairs(metatable.__index) do
+                lua = lua .. '[' .. util.serialize(k) .. ']=' .. util.serialize(v) .. ', '
+            end
+        end
+        lua = lua .. '}'
+        lua = string.gsub(lua, ', }', ' }')
+    elseif t == 'function' then
+        lua = lua .. '[function]'
+    elseif t == 'userdata' then
+        lua = lua .. '[' .. tostring(obj) .. ']'
+    elseif t == 'nil' then
+        lua = lua .. '[nil]'
+    else
+        error('can not serialize a ' .. t .. ' type.')
+    end
+    return lua
+end
+-- 文件大小转文字
+util.sizeFormat = function(byteSize)
+    if byteSize > (1024 * 1024 * 1024) * 0.95 then
+        return string.format('%0.2fGB', byteSize / (1024 * 1024 * 1024))
+    elseif byteSize > (1024 * 1024) * 0.95 then
+        return string.format('%0.2fMB', byteSize / (1024 * 1024))
+    elseif byteSize > 1024 * 0.95 then
+        return string.format('%0.2fKB', byteSize / 1024)
+    end
+    return string.format('%0.2fByte', byteSize)
+end

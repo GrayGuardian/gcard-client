@@ -1,0 +1,9 @@
+local base = require("scene_base")
+local Scene = class("scene_step", base)
+function Scene:onLoad()
+end
+
+function Scene:onDestroy()
+    self.super:onDestroy(self)
+end
+return Scene

@@ -1,0 +1,13 @@
+local base = require("scene_base")
+local Scene = class("scene_hotupdate", base)
+
+function Scene:onLoad()
+    print("scene_hotupdate onLoad")
+
+    uiMgr:load("ui_hotupdate")
+end
+
+function Scene:onDestroy()
+    self.super:onDestroy(self)
+end
+return Scene

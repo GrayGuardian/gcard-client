@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 608632165
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: ui
+      Dependencies:
+        Dependency_0: p1
+    Info_1:
+      Name: lua
+      Dependencies: {}
+    Info_2:
+      Name: hotupdate
+      Dependencies: {}
+    Info_3:
+      Name: p1
+      Dependencies: {}

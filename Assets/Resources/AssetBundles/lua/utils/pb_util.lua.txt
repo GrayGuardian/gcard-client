@@ -1,0 +1,130 @@
+local PB = class('PB')
+local protobuf = require 'protobuf'
+
+local _encode = nil
+_encode = function(key, data)
+    local message_type = nil
+    if type(key) == 'string' then
+        local keys = string.split(key, '.')
+        message_type = require(keys[1] .. '_pb')[keys[2]]
+    else
+        message_type = protobuf.Message(key)
+    end
+    --print('encode message_type:'..message_type:DescriptorType());
+    local pb = message_type()
+    for k, v in pairs(data) do
+        local field = pb.fieldMap[k]
+        if field ~= nil then
+            if field.message_type == nil then
+                --非嵌套直接赋值
+                --print('非嵌套递归赋值>>>>>',message_type:DescriptorType(),k);
+                if type(field.default_value) ~= 'table' then
+                    pb[k] = v
+                else
+                    for index, v1 in ipairs(v) do
+                        pb[k]:append(v1)
+                    end
+                end
+            else
+                --嵌套递归赋值
+                --print('嵌套递归赋值>>>>>',message_type:DescriptorType(),k);
+                if type(field.default_value) ~= 'table' then
+                    pb[k]:MergeFromString(_encode(field.message_type, v))
+                else
+                    for index, v1 in ipairs(v) do
+                        local t_pb = pb[k]:add()
+                        t_pb:MergeFromString(_encode(field.message_type, v1))
+                    end
+                end
+            end
+        end
+    end
+    --return nil
+    return pb:SerializeToString()
+end
+
+local _decode = nil
+_decode = function(key, data)
+    local message_type = nil
+    if type(key) == 'string' then
+        local keys = string.split(key, '.')
+        message_type = require(keys[1] .. '_pb')[keys[2]]
+    else
+        message_type = protobuf.Message(key)
+    end
+    local pb = message_type()
+    pb:ParseFromString(data)
+
+    return pb
+end
+
+function PB:encode(key, data)
+    local result = nil
+    local ok, errors =
+        pcall(
+        function()
+            result = _encode(key, data)
+        end
+    )
+    if ok then
+        return result
+    else
+        print(errors)
+        return ''
+    end
+end
+function PB:decode(key, data)
+    local result = nil
+    local ok, errors =
+        pcall(
+        function()
+            result = _decode(key, data)
+        end
+    )
+    if ok then
+        return result
+    else
+        print(errors)
+        return nil
+    end
+end
+
+function PB:pbToTable(pb)
+    if pb == nil or pb.fieldMap == nil then
+        return nil
+    end
+    local data = {}
+    for key, field in pairs(pb.fieldMap) do
+        local value = pb[field.name]
+        if field.message_type == nil then
+            if type(field.default_value) ~= 'table' then
+                if (pb:HasField(field.name)) then
+                    data[key] = value
+                else
+                    data[key] = nil
+                end
+            else
+                data[key] = {}
+                for index, v in ipairs(value) do
+                    table.insert(data[key], v)
+                end
+            end
+        else
+            if type(field.default_value) ~= 'table' then
+                if (pb:HasField(field.name)) then
+                    data[key] = self:pbToTable(value)
+                else
+                    data[key] = nil
+                end
+            else
+                data[key] = {}
+                for index, v in ipairs(value) do
+                    table.insert(data[key], self:pbToTable(v))
+                end
+            end
+        end
+    end
+    return data
+end
+
+return PB

@@ -1,0 +1,11 @@
+local base = require('comp_base')
+local Comp = class('comp_test', base)
+function Comp:onLoad(a,b,c)
+    print('comp_test onLoad',a,b,c)
+end
+
+function Comp:onDestroy()
+    self.super:onDestroy()
+    print('comp_test onDestroy')
+end
+return Comp

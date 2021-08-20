@@ -1,0 +1,20 @@
+require("global")
+
+--主入口函数。从这里开始lua逻辑
+function Main()
+    print("Lua Main")
+
+    GAME_CONST.ConsoleComp = compMgr:addCSComponent(mono.monoNode, TestConsole)
+    GAME_CONST.ConsoleComp:Show()
+
+    sceneMgr:load("Hotupdate")
+end
+--场景切换通知
+function OnLevelWasLoaded(idx, name)
+    collectgarbage("collect")
+    broadcast:notify(BROADCAST_CODE.SCENE_LOADED, {idx = idx, name = name})
+end
+--游戏退出
+function OnApplicationQuit()
+    broadcast:notify(BROADCAST_CODE.MONO_QUIT)
+end

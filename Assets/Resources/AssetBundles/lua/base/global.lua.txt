@@ -1,0 +1,67 @@
+-- 缩写
+_G.UE = UnityEngine
+_G.UEUI = UE.UI
+_G.GameObject = UE.GameObject
+_G.Application = UE.Application
+
+_G.class = require('class')
+
+require('utils')
+
+_G.CSFileUtil = FileUtil.Instance
+_G.CSEncryptUtil = EncryptUtil.Instance
+_G.CSLuaUtil = LuaUtil.Instance
+
+_G.GAME_CONST = require('GAME_CONST')
+_G.BROADCAST_CODE = require('BROADCAST_CODE')
+
+_G.actionList = require('actionList')
+_G.downloadFile = require('downloadFile')
+
+_G.pb = require('pb_util'):new()
+_G.asset = require('asset_util'):new()
+_G.broadcast = require('broadcast_util'):new()
+_G.mono = require('mono_util'):new()
+_G.timer = require('timer_util'):new()
+_G.pool = require('pool_util'):new()
+_G.http = require('http_util'):new()
+
+_G.compMgr = require('comp_mgr'):new()
+_G.uiMgr = require('ui_mgr'):new()
+_G.sceneMgr = require('scene_mgr'):new()
+
+_G.update = require('update_util'):new()
+
+local data =
+    pb:encode(
+    'common.ServerConfig',
+    {
+        id = 1000,
+        name = 'center-server0',
+        type = 0,
+        host = '127.0.0.1',
+        port = 8000,
+        desc = '我是描述'
+    }
+)
+
+local bytes = CSLuaUtil:StringToBytes_UTF8(data)
+bytes = luaBytesToCsBytes(stringToBytes(data))
+
+HttpUtil.Instance:PostAsyn(
+    System.Net.HttpWebRequest.Create(System.Uri('http://127.0.0.1:8200')),
+    bytes,
+    System.Action_HttpResult(
+        function(result)
+            print(result.bytes)
+            local d = bytesToString(csBytesToLuaBytes(result.bytes))
+            local dt = pb:decode('s2s.connRet', d)
+            print(dt.code)
+            print(util.serialize(pb:pbToTable(dt)))
+        end
+    )
+)
+
+-- for i = 0, bytes.Length - 1 do
+--     print(bytes:GetValue(i))
+-- end
