@@ -14,7 +14,7 @@ _G.CSLuaUtil = LuaUtil.Instance
 
 _G.GAME_CONST = require('GAME_CONST')
 _G.BROADCAST_CODE = require('BROADCAST_CODE')
-_G.Template = require("template");
+_G.Template = require('template')
 
 _G.actionList = require('actionList')
 _G.downloadFile = require('downloadFile')
@@ -56,9 +56,10 @@ HttpUtil.Instance:PostAsyn(
         function(result)
             print(result.bytes)
             local d = bytesToString(csBytesToLuaBytes(result.bytes))
-            local dt = pb:decode('s2s.connRet', d)
-            print(dt.code)
-            print(util.serialize(pb:pbToTable(dt)))
+            local dataPack = pb:decode('http.rpc', d)
+            local router = dataPack.router
+            local data = dataPack[router]
+            print(router, '>>>', data)
         end
     )
 )

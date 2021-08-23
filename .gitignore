@@ -6,3 +6,4 @@ Packages/
 UserSettings/
 *.csproj
 *.sln
+Temp/
