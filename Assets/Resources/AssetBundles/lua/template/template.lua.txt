@@ -1,0 +1,24 @@
+local Template = {}
+
+local getInfos = function(name)
+    return require(name)
+end
+
+local getMap = function(name, key)
+    local map = {}
+    local infos = getInfos(name)
+    for index, info in ipairs(infos) do
+        if info[key] ~= null then
+            map[info[key]] = info
+        else
+            --未找到标识
+        end
+    end
+    return map
+end
+
+local template_error_code = getMap('template_error_code', "code");
+
+Template.template_error_code = template_error_code;
+
+return Template

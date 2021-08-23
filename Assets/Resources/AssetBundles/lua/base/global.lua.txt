@@ -14,6 +14,7 @@ _G.CSLuaUtil = LuaUtil.Instance
 
 _G.GAME_CONST = require('GAME_CONST')
 _G.BROADCAST_CODE = require('BROADCAST_CODE')
+_G.Template = require("template");
 
 _G.actionList = require('actionList')
 _G.downloadFile = require('downloadFile')
