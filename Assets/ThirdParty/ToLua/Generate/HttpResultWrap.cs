@@ -11,7 +11,6 @@ public class HttpResultWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("code", get_code, set_code);
 		L.RegVar("bytes", get_bytes, set_bytes);
-		L.RegVar("content", get_content, set_content);
 		L.RegVar("response", get_response, set_response);
 		L.EndClass();
 	}
@@ -79,25 +78,6 @@ public class HttpResultWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_content(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			HttpResult obj = (HttpResult)o;
-			string ret = obj.content;
-			LuaDLL.lua_pushstring(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index content on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_response(IntPtr L)
 	{
 		object o = null;
@@ -151,25 +131,6 @@ public class HttpResultWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index bytes on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_content(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			HttpResult obj = (HttpResult)o;
-			string arg0 = ToLua.CheckString(L, 2);
-			obj.content = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index content on a nil value");
 		}
 	}
 

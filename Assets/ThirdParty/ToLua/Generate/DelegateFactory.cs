@@ -58,6 +58,10 @@ public class DelegateFactory
 		dict.Add(typeof(System.Net.Security.RemoteCertificateValidationCallback), factory.System_Net_Security_RemoteCertificateValidationCallback);
 		dict.Add(typeof(System.AsyncCallback), factory.System_AsyncCallback);
 		dict.Add(typeof(System.Action<HttpResult>), factory.System_Action_HttpResult);
+		dict.Add(typeof(System.Action<SocketDataPack>), factory.System_Action_SocketDataPack);
+		dict.Add(typeof(System.Action<System.Net.Sockets.SocketException>), factory.System_Action_System_Net_Sockets_SocketException);
+		dict.Add(typeof(System.Action<System.Net.Sockets.Socket>), factory.System_Action_System_Net_Sockets_Socket);
+		dict.Add(typeof(System.Action<System.Net.Sockets.Socket,SocketDataPack>), factory.System_Action_System_Net_Sockets_Socket_SocketDataPack);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
 		DelegateTraits<UnityEngine.Events.UnityAction>.Init(factory.UnityEngine_Events_UnityAction);
@@ -100,6 +104,10 @@ public class DelegateFactory
 		DelegateTraits<System.Net.Security.RemoteCertificateValidationCallback>.Init(factory.System_Net_Security_RemoteCertificateValidationCallback);
 		DelegateTraits<System.AsyncCallback>.Init(factory.System_AsyncCallback);
 		DelegateTraits<System.Action<HttpResult>>.Init(factory.System_Action_HttpResult);
+		DelegateTraits<System.Action<SocketDataPack>>.Init(factory.System_Action_SocketDataPack);
+		DelegateTraits<System.Action<System.Net.Sockets.SocketException>>.Init(factory.System_Action_System_Net_Sockets_SocketException);
+		DelegateTraits<System.Action<System.Net.Sockets.Socket>>.Init(factory.System_Action_System_Net_Sockets_Socket);
+		DelegateTraits<System.Action<System.Net.Sockets.Socket,SocketDataPack>>.Init(factory.System_Action_System_Net_Sockets_Socket_SocketDataPack);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
 		TypeTraits<UnityEngine.Events.UnityAction>.Init(factory.Check_UnityEngine_Events_UnityAction);
@@ -142,6 +150,10 @@ public class DelegateFactory
 		TypeTraits<System.Net.Security.RemoteCertificateValidationCallback>.Init(factory.Check_System_Net_Security_RemoteCertificateValidationCallback);
 		TypeTraits<System.AsyncCallback>.Init(factory.Check_System_AsyncCallback);
 		TypeTraits<System.Action<HttpResult>>.Init(factory.Check_System_Action_HttpResult);
+		TypeTraits<System.Action<SocketDataPack>>.Init(factory.Check_System_Action_SocketDataPack);
+		TypeTraits<System.Action<System.Net.Sockets.SocketException>>.Init(factory.Check_System_Action_System_Net_Sockets_SocketException);
+		TypeTraits<System.Action<System.Net.Sockets.Socket>>.Init(factory.Check_System_Action_System_Net_Sockets_Socket);
+		TypeTraits<System.Action<System.Net.Sockets.Socket,SocketDataPack>>.Init(factory.Check_System_Action_System_Net_Sockets_Socket_SocketDataPack);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
 		StackTraits<UnityEngine.Events.UnityAction>.Push = factory.Push_UnityEngine_Events_UnityAction;
@@ -184,6 +196,10 @@ public class DelegateFactory
 		StackTraits<System.Net.Security.RemoteCertificateValidationCallback>.Push = factory.Push_System_Net_Security_RemoteCertificateValidationCallback;
 		StackTraits<System.AsyncCallback>.Push = factory.Push_System_AsyncCallback;
 		StackTraits<System.Action<HttpResult>>.Push = factory.Push_System_Action_HttpResult;
+		StackTraits<System.Action<SocketDataPack>>.Push = factory.Push_System_Action_SocketDataPack;
+		StackTraits<System.Action<System.Net.Sockets.SocketException>>.Push = factory.Push_System_Action_System_Net_Sockets_SocketException;
+		StackTraits<System.Action<System.Net.Sockets.Socket>>.Push = factory.Push_System_Action_System_Net_Sockets_Socket;
+		StackTraits<System.Action<System.Net.Sockets.Socket,SocketDataPack>>.Push = factory.Push_System_Action_System_Net_Sockets_Socket_SocketDataPack;
 	}
     
     public static Delegate CreateDelegate(Type t, LuaFunction func = null)
@@ -2682,6 +2698,236 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_HttpResult(IntPtr L, System.Action<HttpResult> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_SocketDataPack_Event : LuaDelegate
+	{
+		public System_Action_SocketDataPack_Event(LuaFunction func) : base(func) { }
+		public System_Action_SocketDataPack_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(SocketDataPack param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(SocketDataPack param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<SocketDataPack> System_Action_SocketDataPack(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<SocketDataPack> fn = delegate(SocketDataPack param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_SocketDataPack_Event target = new System_Action_SocketDataPack_Event(func);
+			System.Action<SocketDataPack> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_SocketDataPack_Event target = new System_Action_SocketDataPack_Event(func, self);
+			System.Action<SocketDataPack> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_SocketDataPack(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<SocketDataPack>), L, pos);
+	}
+
+	void Push_System_Action_SocketDataPack(IntPtr L, System.Action<SocketDataPack> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_System_Net_Sockets_SocketException_Event : LuaDelegate
+	{
+		public System_Action_System_Net_Sockets_SocketException_Event(LuaFunction func) : base(func) { }
+		public System_Action_System_Net_Sockets_SocketException_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(System.Net.Sockets.SocketException param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(System.Net.Sockets.SocketException param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<System.Net.Sockets.SocketException> System_Action_System_Net_Sockets_SocketException(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<System.Net.Sockets.SocketException> fn = delegate(System.Net.Sockets.SocketException param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_System_Net_Sockets_SocketException_Event target = new System_Action_System_Net_Sockets_SocketException_Event(func);
+			System.Action<System.Net.Sockets.SocketException> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_System_Net_Sockets_SocketException_Event target = new System_Action_System_Net_Sockets_SocketException_Event(func, self);
+			System.Action<System.Net.Sockets.SocketException> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_System_Net_Sockets_SocketException(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<System.Net.Sockets.SocketException>), L, pos);
+	}
+
+	void Push_System_Action_System_Net_Sockets_SocketException(IntPtr L, System.Action<System.Net.Sockets.SocketException> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_System_Net_Sockets_Socket_Event : LuaDelegate
+	{
+		public System_Action_System_Net_Sockets_Socket_Event(LuaFunction func) : base(func) { }
+		public System_Action_System_Net_Sockets_Socket_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(System.Net.Sockets.Socket param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(System.Net.Sockets.Socket param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<System.Net.Sockets.Socket> System_Action_System_Net_Sockets_Socket(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<System.Net.Sockets.Socket> fn = delegate(System.Net.Sockets.Socket param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_System_Net_Sockets_Socket_Event target = new System_Action_System_Net_Sockets_Socket_Event(func);
+			System.Action<System.Net.Sockets.Socket> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_System_Net_Sockets_Socket_Event target = new System_Action_System_Net_Sockets_Socket_Event(func, self);
+			System.Action<System.Net.Sockets.Socket> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_System_Net_Sockets_Socket(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<System.Net.Sockets.Socket>), L, pos);
+	}
+
+	void Push_System_Action_System_Net_Sockets_Socket(IntPtr L, System.Action<System.Net.Sockets.Socket> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_System_Net_Sockets_Socket_SocketDataPack_Event : LuaDelegate
+	{
+		public System_Action_System_Net_Sockets_Socket_SocketDataPack_Event(LuaFunction func) : base(func) { }
+		public System_Action_System_Net_Sockets_Socket_SocketDataPack_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(System.Net.Sockets.Socket param0, SocketDataPack param1)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PushObject(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(System.Net.Sockets.Socket param0, SocketDataPack param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PushObject(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<System.Net.Sockets.Socket,SocketDataPack> System_Action_System_Net_Sockets_Socket_SocketDataPack(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<System.Net.Sockets.Socket,SocketDataPack> fn = delegate(System.Net.Sockets.Socket param0, SocketDataPack param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_System_Net_Sockets_Socket_SocketDataPack_Event target = new System_Action_System_Net_Sockets_Socket_SocketDataPack_Event(func);
+			System.Action<System.Net.Sockets.Socket,SocketDataPack> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_System_Net_Sockets_Socket_SocketDataPack_Event target = new System_Action_System_Net_Sockets_Socket_SocketDataPack_Event(func, self);
+			System.Action<System.Net.Sockets.Socket,SocketDataPack> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_System_Net_Sockets_Socket_SocketDataPack(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<System.Net.Sockets.Socket,SocketDataPack>), L, pos);
+	}
+
+	void Push_System_Action_System_Net_Sockets_Socket_SocketDataPack(IntPtr L, System.Action<System.Net.Sockets.Socket,SocketDataPack> o)
 	{
 		ToLua.Push(L, o);
 	}

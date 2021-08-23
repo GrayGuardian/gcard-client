@@ -1,6 +1,6 @@
-local Update = class("Update")
+local Update = class('Update')
 
-local cjson = require("cjson")
+local cjson = require('cjson')
 
 function Update:ctor()
     self.localVersion = nil -- 本地资源版本文件
@@ -18,14 +18,14 @@ function Update:refresh(cb, error)
         function(this)
             -- 获取本地资源版本文件
             local json = CSEncryptUtil:ReadString(GAME_CONST.Asset_Version_Path)
-            if (json ~= "") then
+            if (json ~= '') then
                 self.localVersion = cjson.decode(json)
             end
             -- 获取远程资源版本文件
             http:getAsyn(
                 GAME_CONST.Download_Version_Url,
                 function(result)
-                    local json = CSEncryptUtil:AesDecrypt(System.String(result.content))
+                    local json = CSEncryptUtil:AesDecrypt(CSLuaUtil.BytesToString_UTF8(result.bytes))
                     self.webVersion = cjson.decode(json)
                     this:next()
                 end,
@@ -80,7 +80,7 @@ function Update:getUpdateAssetFile()
     for key, info in pairs(assetInfos) do
         local size = info.size
         local hash = info.hash
-        local filePath = GAME_CONST.Asset_ROOT .. "/" .. info.fileName
+        local filePath = GAME_CONST.Asset_ROOT .. '/' .. info.fileName
 
         local bytes = CSFileUtil:ReadBytes(filePath)
 
@@ -97,7 +97,7 @@ function Update:checkAssetFile(root)
     for key, info in pairs(assetInfos) do
         local size = info.size
         local hash = info.hash
-        local filePath = root .. "/" .. info.fileName
+        local filePath = root .. '/' .. info.fileName
 
         local bytes = CSFileUtil:ReadBytes(filePath)
         if (bytes.Length > 0) then

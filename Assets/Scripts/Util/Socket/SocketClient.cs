@@ -97,7 +97,7 @@ public class SocketClient
                     _headTimer.AutoReset = true;
                     _headTimer.Elapsed += delegate (object sender, ElapsedEventArgs args)
                     {
-                        Send((UInt16)SocketEvent.sc_head);
+                        Send((UInt16)SOCKET_EVENT.HEARTBEAT);
                     };
                     _headTimer.Start();
 
@@ -155,7 +155,6 @@ public class SocketClient
             PostMainThreadAction<int>(OnReConnectError, index);
             ReConnect(num, index);
         });
-
     }
     public void Send(UInt16 e, byte[] buff = null, Action<SocketDataPack> onTrigger = null)
     {
@@ -197,7 +196,7 @@ public class SocketClient
                     var dataPack = new SocketDataPack();
                     if (_dataBuffer.TryUnpack(out dataPack)) // 尝试解包
                     {
-                        if (dataPack.Type == (UInt16)SocketEvent.sc_kickout)
+                        if (dataPack.Type == (UInt16)SOCKET_EVENT.KICKOUT)
                         {
                             // 服务端踢出
                             onDisconnect();
@@ -222,7 +221,7 @@ public class SocketClient
     /// </summary>
     public void DisConnect()
     {
-        Send((UInt16)SocketEvent.sc_disconn);
+        Send((UInt16)SOCKET_EVENT.DISCONN);
         onDisconnect();
     }
 

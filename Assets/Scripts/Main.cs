@@ -9,5 +9,6 @@ public class Main
     static void main()
     {
         MonoUtil.Instance.MonoGo.AddComponent<LuaClient>();
+
     }
 }

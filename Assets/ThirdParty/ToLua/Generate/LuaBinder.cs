@@ -23,6 +23,9 @@ public static class LuaBinder
 		HttpResultWrap.Register(L);
 		HttpUtilWrap.Register(L);
 		DownloadFileWrap.Register(L);
+		SocketClientWrap.Register(L);
+		SocketServerWrap.Register(L);
+		SocketDataPackWrap.Register(L);
 		Singleton_MonoUtilWrap.Register(L);
 		Singleton_AssetUtilWrap.Register(L);
 		Singleton_FileUtilWrap.Register(L);
@@ -168,6 +171,10 @@ public static class LuaBinder
 		L.RegFunction("Comparison_byte", System_Comparison_byte);
 		L.RegFunction("AsyncCallback", System_AsyncCallback);
 		L.RegFunction("Action_HttpResult", System_Action_HttpResult);
+		L.RegFunction("Action_SocketDataPack", System_Action_SocketDataPack);
+		L.RegFunction("Action_System_Net_Sockets_SocketException", System_Action_System_Net_Sockets_SocketException);
+		L.RegFunction("Action_System_Net_Sockets_Socket", System_Action_System_Net_Sockets_Socket);
+		L.RegFunction("Action_System_Net_Sockets_Socket_SocketDataPack", System_Action_System_Net_Sockets_Socket_SocketDataPack);
 		L.BeginModule("IO");
 		System_IO_FileInfoWrap.Register(L);
 		System_IO_FileSystemInfoWrap.Register(L);
@@ -1249,6 +1256,114 @@ public static class LuaBinder
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<System.Action<HttpResult>>.Create(func, self);
+				ToLua.Push(L, arg1);
+			}
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int System_Action_SocketDataPack(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateTraits<System.Action<SocketDataPack>>.Create(func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateTraits<System.Action<SocketDataPack>>.Create(func, self);
+				ToLua.Push(L, arg1);
+			}
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int System_Action_System_Net_Sockets_SocketException(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateTraits<System.Action<System.Net.Sockets.SocketException>>.Create(func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateTraits<System.Action<System.Net.Sockets.SocketException>>.Create(func, self);
+				ToLua.Push(L, arg1);
+			}
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int System_Action_System_Net_Sockets_Socket(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateTraits<System.Action<System.Net.Sockets.Socket>>.Create(func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateTraits<System.Action<System.Net.Sockets.Socket>>.Create(func, self);
+				ToLua.Push(L, arg1);
+			}
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int System_Action_System_Net_Sockets_Socket_SocketDataPack(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateTraits<System.Action<System.Net.Sockets.Socket,SocketDataPack>>.Create(func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateTraits<System.Action<System.Net.Sockets.Socket,SocketDataPack>>.Create(func, self);
 				ToLua.Push(L, arg1);
 			}
 			return 1;

@@ -33,28 +33,23 @@ _G.sceneMgr = require('scene_mgr'):new()
 
 _G.update = require('update_util'):new()
 
+-- Http测试代码
 local data =
     pb:encode(
-    'common.ServerConfig',
+    'http.rpc',
     {
-        id = 1000,
-        name = 'center-server0',
-        type = 0,
-        host = '127.0.0.1',
-        port = 8000,
-        desc = '我是描述'
+        router = 'test',
+        test = {}
     }
 )
 
-local bytes = CSLuaUtil:StringToBytes_UTF8(data)
-bytes = luaBytesToCsBytes(stringToBytes(data))
+local bytes = luaBytesToCsBytes(stringToBytes(data))
 
 HttpUtil.Instance:PostAsyn(
     System.Net.HttpWebRequest.Create(System.Uri('http://127.0.0.1:8200')),
     bytes,
     System.Action_HttpResult(
         function(result)
-            print(result.bytes)
             local d = bytesToString(csBytesToLuaBytes(result.bytes))
             local dataPack = pb:decode('http.rpc', d)
             local router = dataPack.router
@@ -64,6 +59,42 @@ HttpUtil.Instance:PostAsyn(
     )
 )
 
--- for i = 0, bytes.Length - 1 do
---     print(bytes:GetValue(i))
--- end
+-- Socket测试代码
+local client = SocketClient('127.0.0.1', 8100)
+client.OnReceive =
+    client.OnReceive +
+    System.Action_SocketDataPack(
+        function(dataPack)
+            local d = bytesToString(csBytesToLuaBytes(dataPack.Data))
+            local dataPack = pb:decode('socket.rpc', d)
+            local router = dataPack.router
+            local data = dataPack[router]
+            print('接收到数据', router, '>>>', data)
+        end
+    )
+client:Connect(
+    function()
+        print('连接成功')
+        -- 编辑器环境下停止关闭连接
+        broadcast:on(
+            BROADCAST_CODE.MONO_QUIT,
+            function()
+                client:Close()
+            end
+        )
+        -- 发送测试数据
+        local data =
+            pb:encode(
+            'socket.rpc',
+            {
+                router = 'test',
+                test = {}
+            }
+        )
+        local bytes = luaBytesToCsBytes(stringToBytes(data))
+        client:Send(0x1001, bytes, nil)
+    end,
+    function()
+        print('连接失败')
+    end
+)

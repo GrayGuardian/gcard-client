@@ -158,12 +158,12 @@ public class SocketServer
                     var dataPack = new SocketDataPack();
                     if (_dataBuffer.TryUnpack(out dataPack)) // 尝试解包
                     {
-                        if (dataPack.Type == (UInt16)SocketEvent.sc_head)
+                        if (dataPack.Type == (UInt16)SOCKET_EVENT.HEARTBEAT)
                         {
                             // 接收到心跳包
                             ReceiveHead(tsocket);
                         }
-                        else if (dataPack.Type == (UInt16)SocketEvent.sc_disconn)
+                        else if (dataPack.Type == (UInt16)SOCKET_EVENT.DISCONN)
                         {
                             // 客户端断开连接
                             CloseClient(tsocket);
@@ -236,7 +236,7 @@ public class SocketServer
     public void KickOut(Socket client)
     {
         // 踢出连接
-        Send(client, (UInt16)SocketEvent.sc_kickout, null, (dataPack) =>
+        Send(client, (UInt16)SOCKET_EVENT.KICKOUT, null, (dataPack) =>
         {
             CloseClient(client);
         });

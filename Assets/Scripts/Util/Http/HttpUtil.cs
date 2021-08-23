@@ -10,7 +10,6 @@ public class HttpResult
 {
     public int code;
     public byte[] bytes;
-    public string content;
     public HttpWebResponse response;
 }
 public class HttpUtil : Singleton<HttpUtil>
@@ -24,11 +23,10 @@ public class HttpUtil : Singleton<HttpUtil>
     /// <summary>
     /// GET方法
     /// </summary>
-    public HttpResult Get(HttpWebRequest request, Action<Exception> error = null, Encoding encode = null)
+    public HttpResult Get(HttpWebRequest request, Action<Exception> error = null)
     {
 
         HttpWebResponse response = null;
-        encode = encode ?? Encoding.UTF8;
         try
         {
             response = (HttpWebResponse)request.GetResponse();
@@ -46,10 +44,9 @@ public class HttpUtil : Singleton<HttpUtil>
             response.Close();
             request.Abort();
             byte[] bytes = byteArray.ToArray();
-            string content = encode.GetString(bytes);
             if (bytes.Length > 0)
             {
-                return new HttpResult() { code = code, bytes = bytes, content = content, response = response };
+                return new HttpResult() { code = code, bytes = bytes, response = response };
             }
         }
         catch (Exception ex)
@@ -57,10 +54,10 @@ public class HttpUtil : Singleton<HttpUtil>
             if (error != null) error(ex);
             // throw;
         }
-        return new HttpResult() { code = -1, bytes = new byte[] { }, content = "", response = null };
+        return new HttpResult() { code = -1, bytes = new byte[] { }, response = null };
     }
 
-    public void GetAsyn(HttpWebRequest request, Action<HttpResult> cb = null, Action<Exception> error = null, Encoding encode = null)
+    public void GetAsyn(HttpWebRequest request, Action<HttpResult> cb = null, Action<Exception> error = null)
     {
         Thread thread = null;
         thread = new Thread(new ThreadStart(() =>
@@ -68,7 +65,7 @@ public class HttpUtil : Singleton<HttpUtil>
             HttpResult result = Get(request, (ex) =>
             {
                 GameConst.PostMainThreadAction<Exception>(error, ex);
-            }, encode);
+            });
             if (result.bytes.Length > 0)
             {
                 GameConst.PostMainThreadAction<HttpResult>(cb, result);
@@ -81,10 +78,9 @@ public class HttpUtil : Singleton<HttpUtil>
     /// <summary>
     /// Post方法
     /// </summary>s 
-    public HttpResult Post(HttpWebRequest request, byte[] body, Action<Exception> error = null, Encoding encode = null)
+    public HttpResult Post(HttpWebRequest request, byte[] body, Action<Exception> error = null)
     {
         HttpWebResponse response;
-        encode = encode ?? Encoding.UTF8;
         try
         {
             request.Method = "POST";
@@ -112,10 +108,9 @@ public class HttpUtil : Singleton<HttpUtil>
             response.Close();
             request.Abort();
             byte[] bytes = byteArray.ToArray();
-            string content = encode.GetString(bytes);
             if (bytes.Length > 0)
             {
-                return new HttpResult() { code = code, bytes = bytes, content = content, response = response };
+                return new HttpResult() { code = code, bytes = bytes, response = response };
             }
         }
         catch (Exception ex)
@@ -123,10 +118,10 @@ public class HttpUtil : Singleton<HttpUtil>
             if (error != null) error(ex);
             // throw;
         }
-        return new HttpResult() { code = -1, bytes = new byte[] { }, content = "", response = null };
+        return new HttpResult() { code = -1, bytes = new byte[] { }, response = null };
     }
 
-    public void PostAsyn(HttpWebRequest request, byte[] body, Action<HttpResult> cb = null, Action<Exception> error = null, Encoding encode = null)
+    public void PostAsyn(HttpWebRequest request, byte[] body, Action<HttpResult> cb = null, Action<Exception> error = null)
     {
         Thread thread = null;
         thread = new Thread(new ThreadStart(() =>
@@ -134,7 +129,7 @@ public class HttpUtil : Singleton<HttpUtil>
             HttpResult result = Post(request, body, (ex) =>
             {
                 GameConst.PostMainThreadAction<Exception>(error, ex);
-            }, encode);
+            });
             if (result.bytes.Length > 0)
             {
                 GameConst.PostMainThreadAction<HttpResult>(cb, result);

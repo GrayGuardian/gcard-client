@@ -56,6 +56,9 @@ public static class CustomSettings
         _DT(typeof(System.Action<UnityEngine.RuntimeAnimatorController>)),
         _DT(typeof(System.Action<UnityEngine.Vector2[],bool>)),
         _DT(typeof(System.Action<System.Exception>)),
+
+
+        _DT(typeof(System.Action<System.Net.Sockets.SocketException>)),
     };
 
     //在这里添加你要导出注册到lua的类型列表
@@ -211,6 +214,9 @@ public static class CustomSettings
         _GT(typeof(HttpResult)),
         _GT(typeof(HttpUtil)),
         _GT(typeof(DownloadFile)),
+        _GT(typeof(SocketClient)),
+        _GT(typeof(SocketServer)),
+        _GT(typeof(SocketDataPack)),
 
         _GT(typeof(UnityEngine.UI.LayoutRebuilder)),
     };

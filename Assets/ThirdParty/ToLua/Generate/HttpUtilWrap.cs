@@ -64,16 +64,6 @@ public class HttpUtilWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 4)
-			{
-				HttpUtil obj = (HttpUtil)ToLua.CheckObject<HttpUtil>(L, 1);
-				System.Net.HttpWebRequest arg0 = (System.Net.HttpWebRequest)ToLua.CheckObject<System.Net.HttpWebRequest>(L, 2);
-				System.Action<System.Exception> arg1 = (System.Action<System.Exception>)ToLua.CheckDelegate<System.Action<System.Exception>>(L, 3);
-				System.Text.Encoding arg2 = (System.Text.Encoding)ToLua.CheckObject<System.Text.Encoding>(L, 4);
-				HttpResult o = obj.Get(arg0, arg1, arg2);
-				ToLua.PushObject(L, o);
-				return 1;
-			}
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: HttpUtil.Get");
@@ -116,16 +106,6 @@ public class HttpUtilWrap
 				obj.GetAsyn(arg0, arg1, arg2);
 				return 0;
 			}
-			else if (count == 5)
-			{
-				HttpUtil obj = (HttpUtil)ToLua.CheckObject<HttpUtil>(L, 1);
-				System.Net.HttpWebRequest arg0 = (System.Net.HttpWebRequest)ToLua.CheckObject<System.Net.HttpWebRequest>(L, 2);
-				System.Action<HttpResult> arg1 = (System.Action<HttpResult>)ToLua.CheckDelegate<System.Action<HttpResult>>(L, 3);
-				System.Action<System.Exception> arg2 = (System.Action<System.Exception>)ToLua.CheckDelegate<System.Action<System.Exception>>(L, 4);
-				System.Text.Encoding arg3 = (System.Text.Encoding)ToLua.CheckObject<System.Text.Encoding>(L, 5);
-				obj.GetAsyn(arg0, arg1, arg2, arg3);
-				return 0;
-			}
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: HttpUtil.GetAsyn");
@@ -160,17 +140,6 @@ public class HttpUtilWrap
 				byte[] arg1 = ToLua.CheckByteBuffer(L, 3);
 				System.Action<System.Exception> arg2 = (System.Action<System.Exception>)ToLua.CheckDelegate<System.Action<System.Exception>>(L, 4);
 				HttpResult o = obj.Post(arg0, arg1, arg2);
-				ToLua.PushObject(L, o);
-				return 1;
-			}
-			else if (count == 5)
-			{
-				HttpUtil obj = (HttpUtil)ToLua.CheckObject<HttpUtil>(L, 1);
-				System.Net.HttpWebRequest arg0 = (System.Net.HttpWebRequest)ToLua.CheckObject<System.Net.HttpWebRequest>(L, 2);
-				byte[] arg1 = ToLua.CheckByteBuffer(L, 3);
-				System.Action<System.Exception> arg2 = (System.Action<System.Exception>)ToLua.CheckDelegate<System.Action<System.Exception>>(L, 4);
-				System.Text.Encoding arg3 = (System.Text.Encoding)ToLua.CheckObject<System.Text.Encoding>(L, 5);
-				HttpResult o = obj.Post(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -217,17 +186,6 @@ public class HttpUtilWrap
 				System.Action<HttpResult> arg2 = (System.Action<HttpResult>)ToLua.CheckDelegate<System.Action<HttpResult>>(L, 4);
 				System.Action<System.Exception> arg3 = (System.Action<System.Exception>)ToLua.CheckDelegate<System.Action<System.Exception>>(L, 5);
 				obj.PostAsyn(arg0, arg1, arg2, arg3);
-				return 0;
-			}
-			else if (count == 6)
-			{
-				HttpUtil obj = (HttpUtil)ToLua.CheckObject<HttpUtil>(L, 1);
-				System.Net.HttpWebRequest arg0 = (System.Net.HttpWebRequest)ToLua.CheckObject<System.Net.HttpWebRequest>(L, 2);
-				byte[] arg1 = ToLua.CheckByteBuffer(L, 3);
-				System.Action<HttpResult> arg2 = (System.Action<HttpResult>)ToLua.CheckDelegate<System.Action<HttpResult>>(L, 4);
-				System.Action<System.Exception> arg3 = (System.Action<System.Exception>)ToLua.CheckDelegate<System.Action<System.Exception>>(L, 5);
-				System.Text.Encoding arg4 = (System.Text.Encoding)ToLua.CheckObject<System.Text.Encoding>(L, 6);
-				obj.PostAsyn(arg0, arg1, arg2, arg3, arg4);
 				return 0;
 			}
 			else

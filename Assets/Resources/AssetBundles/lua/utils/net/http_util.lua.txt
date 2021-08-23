@@ -1,11 +1,11 @@
-local HttpUtil = class("HttpUtil")
+local HttpUtil = class('HttpUtil')
 local CSHttpUtil = _G.HttpUtil.Instance
 
 function HttpUtil:post(url, data, error)
-    if (type(data) == "string") then
+    if (type(data) == 'string') then
         data = stringToBytes(data)
     end
-    if (type(data) == "table") then
+    if (type(data) == 'table') then
         data = luaBytesToCsBytes(data)
     end
 
@@ -22,16 +22,15 @@ function HttpUtil:post(url, data, error)
                     error(ex)
                 end
             end
-        ),
-        nil
+        )
     )
     return result
 end
 function HttpUtil:postAsyn(url, data, cb, error)
-    if (type(data) == "string") then
+    if (type(data) == 'string') then
         data = stringToBytes(data)
     end
-    if (type(data) == "table") then
+    if (type(data) == 'table') then
         data = luaBytesToCsBytes(data)
     end
 
@@ -54,8 +53,7 @@ function HttpUtil:postAsyn(url, data, cb, error)
                     error(ex)
                 end
             end
-        ),
-        nil
+        )
     )
 end
 
@@ -72,8 +70,7 @@ function HttpUtil:get(url, error)
                     error(ex)
                 end
             end
-        ),
-        nil
+        )
     )
     return result
 end
@@ -95,8 +92,7 @@ function HttpUtil:getAsyn(url, cb, error)
                     error(ex)
                 end
             end
-        ),
-        nil
+        )
     )
 end
 
