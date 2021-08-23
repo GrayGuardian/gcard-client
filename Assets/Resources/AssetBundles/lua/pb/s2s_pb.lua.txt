@@ -149,9 +149,10 @@ localTable.CONNRET_CODE_FIELD.number = 1
 localTable.CONNRET_CODE_FIELD.index = 0
 localTable.CONNRET_CODE_FIELD.label = 2
 localTable.CONNRET_CODE_FIELD.has_default_value = false
-localTable.CONNRET_CODE_FIELD.default_value = 0
-localTable.CONNRET_CODE_FIELD.type = 5
-localTable.CONNRET_CODE_FIELD.cpp_type = 1
+localTable.CONNRET_CODE_FIELD.default_value = nil
+localTable.CONNRET_CODE_FIELD.message_type = COMMON_PB.ERRORCODE
+localTable.CONNRET_CODE_FIELD.type = 11
+localTable.CONNRET_CODE_FIELD.cpp_type = 10
 
 CONNRET.name = "connRet"
 CONNRET.full_name = ".s2s.connRet"
