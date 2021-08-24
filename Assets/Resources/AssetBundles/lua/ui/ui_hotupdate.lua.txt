@@ -11,41 +11,41 @@ function UI:onStart()
     self:refreshVersionText()
 
     -- 更新逻辑
-    actionList:new():on(
-        function(this)
+    Middleware:new():use(
+        function(ctx,next)
             -- 尝试检查更新
             self:tryGetUpdateInfo(
                 function()
-                    this:next()
+                    next()
                 end,
                 function()
-                    this:into(1)
+                    next(0)
                 end
             )
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             -- 提示资源更新信息
             self:showUpdateMsg(
                 function()
-                    this:next()
+                    next()
                 end,
                 function()
-                    this:into(5)
+                    next(4)
                 end
             )
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             -- 开始下载更新文件
             self:downloadFiles(
                 function()
-                    this:next()
+                    next()
                 end
             )
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             -- 校验下载资源
             -- 下载资源是否有效
             local isValid = update:checkAssetFile(GAME_CONST.Download_Root)
@@ -58,7 +58,7 @@ function UI:onStart()
                         btnTitle = "开始下载",
                         isCloseBtn = false,
                         onClick = function()
-                            this:into(3)
+                            next(2)
                         end
                     }
                 )
@@ -72,20 +72,20 @@ function UI:onStart()
                         true
                     )
                 end
-
-                this:next(update.webVersion.IsRestart)
+                ctx.isRestart = update.webVersion.IsRestart;
+                next()
             end
         end
-    ):on(
-        function(this, isRestart)
-            isRestart = isRestart or false
+    ):use(
+        function(ctx,next)
+            ctx.isRestart = ctx.isRestart or false
             -- 清理冗余资源
             self:ClearInvalidAssetFiles()
             -- 同步版本文件
             update:updateVersionFile()
 
             -- 是否需要重启游戏
-            if (isRestart) then
+            if (ctx.isRestart) then
                 uiMgr:load(
                     "ui_hotupdate_msg",
                     {
@@ -97,22 +97,22 @@ function UI:onStart()
                     }
                 )
             else
-                this:next()
+                next()
             end
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             print("加载数据")
 
-            this:next()
+            next()
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             print("进入游戏")
 
             sceneMgr:load("Game")
         end
-    ):show()
+    ):next()
 end
 -- 尝试检查更新
 function UI:tryGetUpdateInfo(onSuccess, onError)
@@ -213,15 +213,15 @@ end
 function UI:downloadFiles(cb)
     local order = 1
     local fcount = #update.updateAssetInfos
-    actionList:new():on(
-        function(this)
+    Middleware:new():use(
+        function(ctx,next)
             -- 单次下载
             local info = update.updateAssetInfos[order]
 
             local url = GAME_CONST.Download_Url .. info.fileName
             local filePath = GAME_CONST.Download_Root .. "/" .. info.fileName
 
-            downloadFile:new(url):downloadToFile(
+            DownloadFile:new(url):downloadToFile(
                 5,
                 filePath,
                 function(size, count)
@@ -241,21 +241,21 @@ function UI:downloadFiles(cb)
                     -- 下载完毕
                     if (order < fcount) then
                         order = order + 1
-                        this:into(1)
+                        next(0)
                     else
-                        this:next()
+                        next()
                     end
                 end
             )
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             -- 全部下载完毕
             if (cb ~= nil) then
                 cb()
             end
         end
-    ):show()
+    ):next()
 end
 -- 清理冗余资源
 function UI:ClearInvalidAssetFiles()

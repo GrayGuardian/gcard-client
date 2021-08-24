@@ -14,8 +14,8 @@ end
 -- 更新数据
 function Update:refresh(cb, error)
     local info = {}
-    actionList:new():on(
-        function(this)
+    Middleware:new():use(
+        function(ctx,next)
             -- 获取本地资源版本文件
             local json = CSEncryptUtil:ReadString(GAME_CONST.Asset_Version_Path)
             if (json ~= '') then
@@ -27,24 +27,24 @@ function Update:refresh(cb, error)
                 function(result)
                     local json = CSEncryptUtil:AesDecrypt(CSLuaUtil.BytesToString_UTF8(result.bytes))
                     self.webVersion = cjson.decode(json)
-                    this:next()
+                    next()
                 end,
                 error
             )
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             -- 检查本地文件
             self.updateAssetInfos, self.updateSize = self:getUpdateAssetFile()
-            this:next()
+            next()
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             -- 是否需要更新及更新原因
             if (self.webVersion.ClientVersion ~= Application.version) then
                 -- 客户端版本不一致，说明客户端需要更新，需要重新下载客户端
                 self.updateCode = 1
-                this:next()
+                next()
                 return
             end
             -- 判断资源是否缺少或损坏
@@ -61,16 +61,16 @@ function Update:refresh(cb, error)
                     self.updateCode = 4
                 end
             end
-            this:next()
+            next()
             -- 此处不校验资源正确，版本文件错误的情况，建议每次载入都同步一次最新版本文件
         end
-    ):on(
-        function(this)
+    ):use(
+        function(ctx,next)
             if (cb ~= nil) then
                 cb()
             end
         end
-    ):show()
+    ):next()
 end
 -- 获取需要更新的资源文件
 function Update:getUpdateAssetFile()

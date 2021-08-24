@@ -16,8 +16,8 @@ _G.GAME_CONST = require('GAME_CONST')
 _G.BROADCAST_CODE = require('BROADCAST_CODE')
 _G.Template = require('template')
 
-_G.actionList = require('actionList')
-_G.downloadFile = require('downloadFile')
+_G.Middleware = require('middleware')
+_G.DownloadFile = require('downloadFile')
 
 _G.pb = require('pb_util'):new()
 _G.asset = require('asset_util'):new()

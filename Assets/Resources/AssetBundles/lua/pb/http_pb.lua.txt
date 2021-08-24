@@ -29,7 +29,7 @@ localTable.RPC_ROUTER_FIELD.cpp_type = 9
 
 localTable.RPC_ERROR_FIELD.name = "error"
 localTable.RPC_ERROR_FIELD.full_name = ".http.rpc.error"
-localTable.RPC_ERROR_FIELD.number = 50
+localTable.RPC_ERROR_FIELD.number = 20
 localTable.RPC_ERROR_FIELD.index = 1
 localTable.RPC_ERROR_FIELD.label = 1
 localTable.RPC_ERROR_FIELD.has_default_value = false

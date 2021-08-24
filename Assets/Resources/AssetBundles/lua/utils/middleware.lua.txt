@@ -1,0 +1,35 @@
+local Middleware = class("Middleware")
+function Middleware:ctor()
+    self.actionArr = {};
+end
+function Middleware:use(cb)
+    table.insert( self.actionArr,cb)
+    return self;
+end
+function Middleware:disuse(cb)
+    for k, v in pairs( self.actionArr ) do
+        if(v == cb) then
+            table.remove( self.actionArr, k )
+            return true;
+        end
+    end
+    return false;
+end
+function Middleware:next(ctx,index)
+    ctx = ctx or {};
+    index = index or 0;
+    if (index < #self.actionArr) then
+        local next = function (i)
+            i = i or index+1;
+            self:next(ctx, i);
+        end
+        local fun = self.actionArr[index+1];
+        fun(ctx, next)
+    end
+    return self;
+end
+function Middleware:clear()
+    self.actionArr = {};
+    return self;
+end
+return Middleware
