@@ -1,5 +1,5 @@
-local base = require("comp_base")
-local UIBase = class("UIBase", base)
+local base = require('comp_base')
+local UIBase = class('UIBase', base)
 -------------------- 继承重写 --------------------
 -- Mono生命周期 OnDestroy、Awake与第一次OnEnable无法监听 OnDestroy可用下方onDestroy替代
 
@@ -12,11 +12,11 @@ end
 function UIBase:onDestroy(this)
     self.super:onDestroy(this)
     -- print("卸载UI >> ",this.name);
-    uiMgr:unload(this)
+    uiMgr:removeUIData(this)
 end
 
 -- 资源预制体所在位置
-UIBase.ASSET_INFO = {key = "", asset = ""}
+UIBase.ASSET_INFO = {key = '', asset = ''}
 
 -- 加载参数
 -- order：渲染数值，越大越前
@@ -24,7 +24,8 @@ UIBase.ASSET_INFO = {key = "", asset = ""}
 -- maskColor: 遮罩颜色 透明度也通过此调整
 UIBase.LOAD_ARG = {order = 0, maskInput = true, maskColor = {r = 0, g = 0, b = 0, a = 0.3}}
 -------------------- 继承重写 --------------------
-function UIBase:onLoad(name, loadArg, ...)
+function UIBase:onLoad(prefab, name, loadArg, ...)
+    self.prefab = prefab
     self.name = name
     self.order = loadArg.order
     -- print("加载UI >> ",self.name,...);
@@ -44,7 +45,7 @@ function UIBase:onLoad(name, loadArg, ...)
     maskImage.raycastTarget = loadArg.maskInput
     maskImage.color = loadArg.maskColor
 
-    table.insert(uiMgr.uiCompArr, self)
+    uiMgr:addUIData(self)
 
     self:onStart(...)
 end

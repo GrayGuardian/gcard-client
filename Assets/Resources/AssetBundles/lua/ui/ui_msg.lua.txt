@@ -1,12 +1,12 @@
-local base = require("ui_base")
-local UI = class("ui_msg", base)
+local base = require('ui_base')
+local UI = class('ui_msg', base)
 
-UI.ASSET_INFO = {key = "ui", asset = "ui_msg"}
+UI.ASSET_INFO = {key = 'ui', asset = 'ui_msg'}
 UI.LOAD_ARG = {maskInput = true}
 
 function UI:onStart(arg)
-    self.title = arg.title or "提示" -- 消息框标题
-    self.msg = arg.msg or "" -- 提示框消息文本
+    self.title = arg.title or '提示' -- 消息框标题
+    self.msg = arg.msg or '' -- 提示框消息文本
 
     self.isClickClose = true --选择是否自动关闭
     if (arg.isClickClose ~= nil) then
@@ -23,7 +23,7 @@ function UI:onStart(arg)
     self.btnTitle = arg.btnTitle -- 按钮标题数组
     if (self.btnTitle ~= nil) then
         -- 非数组转为单成员数组
-        if (type(self.btnTitle) == "string") then
+        if (type(self.btnTitle) == 'string') then
             self.btnTitle = {self.btnTitle}
         end
     end
@@ -54,7 +54,7 @@ function UI:refresh()
             btn.gameObject:SetActive(allIsOpen)
             if (isSetTitle and self.btnTitle ~= nil and j <= #self.btnTitle) then
                 -- 修改按钮标题
-                compMgr:getCSComponent(btn.transform:Find("Text"), UEUI.Text).text = self.btnTitle[j]
+                compMgr:getCSComponent(btn.transform:Find('Text'), UEUI.Text).text = self.btnTitle[j]
             end
         end
     end

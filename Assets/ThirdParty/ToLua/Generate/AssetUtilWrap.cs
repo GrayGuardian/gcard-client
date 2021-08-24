@@ -22,6 +22,7 @@ public class AssetUtilWrap
 		L.RegFunction("LoadAssetFromResourcesAsync", LoadAssetFromResourcesAsync);
 		L.RegFunction("LoadAsset", LoadAsset);
 		L.RegFunction("LoadAssetAsync", LoadAssetAsync);
+		L.RegFunction("UnloadAsset", UnloadAsset);
 		L.RegFunction("New", _CreateAssetUtil);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
@@ -214,33 +215,14 @@ public class AssetUtilWrap
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 4)
-			{
-				AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				string arg1 = ToLua.CheckString(L, 3);
-				string arg2 = ToLua.CheckString(L, 4);
-				UnityEngine.Object o = obj.LoadAssetFromBundle(arg0, arg1, arg2);
-				ToLua.Push(L, o);
-				return 1;
-			}
-			else if (count == 5)
-			{
-				AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				string arg1 = ToLua.CheckString(L, 3);
-				string arg2 = ToLua.CheckString(L, 4);
-				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
-				UnityEngine.Object o = obj.LoadAssetFromBundle(arg0, arg1, arg2, arg3);
-				ToLua.Push(L, o);
-				return 1;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: AssetUtil.LoadAssetFromBundle");
-			}
+			ToLua.CheckArgsCount(L, 4);
+			AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
+			System.Type arg0 = ToLua.CheckMonoType(L, 2);
+			string arg1 = ToLua.CheckString(L, 3);
+			string arg2 = ToLua.CheckString(L, 4);
+			UnityEngine.Object o = obj.LoadAssetFromBundle(arg0, arg1, arg2);
+			ToLua.Push(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{
@@ -253,33 +235,14 @@ public class AssetUtilWrap
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 5)
-			{
-				AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				string arg1 = ToLua.CheckString(L, 3);
-				string arg2 = ToLua.CheckString(L, 4);
-				System.Action<UnityEngine.Object> arg3 = (System.Action<UnityEngine.Object>)ToLua.CheckDelegate<System.Action<UnityEngine.Object>>(L, 5);
-				obj.LoadAssetFromBundleAsync(arg0, arg1, arg2, arg3);
-				return 0;
-			}
-			else if (count == 6)
-			{
-				AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				string arg1 = ToLua.CheckString(L, 3);
-				string arg2 = ToLua.CheckString(L, 4);
-				System.Action<UnityEngine.Object> arg3 = (System.Action<UnityEngine.Object>)ToLua.CheckDelegate<System.Action<UnityEngine.Object>>(L, 5);
-				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
-				obj.LoadAssetFromBundleAsync(arg0, arg1, arg2, arg3, arg4);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: AssetUtil.LoadAssetFromBundleAsync");
-			}
+			ToLua.CheckArgsCount(L, 5);
+			AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
+			System.Type arg0 = ToLua.CheckMonoType(L, 2);
+			string arg1 = ToLua.CheckString(L, 3);
+			string arg2 = ToLua.CheckString(L, 4);
+			System.Action<UnityEngine.Object> arg3 = (System.Action<UnityEngine.Object>)ToLua.CheckDelegate<System.Action<UnityEngine.Object>>(L, 5);
+			obj.LoadAssetFromBundleAsync(arg0, arg1, arg2, arg3);
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -372,33 +335,14 @@ public class AssetUtilWrap
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 4)
-			{
-				AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				string arg1 = ToLua.CheckString(L, 3);
-				string arg2 = ToLua.CheckString(L, 4);
-				UnityEngine.Object o = obj.LoadAsset(arg0, arg1, arg2);
-				ToLua.Push(L, o);
-				return 1;
-			}
-			else if (count == 5)
-			{
-				AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				string arg1 = ToLua.CheckString(L, 3);
-				string arg2 = ToLua.CheckString(L, 4);
-				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
-				UnityEngine.Object o = obj.LoadAsset(arg0, arg1, arg2, arg3);
-				ToLua.Push(L, o);
-				return 1;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: AssetUtil.LoadAsset");
-			}
+			ToLua.CheckArgsCount(L, 4);
+			AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
+			System.Type arg0 = ToLua.CheckMonoType(L, 2);
+			string arg1 = ToLua.CheckString(L, 3);
+			string arg2 = ToLua.CheckString(L, 4);
+			UnityEngine.Object o = obj.LoadAsset(arg0, arg1, arg2);
+			ToLua.Push(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{
@@ -411,33 +355,31 @@ public class AssetUtilWrap
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
+			ToLua.CheckArgsCount(L, 5);
+			AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
+			System.Type arg0 = ToLua.CheckMonoType(L, 2);
+			string arg1 = ToLua.CheckString(L, 3);
+			string arg2 = ToLua.CheckString(L, 4);
+			System.Action<UnityEngine.Object> arg3 = (System.Action<UnityEngine.Object>)ToLua.CheckDelegate<System.Action<UnityEngine.Object>>(L, 5);
+			obj.LoadAssetAsync(arg0, arg1, arg2, arg3);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
 
-			if (count == 5)
-			{
-				AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				string arg1 = ToLua.CheckString(L, 3);
-				string arg2 = ToLua.CheckString(L, 4);
-				System.Action<UnityEngine.Object> arg3 = (System.Action<UnityEngine.Object>)ToLua.CheckDelegate<System.Action<UnityEngine.Object>>(L, 5);
-				obj.LoadAssetAsync(arg0, arg1, arg2, arg3);
-				return 0;
-			}
-			else if (count == 6)
-			{
-				AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				string arg1 = ToLua.CheckString(L, 3);
-				string arg2 = ToLua.CheckString(L, 4);
-				System.Action<UnityEngine.Object> arg3 = (System.Action<UnityEngine.Object>)ToLua.CheckDelegate<System.Action<UnityEngine.Object>>(L, 5);
-				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
-				obj.LoadAssetAsync(arg0, arg1, arg2, arg3, arg4);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: AssetUtil.LoadAssetAsync");
-			}
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UnloadAsset(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			AssetUtil obj = (AssetUtil)ToLua.CheckObject<AssetUtil>(L, 1);
+			UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 2);
+			obj.UnloadAsset(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{

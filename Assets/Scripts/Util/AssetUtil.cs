@@ -4,12 +4,30 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+
+public enum AssetLoadType
+{
+    AssetBundle = 1,
+    Resources = 2,
+    EditorAssetBundle = 3,
+}
+
+public class AssetLoadInfo
+{
+    public string Key;
+    public UnityEngine.Object Asset;
+    public AssetLoadType Type;
+    public int Index = 1;   //使用计次
+}
+
 public class AssetUtil : Singleton<AssetUtil>
 {
 
     private Dictionary<string, byte[]> _bundleBytesMap = new Dictionary<string, byte[]>();
 
     private Dictionary<string, AssetBundle> _bundleMap = new Dictionary<string, AssetBundle>();
+
+    private Dictionary<string, List<AssetLoadInfo>> _loadInfoMap = new Dictionary<string, List<AssetLoadInfo>>();
 
     private JObject _relyJObject;
     private VModel _vModel;
@@ -78,6 +96,7 @@ public class AssetUtil : Singleton<AssetUtil>
                 return getAssetFileBytes(asset.fileName);
             }
         }
+
         return new byte[] { };
     }
 
@@ -220,7 +239,7 @@ public class AssetUtil : Singleton<AssetUtil>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="unloadAllLoadedObjects"></param>
-    public void UnloadBundle(string key, bool unloadAllLoadedObjects = false)
+    public void UnloadBundle(string key, bool unloadAllLoadedObjects = true)
     {
         if (!_bundleMap.ContainsKey(key))
         {
@@ -229,17 +248,13 @@ public class AssetUtil : Singleton<AssetUtil>
         _bundleMap[key].Unload(unloadAllLoadedObjects);
         _unloadBundleOver(key);
     }
-    private void _loadAssetFromBundleOver(string key, UnityEngine.Object asset)
-    {
-        Debug.LogFormat("从AssetBundle加载资源 - key：【{0}】 assetName：【{1}】", key, asset.name);
-    }
+
     /// <summary>
     /// 从AB包中加载资源
     /// </summary>
     /// <param name="key"></param>
     /// <param name="assetName"></param>
-    /// <param name="isClose">加载完毕是否卸载AB包</param>
-    public UnityEngine.Object LoadAssetFromBundle(Type type, string key, string assetName, bool isClose = true)
+    public UnityEngine.Object LoadAssetFromBundle(Type type, string key, string assetName)
     {
         // 加载AB包 包括依赖AB包
         string[] bundleKeys = getRelyBundleKeys(key, assetName);
@@ -258,12 +273,9 @@ public class AssetUtil : Singleton<AssetUtil>
         if (asset != null)
         {
             _loadAssetFromBundleOver(key, asset);
-        }
-        if (isClose)
-        {
             foreach (var bundle in bundles)
             {
-                UnloadBundle(bundle.name);
+                _addLoadAssetInfo(bundle.name, asset, AssetLoadType.AssetBundle);
             }
         }
         return asset;
@@ -275,12 +287,11 @@ public class AssetUtil : Singleton<AssetUtil>
     /// <param name="key"></param>
     /// <param name="assetName"></param>
     /// <param name="cb"></param>
-    /// <param name="isClose"></param>
-    public void LoadAssetFromBundleAsync(Type type, string key, string assetName, Action<UnityEngine.Object> cb, bool isClose = true)
+    public void LoadAssetFromBundleAsync(Type type, string key, string assetName, Action<UnityEngine.Object> cb)
     {
-        MonoUtil.Instance.StartCoroutine(_loadAssetFromBundleAsync(type, key, assetName, cb, isClose));
+        MonoUtil.Instance.StartCoroutine(_loadAssetFromBundleAsync(type, key, assetName, cb));
     }
-    System.Collections.IEnumerator _loadAssetFromBundleAsync(Type type, string key, string assetName, Action<UnityEngine.Object> cb, bool isClose = true)
+    System.Collections.IEnumerator _loadAssetFromBundleAsync(Type type, string key, string assetName, Action<UnityEngine.Object> cb)
     {
         // 加载AB包 包括依赖AB包
         string[] bundleKeys = getRelyBundleKeys(key, assetName);
@@ -305,15 +316,16 @@ public class AssetUtil : Singleton<AssetUtil>
         if (asset != null)
         {
             _loadAssetFromBundleOver(key, asset);
-        }
-        if (isClose)
-        {
             foreach (var bundle in bundles)
             {
-                UnloadBundle(bundle.name);
+                _addLoadAssetInfo(bundle.name, asset, AssetLoadType.AssetBundle);
             }
         }
         cb(asset);
+    }
+    private void _loadAssetFromBundleOver(string key, UnityEngine.Object asset)
+    {
+        Debug.LogFormat("从AssetBundle加载资源 - key：【{0}】 assetName：【{1}】", key, asset.name);
     }
 
     /// <summary>
@@ -338,9 +350,8 @@ public class AssetUtil : Singleton<AssetUtil>
         var asset = Resources.Load(path, type);
         if (asset != null)
         {
-            Debug.LogFormat("从模拟AssetBundle加载资源 - key：【{0}】 assetName：【{1}】", key, asset.name);
+            _loadAssetFromEditorBundleOver(key, asset);
         }
-
         return asset;
     }
     public void LoadAssetFromEditorBundleAsync(Type type, string key, string assetName, Action<UnityEngine.Object> cb)
@@ -361,10 +372,17 @@ public class AssetUtil : Singleton<AssetUtil>
         {
             if (asset != null)
             {
-                Debug.LogFormat("从模拟AssetBundle加载资源 - key：【{0}】 assetName：【{1}】", key, asset.name);
+                _loadAssetFromEditorBundleOver(key, asset);
             }
             cb(asset);
         }));
+    }
+    private void _loadAssetFromEditorBundleOver(string key, UnityEngine.Object asset)
+    {
+        Debug.LogFormat("从模拟AssetBundle加载资源 - key：【{0}】 assetName：【{1}】", key, asset.name);
+
+
+        _addLoadAssetInfo(key, asset, AssetLoadType.EditorAssetBundle);
     }
     /// <summary>
     /// 从本地资源Resources加载
@@ -379,7 +397,7 @@ public class AssetUtil : Singleton<AssetUtil>
         var asset = Resources.Load(path, type);
         if (asset != null)
         {
-            Debug.LogFormat("从Resources加载资源 - key：【{0}】 assetName：【{1}】", key, asset.name);
+            _loadAssetFromResourcesOver(key, asset);
         }
         return asset;
     }
@@ -390,7 +408,7 @@ public class AssetUtil : Singleton<AssetUtil>
         {
             if (asset != null)
             {
-                Debug.LogFormat("从Resources加载资源 - key：【{0}】 assetName：【{1}】", key, asset.name);
+                _loadAssetFromResourcesOver(key, asset);
             }
             cb(asset);
         }));
@@ -403,21 +421,64 @@ public class AssetUtil : Singleton<AssetUtil>
         cb(asset);
     }
 
+    private void _loadAssetFromResourcesOver(string key, UnityEngine.Object asset)
+    {
+        Debug.LogFormat("从Resources加载资源 - key：【{0}】 assetName：【{1}】", key, asset.name);
+
+
+        _addLoadAssetInfo(key, asset, AssetLoadType.Resources);
+    }
+
+    private void _addLoadAssetInfo(string key, UnityEngine.Object asset, AssetLoadType Type)
+    {
+        var loadInfo = new AssetLoadInfo();
+        loadInfo.Key = key;
+        loadInfo.Asset = asset;
+        loadInfo.Type = Type;
+        loadInfo.Index = 1;
+
+        if (_loadInfoMap.ContainsKey(key))
+        {
+
+            AssetLoadInfo info = null;
+            var arr = _loadInfoMap[key];
+            for (int i = 0; i < arr.Count; i++)
+            {
+                if (arr[i].Asset.name == asset.name)
+                {
+                    info = arr[i];
+                    break;
+                }
+            }
+            if (info == null)
+            {
+                arr.Add(loadInfo);
+            }
+            else
+            {
+                info.Index++;
+            }
+        }
+        else
+        {
+            _loadInfoMap.Add(key, new List<AssetLoadInfo>() { loadInfo });
+        }
+    }
+
     /// <summary>
     /// 资源加载汇总
     /// </summary>
     /// <param name="type"></param>
     /// <param name="key"></param>
     /// <param name="assetName"></param>
-    /// <param name="isClose"></param>
     /// <returns></returns>
-    public UnityEngine.Object LoadAsset(Type type, string key, string assetName, bool isClose = true)
+    public UnityEngine.Object LoadAsset(Type type, string key, string assetName)
     {
         UnityEngine.Object asset = null;
         if (GameConst.PRO_ENV == ENV_TYPE.MASTER)
         {
             // 正式环境通过AB包加载
-            asset = LoadAssetFromBundle(type, key, assetName, isClose);
+            asset = LoadAssetFromBundle(type, key, assetName);
         }
         else
         {
@@ -438,8 +499,7 @@ public class AssetUtil : Singleton<AssetUtil>
     /// <param name="key"></param>
     /// <param name="assetName"></param>
     /// <param name="cb"></param>
-    /// <param name="isClose"></param>
-    public void LoadAssetAsync(Type type, string key, string assetName, Action<UnityEngine.Object> cb, bool isClose = true)
+    public void LoadAssetAsync(Type type, string key, string assetName, Action<UnityEngine.Object> cb)
     {
         if (GameConst.PRO_ENV == ENV_TYPE.MASTER)
         {
@@ -454,7 +514,7 @@ public class AssetUtil : Singleton<AssetUtil>
                 {
                     cb(asset);
                 }
-            }, isClose);
+            });
         }
         else
         {
@@ -472,6 +532,65 @@ public class AssetUtil : Singleton<AssetUtil>
             });
         }
     }
+    public void UnloadAsset(UnityEngine.Object asset)
+    {
+        foreach (var key in _loadInfoMap.Keys)
+        {
+            _unloadAsset(key, asset);
+        }
+    }
 
+    private void _unloadAsset(string key, UnityEngine.Object asset)
+    {
+        if (!_loadInfoMap.ContainsKey(key)) return;
+        var list = _loadInfoMap[key];
+        AssetLoadInfo info = null;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Asset == asset)
+            {
+                info = list[i];
+                break;
+            }
+        }
+        if (info == null) return;
+        info.Index--;
+        if (info.Index == 0)
+        {
+            list.Remove(info);
+        }
+        if (info.Type == AssetLoadType.AssetBundle)
+        {
+            if (list.Count == 0)
+            {
+                UnloadBundle(info.Key);
+            }
+        }
+        else if (info.Type == AssetLoadType.EditorAssetBundle)
+        {
+            Debug.LogFormat("从模拟AssetBundle加载资源 - key：【{0}】 assetName：【{1}】", info.Key, info.Asset.name);
+            if (info.Asset.GetType() != typeof(UnityEngine.GameObject))
+            {
+                Resources.UnloadAsset(info.Asset);
+            }
+            else
+            {
+                // 预制体暂时无法强行释放，没占多少内存，先不处理
+            }
+        }
+        else if (info.Type == AssetLoadType.Resources)
+        {
+            Debug.LogFormat("从Resources卸载资源 - key：【{0}】 assetName：【{1}】", info.Key, info.Asset.name);
+            if (info.Asset.GetType() != typeof(UnityEngine.GameObject))
+            {
+                Resources.UnloadAsset(info.Asset);
+            }
+            else
+            {
+                // 预制体暂时无法强行释放，没占多少内存，先不处理
+            }
+        }
+        Resources.UnloadUnusedAssets();
+    }
 
 }

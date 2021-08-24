@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2614560706
+CRC: 3197004199
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1b21744e0a907fb571c26c9c786cca30
+    Hash: 44e8bf9ff977bdbc15340fa14e984819
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -13,6 +13,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Resources/AssetBundles/lua/template/template.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/UnityEngine/Bounds.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/protobuf/protobuf.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/UnityEngine/Vector4.lua.txt
@@ -28,15 +29,16 @@ Assets:
 - Assets/Resources/AssetBundles/lua/base/comp_base.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/UnityEngine/Profiler.lua.txt
 - Assets/Resources/AssetBundles/lua/base/ui_base.lua.txt
-- Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_mips.lua.txt
+- Assets/Resources/AssetBundles/lua/pb/http_pb.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/protobuf/wire_format.lua.txt
 - Assets/Resources/AssetBundles/lua/utils/pool_util.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/socket/ftp.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_mips64el.lua.txt
 - Assets/Resources/AssetBundles/lua/utils/mono_util.lua.txt
 - Assets/Resources/AssetBundles/lua/ui/ui_hotupdate_msg.lua.txt
-- Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_x86.lua.txt
+- Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_mips.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_mips64.lua.txt
+- Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_x86.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/System/ValueType.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_mipsel.lua.txt
 - Assets/Resources/AssetBundles/lua/comp/comp_test.lua.txt
@@ -53,9 +55,11 @@ Assets:
 - Assets/Resources/AssetBundles/lua/plugins/tolua/UnityEngine/Plane.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/socket/smtp.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_arm.lua.txt
+- Assets/Resources/AssetBundles/lua/pb/s2s_pb.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/UnityEngine/Color.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_arm64.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/lpeg/re.lua.txt
+- Assets/Resources/AssetBundles/lua/utils/middleware.lua.txt
 - Assets/Resources/AssetBundles/lua/utils/net/downloadFile.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/UnityEngine/LayerMask.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/jit/v.lua.txt
@@ -66,6 +70,7 @@ Assets:
 - Assets/Resources/AssetBundles/lua/base/global.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/System/Injection/InjectionBridgeInfo.lua.txt
 - Assets/Resources/AssetBundles/lua/ui/ui_msg.lua.txt
+- Assets/Resources/AssetBundles/lua/pb/socket_pb.lua.txt
 - Assets/Resources/AssetBundles/lua/mgr/ui_mgr.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/jit/dis_arm64be.lua.txt
 - Assets/Resources/AssetBundles/lua/utils/timer/timer_util.lua.txt
@@ -85,9 +90,10 @@ Assets:
 - Assets/Resources/AssetBundles/lua/scene/scene_step.lua.txt
 - Assets/Resources/AssetBundles/lua/utils/broadcast_util.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/socket/http.lua.txt
-- Assets/Resources/AssetBundles/lua/utils/actionList.lua.txt
+- Assets/Resources/AssetBundles/lua/pb/common_pb.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/slot.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/System/Reflection/BindingFlags.lua.txt
+- Assets/Resources/AssetBundles/lua/template/template_error_code.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/event.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/tolua.lua.txt
 - Assets/Resources/AssetBundles/lua/scene/scene_hotupdate.lua.txt
@@ -108,5 +114,6 @@ Assets:
 - Assets/Resources/AssetBundles/lua/utils/utils.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/UnityEngine/Time.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/protobuf/encoder.lua.txt
+- Assets/Resources/AssetBundles/lua/utils/pb_util.lua.txt
 - Assets/Resources/AssetBundles/lua/plugins/tolua/protobuf/descriptor.lua.txt
 Dependencies: []

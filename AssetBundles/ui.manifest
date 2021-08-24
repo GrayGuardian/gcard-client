@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4030129888
+CRC: 1597125488
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8a258420ce50e3f4a9a1b7b33f3b9c6d
+    Hash: 34d05fa2c440acb69f50352e94693d46
   TypeTreeHash:
     serializedVersion: 2
     Hash: 96216c303e291638835a57de195ceccb
@@ -37,6 +37,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/AssetBundles/ui/ui_tip.prefab
+- Assets/Resources/AssetBundles/ui/ui_msg.prefab
 Dependencies:
-- D:/Demo/XY/HotUpdate/Assets/../AssetBundles/p1
+- F:/Git/gcard/gcard-client/Assets/../AssetBundles/p1

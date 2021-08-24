@@ -53,7 +53,7 @@ function Pool:loadPoolByBundle(key, bundleKey, assetName, config, cb)
         print('对象池已存在 无法加载>>>', key)
         return
     end
-    asset:load_prefab_async(
+    asset:loadPrefabAsync(
         bundleKey,
         assetName,
         function(prefab)

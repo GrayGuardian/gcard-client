@@ -29,14 +29,13 @@ public class DelegateFactory
 		dict.Add(typeof(System.Action<byte[]>), factory.System_Action_bytes);
 		dict.Add(typeof(System.Action<long>), factory.System_Action_long);
 		dict.Add(typeof(System.Action<long,long>), factory.System_Action_long_long);
-		dict.Add(typeof(System.Action<UnityEngine.AssetBundle>), factory.System_Action_UnityEngine_AssetBundle);
-		dict.Add(typeof(System.Action<UnityEngine.AssetBundle[]>), factory.System_Action_UnityEngine_AssetBundles);
-		dict.Add(typeof(System.Action<UnityEngine.Object>), factory.System_Action_UnityEngine_Object);
 		dict.Add(typeof(System.Action<UnityEngine.Sprite>), factory.System_Action_UnityEngine_Sprite);
 		dict.Add(typeof(System.Action<UnityEngine.GameObject>), factory.System_Action_UnityEngine_GameObject);
 		dict.Add(typeof(System.Action<UnityEngine.RuntimeAnimatorController>), factory.System_Action_UnityEngine_RuntimeAnimatorController);
 		dict.Add(typeof(System.Action<UnityEngine.Vector2[],bool>), factory.System_Action_UnityEngine_Vector2s_bool);
 		dict.Add(typeof(System.Action<System.Exception>), factory.System_Action_System_Exception);
+		dict.Add(typeof(System.Action<UnityEngine.AssetBundle[]>), factory.System_Action_UnityEngine_AssetBundles);
+		dict.Add(typeof(System.Action<System.Net.Sockets.SocketException>), factory.System_Action_System_Net_Sockets_SocketException);
 		dict.Add(typeof(UnityEngine.Camera.CameraCallback), factory.UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), factory.UnityEngine_Application_AdvertisingIdentifierCallback);
 		dict.Add(typeof(UnityEngine.Application.LowMemoryCallback), factory.UnityEngine_Application_LowMemoryCallback);
@@ -51,6 +50,8 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
 		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), factory.UnityEngine_UI_InputField_OnValidateInput);
+		dict.Add(typeof(System.Action<UnityEngine.AssetBundle>), factory.System_Action_UnityEngine_AssetBundle);
+		dict.Add(typeof(System.Action<UnityEngine.Object>), factory.System_Action_UnityEngine_Object);
 		dict.Add(typeof(System.Predicate<byte>), factory.System_Predicate_byte);
 		dict.Add(typeof(System.Action<byte>), factory.System_Action_byte);
 		dict.Add(typeof(System.Comparison<byte>), factory.System_Comparison_byte);
@@ -59,7 +60,6 @@ public class DelegateFactory
 		dict.Add(typeof(System.AsyncCallback), factory.System_AsyncCallback);
 		dict.Add(typeof(System.Action<HttpResult>), factory.System_Action_HttpResult);
 		dict.Add(typeof(System.Action<SocketDataPack>), factory.System_Action_SocketDataPack);
-		dict.Add(typeof(System.Action<System.Net.Sockets.SocketException>), factory.System_Action_System_Net_Sockets_SocketException);
 		dict.Add(typeof(System.Action<System.Net.Sockets.Socket>), factory.System_Action_System_Net_Sockets_Socket);
 		dict.Add(typeof(System.Action<System.Net.Sockets.Socket,SocketDataPack>), factory.System_Action_System_Net_Sockets_Socket_SocketDataPack);
 
@@ -75,14 +75,13 @@ public class DelegateFactory
 		DelegateTraits<System.Action<byte[]>>.Init(factory.System_Action_bytes);
 		DelegateTraits<System.Action<long>>.Init(factory.System_Action_long);
 		DelegateTraits<System.Action<long,long>>.Init(factory.System_Action_long_long);
-		DelegateTraits<System.Action<UnityEngine.AssetBundle>>.Init(factory.System_Action_UnityEngine_AssetBundle);
-		DelegateTraits<System.Action<UnityEngine.AssetBundle[]>>.Init(factory.System_Action_UnityEngine_AssetBundles);
-		DelegateTraits<System.Action<UnityEngine.Object>>.Init(factory.System_Action_UnityEngine_Object);
 		DelegateTraits<System.Action<UnityEngine.Sprite>>.Init(factory.System_Action_UnityEngine_Sprite);
 		DelegateTraits<System.Action<UnityEngine.GameObject>>.Init(factory.System_Action_UnityEngine_GameObject);
 		DelegateTraits<System.Action<UnityEngine.RuntimeAnimatorController>>.Init(factory.System_Action_UnityEngine_RuntimeAnimatorController);
 		DelegateTraits<System.Action<UnityEngine.Vector2[],bool>>.Init(factory.System_Action_UnityEngine_Vector2s_bool);
 		DelegateTraits<System.Action<System.Exception>>.Init(factory.System_Action_System_Exception);
+		DelegateTraits<System.Action<UnityEngine.AssetBundle[]>>.Init(factory.System_Action_UnityEngine_AssetBundles);
+		DelegateTraits<System.Action<System.Net.Sockets.SocketException>>.Init(factory.System_Action_System_Net_Sockets_SocketException);
 		DelegateTraits<UnityEngine.Camera.CameraCallback>.Init(factory.UnityEngine_Camera_CameraCallback);
 		DelegateTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Init(factory.UnityEngine_Application_AdvertisingIdentifierCallback);
 		DelegateTraits<UnityEngine.Application.LowMemoryCallback>.Init(factory.UnityEngine_Application_LowMemoryCallback);
@@ -97,6 +96,8 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
 		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		DelegateTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.UnityEngine_UI_InputField_OnValidateInput);
+		DelegateTraits<System.Action<UnityEngine.AssetBundle>>.Init(factory.System_Action_UnityEngine_AssetBundle);
+		DelegateTraits<System.Action<UnityEngine.Object>>.Init(factory.System_Action_UnityEngine_Object);
 		DelegateTraits<System.Predicate<byte>>.Init(factory.System_Predicate_byte);
 		DelegateTraits<System.Action<byte>>.Init(factory.System_Action_byte);
 		DelegateTraits<System.Comparison<byte>>.Init(factory.System_Comparison_byte);
@@ -105,7 +106,6 @@ public class DelegateFactory
 		DelegateTraits<System.AsyncCallback>.Init(factory.System_AsyncCallback);
 		DelegateTraits<System.Action<HttpResult>>.Init(factory.System_Action_HttpResult);
 		DelegateTraits<System.Action<SocketDataPack>>.Init(factory.System_Action_SocketDataPack);
-		DelegateTraits<System.Action<System.Net.Sockets.SocketException>>.Init(factory.System_Action_System_Net_Sockets_SocketException);
 		DelegateTraits<System.Action<System.Net.Sockets.Socket>>.Init(factory.System_Action_System_Net_Sockets_Socket);
 		DelegateTraits<System.Action<System.Net.Sockets.Socket,SocketDataPack>>.Init(factory.System_Action_System_Net_Sockets_Socket_SocketDataPack);
 
@@ -121,14 +121,13 @@ public class DelegateFactory
 		TypeTraits<System.Action<byte[]>>.Init(factory.Check_System_Action_bytes);
 		TypeTraits<System.Action<long>>.Init(factory.Check_System_Action_long);
 		TypeTraits<System.Action<long,long>>.Init(factory.Check_System_Action_long_long);
-		TypeTraits<System.Action<UnityEngine.AssetBundle>>.Init(factory.Check_System_Action_UnityEngine_AssetBundle);
-		TypeTraits<System.Action<UnityEngine.AssetBundle[]>>.Init(factory.Check_System_Action_UnityEngine_AssetBundles);
-		TypeTraits<System.Action<UnityEngine.Object>>.Init(factory.Check_System_Action_UnityEngine_Object);
 		TypeTraits<System.Action<UnityEngine.Sprite>>.Init(factory.Check_System_Action_UnityEngine_Sprite);
 		TypeTraits<System.Action<UnityEngine.GameObject>>.Init(factory.Check_System_Action_UnityEngine_GameObject);
 		TypeTraits<System.Action<UnityEngine.RuntimeAnimatorController>>.Init(factory.Check_System_Action_UnityEngine_RuntimeAnimatorController);
 		TypeTraits<System.Action<UnityEngine.Vector2[],bool>>.Init(factory.Check_System_Action_UnityEngine_Vector2s_bool);
 		TypeTraits<System.Action<System.Exception>>.Init(factory.Check_System_Action_System_Exception);
+		TypeTraits<System.Action<UnityEngine.AssetBundle[]>>.Init(factory.Check_System_Action_UnityEngine_AssetBundles);
+		TypeTraits<System.Action<System.Net.Sockets.SocketException>>.Init(factory.Check_System_Action_System_Net_Sockets_SocketException);
 		TypeTraits<UnityEngine.Camera.CameraCallback>.Init(factory.Check_UnityEngine_Camera_CameraCallback);
 		TypeTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Init(factory.Check_UnityEngine_Application_AdvertisingIdentifierCallback);
 		TypeTraits<UnityEngine.Application.LowMemoryCallback>.Init(factory.Check_UnityEngine_Application_LowMemoryCallback);
@@ -143,6 +142,8 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
 		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		TypeTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.Check_UnityEngine_UI_InputField_OnValidateInput);
+		TypeTraits<System.Action<UnityEngine.AssetBundle>>.Init(factory.Check_System_Action_UnityEngine_AssetBundle);
+		TypeTraits<System.Action<UnityEngine.Object>>.Init(factory.Check_System_Action_UnityEngine_Object);
 		TypeTraits<System.Predicate<byte>>.Init(factory.Check_System_Predicate_byte);
 		TypeTraits<System.Action<byte>>.Init(factory.Check_System_Action_byte);
 		TypeTraits<System.Comparison<byte>>.Init(factory.Check_System_Comparison_byte);
@@ -151,7 +152,6 @@ public class DelegateFactory
 		TypeTraits<System.AsyncCallback>.Init(factory.Check_System_AsyncCallback);
 		TypeTraits<System.Action<HttpResult>>.Init(factory.Check_System_Action_HttpResult);
 		TypeTraits<System.Action<SocketDataPack>>.Init(factory.Check_System_Action_SocketDataPack);
-		TypeTraits<System.Action<System.Net.Sockets.SocketException>>.Init(factory.Check_System_Action_System_Net_Sockets_SocketException);
 		TypeTraits<System.Action<System.Net.Sockets.Socket>>.Init(factory.Check_System_Action_System_Net_Sockets_Socket);
 		TypeTraits<System.Action<System.Net.Sockets.Socket,SocketDataPack>>.Init(factory.Check_System_Action_System_Net_Sockets_Socket_SocketDataPack);
 
@@ -167,14 +167,13 @@ public class DelegateFactory
 		StackTraits<System.Action<byte[]>>.Push = factory.Push_System_Action_bytes;
 		StackTraits<System.Action<long>>.Push = factory.Push_System_Action_long;
 		StackTraits<System.Action<long,long>>.Push = factory.Push_System_Action_long_long;
-		StackTraits<System.Action<UnityEngine.AssetBundle>>.Push = factory.Push_System_Action_UnityEngine_AssetBundle;
-		StackTraits<System.Action<UnityEngine.AssetBundle[]>>.Push = factory.Push_System_Action_UnityEngine_AssetBundles;
-		StackTraits<System.Action<UnityEngine.Object>>.Push = factory.Push_System_Action_UnityEngine_Object;
 		StackTraits<System.Action<UnityEngine.Sprite>>.Push = factory.Push_System_Action_UnityEngine_Sprite;
 		StackTraits<System.Action<UnityEngine.GameObject>>.Push = factory.Push_System_Action_UnityEngine_GameObject;
 		StackTraits<System.Action<UnityEngine.RuntimeAnimatorController>>.Push = factory.Push_System_Action_UnityEngine_RuntimeAnimatorController;
 		StackTraits<System.Action<UnityEngine.Vector2[],bool>>.Push = factory.Push_System_Action_UnityEngine_Vector2s_bool;
 		StackTraits<System.Action<System.Exception>>.Push = factory.Push_System_Action_System_Exception;
+		StackTraits<System.Action<UnityEngine.AssetBundle[]>>.Push = factory.Push_System_Action_UnityEngine_AssetBundles;
+		StackTraits<System.Action<System.Net.Sockets.SocketException>>.Push = factory.Push_System_Action_System_Net_Sockets_SocketException;
 		StackTraits<UnityEngine.Camera.CameraCallback>.Push = factory.Push_UnityEngine_Camera_CameraCallback;
 		StackTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Push = factory.Push_UnityEngine_Application_AdvertisingIdentifierCallback;
 		StackTraits<UnityEngine.Application.LowMemoryCallback>.Push = factory.Push_UnityEngine_Application_LowMemoryCallback;
@@ -189,6 +188,8 @@ public class DelegateFactory
 		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene;
 		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene;
 		StackTraits<UnityEngine.UI.InputField.OnValidateInput>.Push = factory.Push_UnityEngine_UI_InputField_OnValidateInput;
+		StackTraits<System.Action<UnityEngine.AssetBundle>>.Push = factory.Push_System_Action_UnityEngine_AssetBundle;
+		StackTraits<System.Action<UnityEngine.Object>>.Push = factory.Push_System_Action_UnityEngine_Object;
 		StackTraits<System.Predicate<byte>>.Push = factory.Push_System_Predicate_byte;
 		StackTraits<System.Action<byte>>.Push = factory.Push_System_Action_byte;
 		StackTraits<System.Comparison<byte>>.Push = factory.Push_System_Comparison_byte;
@@ -197,7 +198,6 @@ public class DelegateFactory
 		StackTraits<System.AsyncCallback>.Push = factory.Push_System_AsyncCallback;
 		StackTraits<System.Action<HttpResult>>.Push = factory.Push_System_Action_HttpResult;
 		StackTraits<System.Action<SocketDataPack>>.Push = factory.Push_System_Action_SocketDataPack;
-		StackTraits<System.Action<System.Net.Sockets.SocketException>>.Push = factory.Push_System_Action_System_Net_Sockets_SocketException;
 		StackTraits<System.Action<System.Net.Sockets.Socket>>.Push = factory.Push_System_Action_System_Net_Sockets_Socket;
 		StackTraits<System.Action<System.Net.Sockets.Socket,SocketDataPack>>.Push = factory.Push_System_Action_System_Net_Sockets_Socket_SocketDataPack;
 	}
@@ -1007,177 +1007,6 @@ public class DelegateFactory
 		ToLua.Push(L, o);
 	}
 
-	class System_Action_UnityEngine_AssetBundle_Event : LuaDelegate
-	{
-		public System_Action_UnityEngine_AssetBundle_Event(LuaFunction func) : base(func) { }
-		public System_Action_UnityEngine_AssetBundle_Event(LuaFunction func, LuaTable self) : base(func, self) { }
-
-		public void Call(UnityEngine.AssetBundle param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-
-		public void CallWithSelf(UnityEngine.AssetBundle param0)
-		{
-			func.BeginPCall();
-			func.Push(self);
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public System.Action<UnityEngine.AssetBundle> System_Action_UnityEngine_AssetBundle(LuaFunction func, LuaTable self, bool flag)
-	{
-		if (func == null)
-		{
-			System.Action<UnityEngine.AssetBundle> fn = delegate(UnityEngine.AssetBundle param0) { };
-			return fn;
-		}
-
-		if(!flag)
-		{
-			System_Action_UnityEngine_AssetBundle_Event target = new System_Action_UnityEngine_AssetBundle_Event(func);
-			System.Action<UnityEngine.AssetBundle> d = target.Call;
-			target.method = d.Method;
-			return d;
-		}
-		else
-		{
-			System_Action_UnityEngine_AssetBundle_Event target = new System_Action_UnityEngine_AssetBundle_Event(func, self);
-			System.Action<UnityEngine.AssetBundle> d = target.CallWithSelf;
-			target.method = d.Method;
-			return d;
-		}
-	}
-
-	bool Check_System_Action_UnityEngine_AssetBundle(IntPtr L, int pos)
-	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.AssetBundle>), L, pos);
-	}
-
-	void Push_System_Action_UnityEngine_AssetBundle(IntPtr L, System.Action<UnityEngine.AssetBundle> o)
-	{
-		ToLua.Push(L, o);
-	}
-
-	class System_Action_UnityEngine_AssetBundles_Event : LuaDelegate
-	{
-		public System_Action_UnityEngine_AssetBundles_Event(LuaFunction func) : base(func) { }
-		public System_Action_UnityEngine_AssetBundles_Event(LuaFunction func, LuaTable self) : base(func, self) { }
-
-		public void Call(UnityEngine.AssetBundle[] param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-
-		public void CallWithSelf(UnityEngine.AssetBundle[] param0)
-		{
-			func.BeginPCall();
-			func.Push(self);
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public System.Action<UnityEngine.AssetBundle[]> System_Action_UnityEngine_AssetBundles(LuaFunction func, LuaTable self, bool flag)
-	{
-		if (func == null)
-		{
-			System.Action<UnityEngine.AssetBundle[]> fn = delegate(UnityEngine.AssetBundle[] param0) { };
-			return fn;
-		}
-
-		if(!flag)
-		{
-			System_Action_UnityEngine_AssetBundles_Event target = new System_Action_UnityEngine_AssetBundles_Event(func);
-			System.Action<UnityEngine.AssetBundle[]> d = target.Call;
-			target.method = d.Method;
-			return d;
-		}
-		else
-		{
-			System_Action_UnityEngine_AssetBundles_Event target = new System_Action_UnityEngine_AssetBundles_Event(func, self);
-			System.Action<UnityEngine.AssetBundle[]> d = target.CallWithSelf;
-			target.method = d.Method;
-			return d;
-		}
-	}
-
-	bool Check_System_Action_UnityEngine_AssetBundles(IntPtr L, int pos)
-	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.AssetBundle[]>), L, pos);
-	}
-
-	void Push_System_Action_UnityEngine_AssetBundles(IntPtr L, System.Action<UnityEngine.AssetBundle[]> o)
-	{
-		ToLua.Push(L, o);
-	}
-
-	class System_Action_UnityEngine_Object_Event : LuaDelegate
-	{
-		public System_Action_UnityEngine_Object_Event(LuaFunction func) : base(func) { }
-		public System_Action_UnityEngine_Object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
-
-		public void Call(UnityEngine.Object param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-
-		public void CallWithSelf(UnityEngine.Object param0)
-		{
-			func.BeginPCall();
-			func.Push(self);
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public System.Action<UnityEngine.Object> System_Action_UnityEngine_Object(LuaFunction func, LuaTable self, bool flag)
-	{
-		if (func == null)
-		{
-			System.Action<UnityEngine.Object> fn = delegate(UnityEngine.Object param0) { };
-			return fn;
-		}
-
-		if(!flag)
-		{
-			System_Action_UnityEngine_Object_Event target = new System_Action_UnityEngine_Object_Event(func);
-			System.Action<UnityEngine.Object> d = target.Call;
-			target.method = d.Method;
-			return d;
-		}
-		else
-		{
-			System_Action_UnityEngine_Object_Event target = new System_Action_UnityEngine_Object_Event(func, self);
-			System.Action<UnityEngine.Object> d = target.CallWithSelf;
-			target.method = d.Method;
-			return d;
-		}
-	}
-
-	bool Check_System_Action_UnityEngine_Object(IntPtr L, int pos)
-	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.Object>), L, pos);
-	}
-
-	void Push_System_Action_UnityEngine_Object(IntPtr L, System.Action<UnityEngine.Object> o)
-	{
-		ToLua.Push(L, o);
-	}
-
 	class System_Action_UnityEngine_Sprite_Event : LuaDelegate
 	{
 		public System_Action_UnityEngine_Sprite_Event(LuaFunction func) : base(func) { }
@@ -1461,6 +1290,120 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_System_Exception(IntPtr L, System.Action<System.Exception> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_UnityEngine_AssetBundles_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_AssetBundles_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_AssetBundles_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.AssetBundle[] param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.AssetBundle[] param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<UnityEngine.AssetBundle[]> System_Action_UnityEngine_AssetBundles(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.AssetBundle[]> fn = delegate(UnityEngine.AssetBundle[] param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_AssetBundles_Event target = new System_Action_UnityEngine_AssetBundles_Event(func);
+			System.Action<UnityEngine.AssetBundle[]> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_AssetBundles_Event target = new System_Action_UnityEngine_AssetBundles_Event(func, self);
+			System.Action<UnityEngine.AssetBundle[]> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_UnityEngine_AssetBundles(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.AssetBundle[]>), L, pos);
+	}
+
+	void Push_System_Action_UnityEngine_AssetBundles(IntPtr L, System.Action<UnityEngine.AssetBundle[]> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_System_Net_Sockets_SocketException_Event : LuaDelegate
+	{
+		public System_Action_System_Net_Sockets_SocketException_Event(LuaFunction func) : base(func) { }
+		public System_Action_System_Net_Sockets_SocketException_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(System.Net.Sockets.SocketException param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(System.Net.Sockets.SocketException param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<System.Net.Sockets.SocketException> System_Action_System_Net_Sockets_SocketException(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<System.Net.Sockets.SocketException> fn = delegate(System.Net.Sockets.SocketException param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_System_Net_Sockets_SocketException_Event target = new System_Action_System_Net_Sockets_SocketException_Event(func);
+			System.Action<System.Net.Sockets.SocketException> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_System_Net_Sockets_SocketException_Event target = new System_Action_System_Net_Sockets_SocketException_Event(func, self);
+			System.Action<System.Net.Sockets.SocketException> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_System_Net_Sockets_SocketException(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<System.Net.Sockets.SocketException>), L, pos);
+	}
+
+	void Push_System_Action_System_Net_Sockets_SocketException(IntPtr L, System.Action<System.Net.Sockets.SocketException> o)
 	{
 		ToLua.Push(L, o);
 	}
@@ -2281,6 +2224,120 @@ public class DelegateFactory
 		ToLua.Push(L, o);
 	}
 
+	class System_Action_UnityEngine_AssetBundle_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_AssetBundle_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_AssetBundle_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.AssetBundle param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.AssetBundle param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<UnityEngine.AssetBundle> System_Action_UnityEngine_AssetBundle(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.AssetBundle> fn = delegate(UnityEngine.AssetBundle param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_AssetBundle_Event target = new System_Action_UnityEngine_AssetBundle_Event(func);
+			System.Action<UnityEngine.AssetBundle> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_AssetBundle_Event target = new System_Action_UnityEngine_AssetBundle_Event(func, self);
+			System.Action<UnityEngine.AssetBundle> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_UnityEngine_AssetBundle(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.AssetBundle>), L, pos);
+	}
+
+	void Push_System_Action_UnityEngine_AssetBundle(IntPtr L, System.Action<UnityEngine.AssetBundle> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_UnityEngine_Object_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_Object_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.Object param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.Object param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<UnityEngine.Object> System_Action_UnityEngine_Object(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.Object> fn = delegate(UnityEngine.Object param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_Object_Event target = new System_Action_UnityEngine_Object_Event(func);
+			System.Action<UnityEngine.Object> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_Object_Event target = new System_Action_UnityEngine_Object_Event(func, self);
+			System.Action<UnityEngine.Object> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_UnityEngine_Object(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.Object>), L, pos);
+	}
+
+	void Push_System_Action_UnityEngine_Object(IntPtr L, System.Action<UnityEngine.Object> o)
+	{
+		ToLua.Push(L, o);
+	}
+
 	class System_Predicate_byte_Event : LuaDelegate
 	{
 		public System_Predicate_byte_Event(LuaFunction func) : base(func) { }
@@ -2755,63 +2812,6 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_SocketDataPack(IntPtr L, System.Action<SocketDataPack> o)
-	{
-		ToLua.Push(L, o);
-	}
-
-	class System_Action_System_Net_Sockets_SocketException_Event : LuaDelegate
-	{
-		public System_Action_System_Net_Sockets_SocketException_Event(LuaFunction func) : base(func) { }
-		public System_Action_System_Net_Sockets_SocketException_Event(LuaFunction func, LuaTable self) : base(func, self) { }
-
-		public void Call(System.Net.Sockets.SocketException param0)
-		{
-			func.BeginPCall();
-			func.PushObject(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-
-		public void CallWithSelf(System.Net.Sockets.SocketException param0)
-		{
-			func.BeginPCall();
-			func.Push(self);
-			func.PushObject(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public System.Action<System.Net.Sockets.SocketException> System_Action_System_Net_Sockets_SocketException(LuaFunction func, LuaTable self, bool flag)
-	{
-		if (func == null)
-		{
-			System.Action<System.Net.Sockets.SocketException> fn = delegate(System.Net.Sockets.SocketException param0) { };
-			return fn;
-		}
-
-		if(!flag)
-		{
-			System_Action_System_Net_Sockets_SocketException_Event target = new System_Action_System_Net_Sockets_SocketException_Event(func);
-			System.Action<System.Net.Sockets.SocketException> d = target.Call;
-			target.method = d.Method;
-			return d;
-		}
-		else
-		{
-			System_Action_System_Net_Sockets_SocketException_Event target = new System_Action_System_Net_Sockets_SocketException_Event(func, self);
-			System.Action<System.Net.Sockets.SocketException> d = target.CallWithSelf;
-			target.method = d.Method;
-			return d;
-		}
-	}
-
-	bool Check_System_Action_System_Net_Sockets_SocketException(IntPtr L, int pos)
-	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<System.Net.Sockets.SocketException>), L, pos);
-	}
-
-	void Push_System_Action_System_Net_Sockets_SocketException(IntPtr L, System.Action<System.Net.Sockets.SocketException> o)
 	{
 		ToLua.Push(L, o);
 	}

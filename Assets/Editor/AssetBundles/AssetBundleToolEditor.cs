@@ -70,7 +70,7 @@ public class AssetBundleEditor : MonoBehaviour
         else
         {
             path = Path.Combine(rootDir.FullName, "./" + relyFile.Name);
-            versionFile.CopyTo(path, true);
+            new FileInfo(Path.Combine(rootBuildDir.FullName, "./" + relyFile.Name)).CopyTo(path, true);
             Debug.Log(string.Format("[{0}] Copy To >>> Path:{1}", "AssetBundleRely", path));
         }
 

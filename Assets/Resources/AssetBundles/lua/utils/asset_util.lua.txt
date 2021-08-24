@@ -1,4 +1,4 @@
-local AssetUtil = class("Asset")
+local AssetUtil = class('Asset')
 local CSAssetUtil = _G.AssetUtil.Instance
 function AssetUtil:_load(type, key, assetName)
     local asset = CSAssetUtil:LoadAsset(typeof(type), key, assetName)
@@ -17,14 +17,16 @@ function AssetUtil:_loadAsync(type, key, assetName, cb)
     )
 end
 
-function AssetUtil:load_string(key, assetName)
-    local asset = self:_load(UE.Object, key, assetName)
+function AssetUtil:loadString(key, assetName)
+    local asset = self:_load(UE.Object, key, assetName, true)
     if (asset == nil) then
         return nil
     end
-    return asset:ToString()
+    local str = asset:ToString()
+    self:unloadAsset(asset)
+    return str
 end
-function AssetUtil:load_string_async(key, assetName, cb)
+function AssetUtil:loadStringAsync(key, assetName, cb)
     self:_loadAsync(
         UE.Object,
         key,
@@ -34,27 +36,34 @@ function AssetUtil:load_string_async(key, assetName, cb)
                 cb(nil)
                 return
             end
-            cb(asset:ToString())
-        end
+            local str = asset:ToString()
+            -- 异步直接卸载时容易出现并发问题，暂不自动卸载
+            -- self:unloadAsset(asset)
+            cb(str)
+        end,
+        true
     )
 end
 
-function AssetUtil:load_prefab(key, assetName)
+function AssetUtil:loadPrefab(key, assetName)
     return self:_load(UE.GameObject, key, assetName)
 end
-function AssetUtil:load_prefab_async(key, assetName, cb)
+function AssetUtil:loadPrefabAsync(key, assetName, cb)
     self:_loadAsync(UE.GameObject, key, assetName, cb)
 end
-function AssetUtil:load_sprite(key, assetName)
+function AssetUtil:loadSprite(key, assetName)
     return self:_load(UE.Sprite, key, assetName)
 end
-function AssetUtil:load_sprite_async(key, assetName, cb)
+function AssetUtil:loadSpriteAsync(key, assetName, cb)
     self:_loadAsync(UE.Sprite, key, assetName, cb)
 end
-function AssetUtil:load_animator(key, assetName)
+function AssetUtil:loadAnimator(key, assetName)
     return self:_load(UE.RuntimeAnimatorController, key, assetName)
 end
-function AssetUtil:load_animator_async(key, assetName, cb)
+function AssetUtil:loadAnimatorAsync(key, assetName, cb)
     self:_loadAsync(UE.RuntimeAnimatorController, key, assetName, cb)
+end
+function AssetUtil:unloadAsset(asset)
+    CSAssetUtil:UnloadAsset(asset)
 end
 return AssetUtil

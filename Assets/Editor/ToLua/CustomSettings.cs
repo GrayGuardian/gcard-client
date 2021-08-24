@@ -48,9 +48,7 @@ public static class CustomSettings
         _DT(typeof(System.Action<long>)),
         _DT(typeof(System.Action<long,long>)),
 
-        _DT(typeof(System.Action<UnityEngine.AssetBundle>)),
-        _DT(typeof(System.Action<UnityEngine.AssetBundle[]>)),
-        _DT(typeof(System.Action<UnityEngine.Object>)),
+
         _DT(typeof(System.Action<UnityEngine.Sprite>)),
         _DT(typeof(System.Action<UnityEngine.GameObject>)),
         _DT(typeof(System.Action<UnityEngine.RuntimeAnimatorController>)),
@@ -58,6 +56,7 @@ public static class CustomSettings
         _DT(typeof(System.Action<System.Exception>)),
 
 
+        _DT(typeof(System.Action<UnityEngine.AssetBundle[]>)),
         _DT(typeof(System.Action<System.Net.Sockets.SocketException>)),
     };
 
@@ -158,6 +157,7 @@ public static class CustomSettings
         _GT(typeof(CapsuleCollider)),
         _GT(typeof(PolygonCollider2D)),
 
+        _GT(typeof(UnityEngine.Object)),
         _GT(typeof(Animation)),
         _GT(typeof(AnimationClip)).SetBaseType(typeof(UnityEngine.Object)),
         _GT(typeof(AnimationState)),
@@ -166,6 +166,7 @@ public static class CustomSettings
         _GT(typeof(PlayMode)),
         _GT(typeof(WrapMode)),
         _GT(typeof(SpriteRenderer)),
+        _GT(typeof(UnityEngine.Sprite)),
 
         _GT(typeof(QualitySettings)),
         _GT(typeof(RenderSettings)),

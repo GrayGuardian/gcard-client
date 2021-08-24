@@ -2,16 +2,17 @@ local LifecycleBase = class('LifecycleBase')
 
 -------------------- 继承重写 --------------------
 function LifecycleBase:onDestroy(this)
-    this = this or self;
+    this = this or self
     self.timer_clear(this)
     self.broadcast_clear(this)
+    self.asset_clear(this)
 end
 -------------------- 继承重写 --------------------
-
 
 function LifecycleBase:ctor(...)
     self.timerMap = {}
     self.broadcastMap = {}
+    self.assetMap = {}
 end
 
 function LifecycleBase:timer_on(time, loopCount, onTrigger)
@@ -59,4 +60,75 @@ function LifecycleBase:broadcast_clear()
     self.broadcastMap = {}
 end
 
+function LifecycleBase:loadString(key, assetName)
+    return asset:loadString(key, assetName)
+end
+function LifecycleBase:loadStringAsync(key, assetName, cb)
+    asset:loadStringAsync(key, assetName, cb)
+end
+
+function LifecycleBase:loadPrefab(key, assetName)
+    local asset_obj = asset:loadPrefab(key, assetName)
+    table.insert(self.assetMap, asset_obj)
+    return asset_obj
+end
+function LifecycleBase:loadPrefabAsync(key, assetName, cb)
+    asset:loadPrefabAsync(
+        key,
+        assetName,
+        function(asset_obj)
+            table.insert(self.assetMap, asset_obj)
+            if (cb ~= nil) then
+                cb(asset_obj)
+            end
+        end
+    )
+end
+function LifecycleBase:loadSprite(key, assetName)
+    local asset_obj = asset:loadSprite(key, assetName)
+    table.insert(self.assetMap, asset_obj)
+    return asset_obj
+end
+function LifecycleBase:loadSpriteAsync(key, assetName, cb)
+    asset:loadSpriteAsync(
+        key,
+        assetName,
+        function(asset_obj)
+            table.insert(self.assetMap, asset_obj)
+            if (cb ~= nil) then
+                cb(asset_obj)
+            end
+        end
+    )
+end
+function LifecycleBase:loadAnimator(key, assetName)
+    local asset_obj = asset:loadAnimator(key, assetName)
+    table.insert(self.assetMap, asset_obj)
+    return asset_obj
+end
+function LifecycleBase:loadAnimatorAsync(key, assetName, cb)
+    asset:loadAnimatorAsync(
+        key,
+        assetName,
+        function(asset_obj)
+            table.insert(self.assetMap, asset_obj)
+            if (cb ~= nil) then
+                cb(asset_obj)
+            end
+        end
+    )
+end
+function LifecycleBase:unloadAsset(asset_obj)
+    asset:unloadAsset(asset_obj)
+end
+function LifecycleBase:asset_clear()
+    local tempMap = {}
+    for index, asset in pairs(self.assetMap) do
+        table.insert(tempMap, asset)
+    end
+    for index, asset in pairs(tempMap) do
+        self:unloadAsset(asset)
+    end
+    self.assetMap = {}
+end
 return LifecycleBase

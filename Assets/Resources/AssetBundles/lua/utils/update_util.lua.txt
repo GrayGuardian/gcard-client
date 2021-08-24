@@ -15,7 +15,7 @@ end
 function Update:refresh(cb, error)
     local info = {}
     Middleware:new():use(
-        function(ctx,next)
+        function(ctx, next)
             -- 获取本地资源版本文件
             local json = CSEncryptUtil:ReadString(GAME_CONST.Asset_Version_Path)
             if (json ~= '') then
@@ -25,7 +25,7 @@ function Update:refresh(cb, error)
             http:getAsyn(
                 GAME_CONST.Download_Version_Url,
                 function(result)
-                    local json = CSEncryptUtil:AesDecrypt(CSLuaUtil.BytesToString_UTF8(result.bytes))
+                    local json = CSEncryptUtil:AesDecrypt(System.String(CSLuaUtil:BytesToString_UTF8(result.bytes)))
                     self.webVersion = cjson.decode(json)
                     next()
                 end,
@@ -33,13 +33,13 @@ function Update:refresh(cb, error)
             )
         end
     ):use(
-        function(ctx,next)
+        function(ctx, next)
             -- 检查本地文件
             self.updateAssetInfos, self.updateSize = self:getUpdateAssetFile()
             next()
         end
     ):use(
-        function(ctx,next)
+        function(ctx, next)
             -- 是否需要更新及更新原因
             if (self.webVersion.ClientVersion ~= Application.version) then
                 -- 客户端版本不一致，说明客户端需要更新，需要重新下载客户端
@@ -61,11 +61,11 @@ function Update:refresh(cb, error)
                     self.updateCode = 4
                 end
             end
-            next()
             -- 此处不校验资源正确，版本文件错误的情况，建议每次载入都同步一次最新版本文件
+            next()
         end
     ):use(
-        function(ctx,next)
+        function(ctx, next)
             if (cb ~= nil) then
                 cb()
             end
