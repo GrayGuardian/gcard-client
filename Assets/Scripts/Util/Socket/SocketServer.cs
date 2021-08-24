@@ -59,7 +59,7 @@ public class SocketServer
 
         _server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         IPAddress ipAddress = IPAddress.Parse(IP);//解析IP地址
-        _server.Bind(new IPEndPoint(ipAddress, Port));  //绑定IP地址：端口  
+        _server.Bind(new IPEndPoint(ipAddress, Port));  //绑定IP地址：端口
 
         _server.Listen(10);    //设定最多10个排队连接请求
 
@@ -76,9 +76,9 @@ public class SocketServer
         };
         _headCheckTimer.Start();
     }
-    /// <summary>  
-    /// 监听客户端连接  
-    /// </summary>  
+    /// <summary>
+    /// 监听客户端连接
+    /// </summary>
     private void ListenClientConnect()
     {
         while (true)
@@ -158,12 +158,12 @@ public class SocketServer
                     var dataPack = new SocketDataPack();
                     if (_dataBuffer.TryUnpack(out dataPack)) // 尝试解包
                     {
-                        if (dataPack.Type == (UInt16)SOCKET_EVENT.HEARTBEAT)
+                        if (dataPack.Type == (UInt16)SocketEvent.HEARTBEAT)
                         {
                             // 接收到心跳包
                             ReceiveHead(tsocket);
                         }
-                        else if (dataPack.Type == (UInt16)SOCKET_EVENT.DISCONN)
+                        else if (dataPack.Type == (UInt16)SocketEvent.DISCONN)
                         {
                             // 客户端断开连接
                             CloseClient(tsocket);
@@ -236,7 +236,7 @@ public class SocketServer
     public void KickOut(Socket client)
     {
         // 踢出连接
-        Send(client, (UInt16)SOCKET_EVENT.KICKOUT, null, (dataPack) =>
+        Send(client, (UInt16)SocketEvent.KICKOUT, null, (dataPack) =>
         {
             CloseClient(client);
         });
