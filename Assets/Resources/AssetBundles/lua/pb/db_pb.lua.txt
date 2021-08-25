@@ -19,6 +19,11 @@ localTable.SERVERCONFIG_TYPE_FIELD = protobuf.FieldDescriptor()
 localTable.SERVERCONFIG_HOST_FIELD = protobuf.FieldDescriptor()
 localTable.SERVERCONFIG_PORT_FIELD = protobuf.FieldDescriptor()
 localTable.SERVERCONFIG_DESC_FIELD = protobuf.FieldDescriptor()
+AREAINFO = protobuf.Descriptor()
+localTable.AREAINFO_AID_FIELD = protobuf.FieldDescriptor()
+localTable.AREAINFO_NAME_FIELD = protobuf.FieldDescriptor()
+localTable.AREAINFO_STATE_FIELD = protobuf.FieldDescriptor()
+localTable.AREAINFO_CREATETIME_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.USERINFO_UID_FIELD.name = "uid"
@@ -155,7 +160,55 @@ SERVERCONFIG.enum_types = {}
 SERVERCONFIG.fields = {localTable.SERVERCONFIG_ID_FIELD, localTable.SERVERCONFIG_NAME_FIELD, localTable.SERVERCONFIG_TYPE_FIELD, localTable.SERVERCONFIG_HOST_FIELD, localTable.SERVERCONFIG_PORT_FIELD, localTable.SERVERCONFIG_DESC_FIELD}
 SERVERCONFIG.is_extendable = false
 SERVERCONFIG.extensions = {}
+localTable.AREAINFO_AID_FIELD.name = "aid"
+localTable.AREAINFO_AID_FIELD.full_name = ".db.AreaInfo.aid"
+localTable.AREAINFO_AID_FIELD.number = 1
+localTable.AREAINFO_AID_FIELD.index = 0
+localTable.AREAINFO_AID_FIELD.label = 2
+localTable.AREAINFO_AID_FIELD.has_default_value = false
+localTable.AREAINFO_AID_FIELD.default_value = 0
+localTable.AREAINFO_AID_FIELD.type = 5
+localTable.AREAINFO_AID_FIELD.cpp_type = 1
 
+localTable.AREAINFO_NAME_FIELD.name = "name"
+localTable.AREAINFO_NAME_FIELD.full_name = ".db.AreaInfo.name"
+localTable.AREAINFO_NAME_FIELD.number = 2
+localTable.AREAINFO_NAME_FIELD.index = 1
+localTable.AREAINFO_NAME_FIELD.label = 2
+localTable.AREAINFO_NAME_FIELD.has_default_value = false
+localTable.AREAINFO_NAME_FIELD.default_value = ""
+localTable.AREAINFO_NAME_FIELD.type = 9
+localTable.AREAINFO_NAME_FIELD.cpp_type = 9
+
+localTable.AREAINFO_STATE_FIELD.name = "state"
+localTable.AREAINFO_STATE_FIELD.full_name = ".db.AreaInfo.state"
+localTable.AREAINFO_STATE_FIELD.number = 3
+localTable.AREAINFO_STATE_FIELD.index = 2
+localTable.AREAINFO_STATE_FIELD.label = 2
+localTable.AREAINFO_STATE_FIELD.has_default_value = false
+localTable.AREAINFO_STATE_FIELD.default_value = 0
+localTable.AREAINFO_STATE_FIELD.type = 5
+localTable.AREAINFO_STATE_FIELD.cpp_type = 1
+
+localTable.AREAINFO_CREATETIME_FIELD.name = "createTime"
+localTable.AREAINFO_CREATETIME_FIELD.full_name = ".db.AreaInfo.createTime"
+localTable.AREAINFO_CREATETIME_FIELD.number = 4
+localTable.AREAINFO_CREATETIME_FIELD.index = 3
+localTable.AREAINFO_CREATETIME_FIELD.label = 2
+localTable.AREAINFO_CREATETIME_FIELD.has_default_value = false
+localTable.AREAINFO_CREATETIME_FIELD.default_value = 0
+localTable.AREAINFO_CREATETIME_FIELD.type = 5
+localTable.AREAINFO_CREATETIME_FIELD.cpp_type = 1
+
+AREAINFO.name = "AreaInfo"
+AREAINFO.full_name = ".db.AreaInfo"
+AREAINFO.nested_types = {}
+AREAINFO.enum_types = {}
+AREAINFO.fields = {localTable.AREAINFO_AID_FIELD, localTable.AREAINFO_NAME_FIELD, localTable.AREAINFO_STATE_FIELD, localTable.AREAINFO_CREATETIME_FIELD}
+AREAINFO.is_extendable = false
+AREAINFO.extensions = {}
+
+AreaInfo = protobuf.Message(AREAINFO)
 ServerConfig = protobuf.Message(SERVERCONFIG)
 UserInfo = protobuf.Message(USERINFO)
 

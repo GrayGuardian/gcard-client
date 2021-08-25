@@ -13,6 +13,10 @@ USERINFO = protobuf.Descriptor()
 localTable.USERINFO_UID_FIELD = protobuf.FieldDescriptor()
 localTable.USERINFO_USERNAME_FIELD = protobuf.FieldDescriptor()
 localTable.USERINFO_LASTAID_FIELD = protobuf.FieldDescriptor()
+AREAINFO = protobuf.Descriptor()
+localTable.AREAINFO_AID_FIELD = protobuf.FieldDescriptor()
+localTable.AREAINFO_NAME_FIELD = protobuf.FieldDescriptor()
+localTable.AREAINFO_STATE_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.ERRORCODE_ID_FIELD.name = "id"
@@ -89,7 +93,45 @@ USERINFO.enum_types = {}
 USERINFO.fields = {localTable.USERINFO_UID_FIELD, localTable.USERINFO_USERNAME_FIELD, localTable.USERINFO_LASTAID_FIELD}
 USERINFO.is_extendable = false
 USERINFO.extensions = {}
+localTable.AREAINFO_AID_FIELD.name = "aid"
+localTable.AREAINFO_AID_FIELD.full_name = ".common.AreaInfo.aid"
+localTable.AREAINFO_AID_FIELD.number = 1
+localTable.AREAINFO_AID_FIELD.index = 0
+localTable.AREAINFO_AID_FIELD.label = 2
+localTable.AREAINFO_AID_FIELD.has_default_value = false
+localTable.AREAINFO_AID_FIELD.default_value = 0
+localTable.AREAINFO_AID_FIELD.type = 5
+localTable.AREAINFO_AID_FIELD.cpp_type = 1
 
+localTable.AREAINFO_NAME_FIELD.name = "name"
+localTable.AREAINFO_NAME_FIELD.full_name = ".common.AreaInfo.name"
+localTable.AREAINFO_NAME_FIELD.number = 2
+localTable.AREAINFO_NAME_FIELD.index = 1
+localTable.AREAINFO_NAME_FIELD.label = 2
+localTable.AREAINFO_NAME_FIELD.has_default_value = false
+localTable.AREAINFO_NAME_FIELD.default_value = ""
+localTable.AREAINFO_NAME_FIELD.type = 9
+localTable.AREAINFO_NAME_FIELD.cpp_type = 9
+
+localTable.AREAINFO_STATE_FIELD.name = "state"
+localTable.AREAINFO_STATE_FIELD.full_name = ".common.AreaInfo.state"
+localTable.AREAINFO_STATE_FIELD.number = 3
+localTable.AREAINFO_STATE_FIELD.index = 2
+localTable.AREAINFO_STATE_FIELD.label = 2
+localTable.AREAINFO_STATE_FIELD.has_default_value = false
+localTable.AREAINFO_STATE_FIELD.default_value = 0
+localTable.AREAINFO_STATE_FIELD.type = 5
+localTable.AREAINFO_STATE_FIELD.cpp_type = 1
+
+AREAINFO.name = "AreaInfo"
+AREAINFO.full_name = ".common.AreaInfo"
+AREAINFO.nested_types = {}
+AREAINFO.enum_types = {}
+AREAINFO.fields = {localTable.AREAINFO_AID_FIELD, localTable.AREAINFO_NAME_FIELD, localTable.AREAINFO_STATE_FIELD}
+AREAINFO.is_extendable = false
+AREAINFO.extensions = {}
+
+AreaInfo = protobuf.Message(AREAINFO)
 ErrorCode = protobuf.Message(ERRORCODE)
 UserInfo = protobuf.Message(USERINFO)
 
