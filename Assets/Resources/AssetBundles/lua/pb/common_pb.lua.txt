@@ -9,6 +9,10 @@ ERRORCODE = protobuf.Descriptor()
 localTable.ERRORCODE_ID_FIELD = protobuf.FieldDescriptor()
 localTable.ERRORCODE_CODE_FIELD = protobuf.FieldDescriptor()
 localTable.ERRORCODE_CLIENTTIP_FIELD = protobuf.FieldDescriptor()
+USERINFO = protobuf.Descriptor()
+localTable.USERINFO_UID_FIELD = protobuf.FieldDescriptor()
+localTable.USERINFO_USERNAME_FIELD = protobuf.FieldDescriptor()
+localTable.USERINFO_LASTAID_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.ERRORCODE_ID_FIELD.name = "id"
@@ -48,7 +52,45 @@ ERRORCODE.enum_types = {}
 ERRORCODE.fields = {localTable.ERRORCODE_ID_FIELD, localTable.ERRORCODE_CODE_FIELD, localTable.ERRORCODE_CLIENTTIP_FIELD}
 ERRORCODE.is_extendable = false
 ERRORCODE.extensions = {}
+localTable.USERINFO_UID_FIELD.name = "uid"
+localTable.USERINFO_UID_FIELD.full_name = ".common.UserInfo.uid"
+localTable.USERINFO_UID_FIELD.number = 1
+localTable.USERINFO_UID_FIELD.index = 0
+localTable.USERINFO_UID_FIELD.label = 2
+localTable.USERINFO_UID_FIELD.has_default_value = false
+localTable.USERINFO_UID_FIELD.default_value = ""
+localTable.USERINFO_UID_FIELD.type = 9
+localTable.USERINFO_UID_FIELD.cpp_type = 9
+
+localTable.USERINFO_USERNAME_FIELD.name = "username"
+localTable.USERINFO_USERNAME_FIELD.full_name = ".common.UserInfo.username"
+localTable.USERINFO_USERNAME_FIELD.number = 2
+localTable.USERINFO_USERNAME_FIELD.index = 1
+localTable.USERINFO_USERNAME_FIELD.label = 2
+localTable.USERINFO_USERNAME_FIELD.has_default_value = false
+localTable.USERINFO_USERNAME_FIELD.default_value = ""
+localTable.USERINFO_USERNAME_FIELD.type = 9
+localTable.USERINFO_USERNAME_FIELD.cpp_type = 9
+
+localTable.USERINFO_LASTAID_FIELD.name = "lastAid"
+localTable.USERINFO_LASTAID_FIELD.full_name = ".common.UserInfo.lastAid"
+localTable.USERINFO_LASTAID_FIELD.number = 6
+localTable.USERINFO_LASTAID_FIELD.index = 2
+localTable.USERINFO_LASTAID_FIELD.label = 1
+localTable.USERINFO_LASTAID_FIELD.has_default_value = false
+localTable.USERINFO_LASTAID_FIELD.default_value = 0
+localTable.USERINFO_LASTAID_FIELD.type = 5
+localTable.USERINFO_LASTAID_FIELD.cpp_type = 1
+
+USERINFO.name = "UserInfo"
+USERINFO.full_name = ".common.UserInfo"
+USERINFO.nested_types = {}
+USERINFO.enum_types = {}
+USERINFO.fields = {localTable.USERINFO_UID_FIELD, localTable.USERINFO_USERNAME_FIELD, localTable.USERINFO_LASTAID_FIELD}
+USERINFO.is_extendable = false
+USERINFO.extensions = {}
 
 ErrorCode = protobuf.Message(ERRORCODE)
+UserInfo = protobuf.Message(USERINFO)
 
 return m_table
