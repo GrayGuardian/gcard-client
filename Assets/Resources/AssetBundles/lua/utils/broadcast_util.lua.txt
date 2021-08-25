@@ -1,12 +1,14 @@
 local Broadcast = class("Broadcast")
-local callBackInfoMap = {}
+function Broadcast:ctor(  )
+    self.callBackInfoMap = {}
+end
 
 function Broadcast:notify(key, data)
     if self:exist(key) == false then
         return false
     end
     local removeList = {}
-    for i, v in pairs(callBackInfoMap[key]) do
+    for i, v in pairs(self.callBackInfoMap[key]) do
         v.callback(data)
         if v.isOnce then
             table.insert(removeList, v.callback)
@@ -28,12 +30,12 @@ function Broadcast:on(key, callback, order, isOnce)
     if self:exist(key) == false then
         -- 键值不存在则新建
         table.insert(list, info)
-        callBackInfoMap[key] = list
+        self.callBackInfoMap[key] = list
     elseif self:exist(key, callback) then
         -- 重复则不注册
         return false
     else
-        list = callBackInfoMap[key]
+        list = self.callBackInfoMap[key]
         local index = -1
         for i, o in pairs(list) do
             if o.order > info.order then
@@ -51,11 +53,11 @@ function Broadcast:out(key, callback)
     if self:exist(key, callback) == false then
         return false
     end
-    local list = callBackInfoMap[key]
+    local list = self.callBackInfoMap[key]
     for i, v in pairs(list) do
         if v.callback == callback then
             table.remove(list, i)
-            callBackInfoMap[key] = list
+            self.callBackInfoMap[key] = list
             return true
         end
     end
@@ -64,18 +66,18 @@ end
 
 function Broadcast:clear(key)
     if self:exist(key) == true then
-        callBackInfoMap[key] = nil
+        self.callBackInfoMap[key] = nil
         return true
     end
     return false
 end
 
 function Broadcast:exist(key, callback)
-    if callBackInfoMap[key] ~= nil then
+    if self.callBackInfoMap[key] ~= nil then
         if callback == nil then
             return true
         else
-            local list = callBackInfoMap[key]
+            local list = self.callBackInfoMap[key]
 
             for k, v in pairs(list) do
                 if v.callback == callback then
