@@ -9,10 +9,12 @@ ERRORCODE = protobuf.Descriptor()
 localTable.ERRORCODE_ID_FIELD = protobuf.FieldDescriptor()
 localTable.ERRORCODE_CODE_FIELD = protobuf.FieldDescriptor()
 localTable.ERRORCODE_CLIENTTIP_FIELD = protobuf.FieldDescriptor()
+localTable.ERRORCODE_SERVERTIP_FIELD = protobuf.FieldDescriptor()
+localTable.ERRORCODE_DESC_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.ERRORCODE_ID_FIELD.name = "id"
-localTable.ERRORCODE_ID_FIELD.full_name = ".common.ErrorCode.id"
+localTable.ERRORCODE_ID_FIELD.full_name = ".template.ErrorCode.id"
 localTable.ERRORCODE_ID_FIELD.number = 1
 localTable.ERRORCODE_ID_FIELD.index = 0
 localTable.ERRORCODE_ID_FIELD.label = 2
@@ -22,7 +24,7 @@ localTable.ERRORCODE_ID_FIELD.type = 5
 localTable.ERRORCODE_ID_FIELD.cpp_type = 1
 
 localTable.ERRORCODE_CODE_FIELD.name = "code"
-localTable.ERRORCODE_CODE_FIELD.full_name = ".common.ErrorCode.code"
+localTable.ERRORCODE_CODE_FIELD.full_name = ".template.ErrorCode.code"
 localTable.ERRORCODE_CODE_FIELD.number = 2
 localTable.ERRORCODE_CODE_FIELD.index = 1
 localTable.ERRORCODE_CODE_FIELD.label = 2
@@ -32,7 +34,7 @@ localTable.ERRORCODE_CODE_FIELD.type = 9
 localTable.ERRORCODE_CODE_FIELD.cpp_type = 9
 
 localTable.ERRORCODE_CLIENTTIP_FIELD.name = "clientTip"
-localTable.ERRORCODE_CLIENTTIP_FIELD.full_name = ".common.ErrorCode.clientTip"
+localTable.ERRORCODE_CLIENTTIP_FIELD.full_name = ".template.ErrorCode.clientTip"
 localTable.ERRORCODE_CLIENTTIP_FIELD.number = 3
 localTable.ERRORCODE_CLIENTTIP_FIELD.index = 2
 localTable.ERRORCODE_CLIENTTIP_FIELD.label = 2
@@ -41,11 +43,31 @@ localTable.ERRORCODE_CLIENTTIP_FIELD.default_value = ""
 localTable.ERRORCODE_CLIENTTIP_FIELD.type = 9
 localTable.ERRORCODE_CLIENTTIP_FIELD.cpp_type = 9
 
+localTable.ERRORCODE_SERVERTIP_FIELD.name = "serverTip"
+localTable.ERRORCODE_SERVERTIP_FIELD.full_name = ".template.ErrorCode.serverTip"
+localTable.ERRORCODE_SERVERTIP_FIELD.number = 4
+localTable.ERRORCODE_SERVERTIP_FIELD.index = 3
+localTable.ERRORCODE_SERVERTIP_FIELD.label = 2
+localTable.ERRORCODE_SERVERTIP_FIELD.has_default_value = false
+localTable.ERRORCODE_SERVERTIP_FIELD.default_value = ""
+localTable.ERRORCODE_SERVERTIP_FIELD.type = 9
+localTable.ERRORCODE_SERVERTIP_FIELD.cpp_type = 9
+
+localTable.ERRORCODE_DESC_FIELD.name = "desc"
+localTable.ERRORCODE_DESC_FIELD.full_name = ".template.ErrorCode.desc"
+localTable.ERRORCODE_DESC_FIELD.number = 5
+localTable.ERRORCODE_DESC_FIELD.index = 4
+localTable.ERRORCODE_DESC_FIELD.label = 1
+localTable.ERRORCODE_DESC_FIELD.has_default_value = false
+localTable.ERRORCODE_DESC_FIELD.default_value = ""
+localTable.ERRORCODE_DESC_FIELD.type = 9
+localTable.ERRORCODE_DESC_FIELD.cpp_type = 9
+
 ERRORCODE.name = "ErrorCode"
-ERRORCODE.full_name = ".common.ErrorCode"
+ERRORCODE.full_name = ".template.ErrorCode"
 ERRORCODE.nested_types = {}
 ERRORCODE.enum_types = {}
-ERRORCODE.fields = {localTable.ERRORCODE_ID_FIELD, localTable.ERRORCODE_CODE_FIELD, localTable.ERRORCODE_CLIENTTIP_FIELD}
+ERRORCODE.fields = {localTable.ERRORCODE_ID_FIELD, localTable.ERRORCODE_CODE_FIELD, localTable.ERRORCODE_CLIENTTIP_FIELD, localTable.ERRORCODE_SERVERTIP_FIELD, localTable.ERRORCODE_DESC_FIELD}
 ERRORCODE.is_extendable = false
 ERRORCODE.extensions = {}
 
