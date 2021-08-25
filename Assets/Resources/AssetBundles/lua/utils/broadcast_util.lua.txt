@@ -36,14 +36,14 @@ function Broadcast:on(key, callback, order, isOnce)
         return false
     else
         list = self.callBackInfoMap[key]
-        local index = -1
+        local index = nil
         for i, o in pairs(list) do
             if o.order > info.order then
                 index = i
                 break
             end
         end
-        index = index == -1 and (#list+1) or index
+        index = index or (#list+1)
         table.insert(list, index, info)
     end
     return true
@@ -57,7 +57,6 @@ function Broadcast:out(key, callback)
     for i, v in pairs(list) do
         if v.callback == callback then
             table.remove(list, i)
-            self.callBackInfoMap[key] = list
             return true
         end
     end
