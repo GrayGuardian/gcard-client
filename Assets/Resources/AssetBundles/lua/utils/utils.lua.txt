@@ -119,7 +119,7 @@ _G.table.del = function(t, value)
     end
     return false
 end
--- 数组长度
+-- 成员键值数量
 _G.table.len = function(t)
     local num = 0
     for key, value in pairs(t) do

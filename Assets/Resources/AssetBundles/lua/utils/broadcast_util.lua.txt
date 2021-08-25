@@ -41,7 +41,7 @@ function Broadcast:on(key, callback, order, isOnce)
                 break
             end
         end
-        index = index == -1 and table.len(list) or index
+        index = index == -1 and (#list+1) or index
         table.insert(list, index, info)
     end
     return true
