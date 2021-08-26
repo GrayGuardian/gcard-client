@@ -26,6 +26,10 @@ localTable.PLAYERINFO_LOGINTIME_FIELD = protobuf.FieldDescriptor()
 localTable.PLAYERINFO_LOGOUTTIME_FIELD = protobuf.FieldDescriptor()
 localTable.PLAYERINFO_ONLINE_FIELD = protobuf.FieldDescriptor()
 localTable.PLAYERINFO_STATE_FIELD = protobuf.FieldDescriptor()
+SERVERCONFIG = protobuf.Descriptor()
+localTable.SERVERCONFIG_ID_FIELD = protobuf.FieldDescriptor()
+localTable.SERVERCONFIG_HOST_FIELD = protobuf.FieldDescriptor()
+localTable.SERVERCONFIG_PORT_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.USERINFO_UID_FIELD.name = "uid"
@@ -229,9 +233,47 @@ PLAYERINFO.enum_types = {}
 PLAYERINFO.fields = {localTable.PLAYERINFO_PID_FIELD, localTable.PLAYERINFO_UID_FIELD, localTable.PLAYERINFO_AID_FIELD, localTable.PLAYERINFO_NAME_FIELD, localTable.PLAYERINFO_LV_FIELD, localTable.PLAYERINFO_EXP_FIELD, localTable.PLAYERINFO_LOGINTIME_FIELD, localTable.PLAYERINFO_LOGOUTTIME_FIELD, localTable.PLAYERINFO_ONLINE_FIELD, localTable.PLAYERINFO_STATE_FIELD}
 PLAYERINFO.is_extendable = false
 PLAYERINFO.extensions = {}
+localTable.SERVERCONFIG_ID_FIELD.name = "id"
+localTable.SERVERCONFIG_ID_FIELD.full_name = ".model.ServerConfig.id"
+localTable.SERVERCONFIG_ID_FIELD.number = 1
+localTable.SERVERCONFIG_ID_FIELD.index = 0
+localTable.SERVERCONFIG_ID_FIELD.label = 2
+localTable.SERVERCONFIG_ID_FIELD.has_default_value = false
+localTable.SERVERCONFIG_ID_FIELD.default_value = 0
+localTable.SERVERCONFIG_ID_FIELD.type = 5
+localTable.SERVERCONFIG_ID_FIELD.cpp_type = 1
+
+localTable.SERVERCONFIG_HOST_FIELD.name = "host"
+localTable.SERVERCONFIG_HOST_FIELD.full_name = ".model.ServerConfig.host"
+localTable.SERVERCONFIG_HOST_FIELD.number = 2
+localTable.SERVERCONFIG_HOST_FIELD.index = 1
+localTable.SERVERCONFIG_HOST_FIELD.label = 2
+localTable.SERVERCONFIG_HOST_FIELD.has_default_value = false
+localTable.SERVERCONFIG_HOST_FIELD.default_value = ""
+localTable.SERVERCONFIG_HOST_FIELD.type = 9
+localTable.SERVERCONFIG_HOST_FIELD.cpp_type = 9
+
+localTable.SERVERCONFIG_PORT_FIELD.name = "port"
+localTable.SERVERCONFIG_PORT_FIELD.full_name = ".model.ServerConfig.port"
+localTable.SERVERCONFIG_PORT_FIELD.number = 3
+localTable.SERVERCONFIG_PORT_FIELD.index = 2
+localTable.SERVERCONFIG_PORT_FIELD.label = 2
+localTable.SERVERCONFIG_PORT_FIELD.has_default_value = false
+localTable.SERVERCONFIG_PORT_FIELD.default_value = 0
+localTable.SERVERCONFIG_PORT_FIELD.type = 5
+localTable.SERVERCONFIG_PORT_FIELD.cpp_type = 1
+
+SERVERCONFIG.name = "ServerConfig"
+SERVERCONFIG.full_name = ".model.ServerConfig"
+SERVERCONFIG.nested_types = {}
+SERVERCONFIG.enum_types = {}
+SERVERCONFIG.fields = {localTable.SERVERCONFIG_ID_FIELD, localTable.SERVERCONFIG_HOST_FIELD, localTable.SERVERCONFIG_PORT_FIELD}
+SERVERCONFIG.is_extendable = false
+SERVERCONFIG.extensions = {}
 
 AreaInfo = protobuf.Message(AREAINFO)
 PlayerInfo = protobuf.Message(PLAYERINFO)
+ServerConfig = protobuf.Message(SERVERCONFIG)
 UserInfo = protobuf.Message(USERINFO)
 
 return m_table
