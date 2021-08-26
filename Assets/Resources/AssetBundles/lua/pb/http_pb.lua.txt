@@ -31,6 +31,11 @@ LOGINRET = protobuf.Descriptor()
 localTable.LOGINRET_INFO_FIELD = protobuf.FieldDescriptor()
 localTable.LOGINRET_TOKEN_FIELD = protobuf.FieldDescriptor()
 localTable.LOGINRET_AREAS_FIELD = protobuf.FieldDescriptor()
+ENTERAREA = protobuf.Descriptor()
+localTable.ENTERAREA_AID_FIELD = protobuf.FieldDescriptor()
+ENTERAREARET = protobuf.Descriptor()
+localTable.ENTERAREARET_TOKEN_FIELD = protobuf.FieldDescriptor()
+localTable.ENTERAREARET_PLAYERS_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.RPC_ROUTER_FIELD.name = "router"
@@ -255,7 +260,54 @@ LOGINRET.enum_types = {}
 LOGINRET.fields = {localTable.LOGINRET_INFO_FIELD, localTable.LOGINRET_TOKEN_FIELD, localTable.LOGINRET_AREAS_FIELD}
 LOGINRET.is_extendable = false
 LOGINRET.extensions = {}
+localTable.ENTERAREA_AID_FIELD.name = "aid"
+localTable.ENTERAREA_AID_FIELD.full_name = ".http.enterArea.aid"
+localTable.ENTERAREA_AID_FIELD.number = 1
+localTable.ENTERAREA_AID_FIELD.index = 0
+localTable.ENTERAREA_AID_FIELD.label = 2
+localTable.ENTERAREA_AID_FIELD.has_default_value = false
+localTable.ENTERAREA_AID_FIELD.default_value = 0
+localTable.ENTERAREA_AID_FIELD.type = 5
+localTable.ENTERAREA_AID_FIELD.cpp_type = 1
 
+ENTERAREA.name = "enterArea"
+ENTERAREA.full_name = ".http.enterArea"
+ENTERAREA.nested_types = {}
+ENTERAREA.enum_types = {}
+ENTERAREA.fields = {localTable.ENTERAREA_AID_FIELD}
+ENTERAREA.is_extendable = false
+ENTERAREA.extensions = {}
+localTable.ENTERAREARET_TOKEN_FIELD.name = "token"
+localTable.ENTERAREARET_TOKEN_FIELD.full_name = ".http.enterAreaRet.token"
+localTable.ENTERAREARET_TOKEN_FIELD.number = 1
+localTable.ENTERAREARET_TOKEN_FIELD.index = 0
+localTable.ENTERAREARET_TOKEN_FIELD.label = 2
+localTable.ENTERAREARET_TOKEN_FIELD.has_default_value = false
+localTable.ENTERAREARET_TOKEN_FIELD.default_value = ""
+localTable.ENTERAREARET_TOKEN_FIELD.type = 9
+localTable.ENTERAREARET_TOKEN_FIELD.cpp_type = 9
+
+localTable.ENTERAREARET_PLAYERS_FIELD.name = "players"
+localTable.ENTERAREARET_PLAYERS_FIELD.full_name = ".http.enterAreaRet.players"
+localTable.ENTERAREARET_PLAYERS_FIELD.number = 2
+localTable.ENTERAREARET_PLAYERS_FIELD.index = 1
+localTable.ENTERAREARET_PLAYERS_FIELD.label = 3
+localTable.ENTERAREARET_PLAYERS_FIELD.has_default_value = false
+localTable.ENTERAREARET_PLAYERS_FIELD.default_value = {}
+localTable.ENTERAREARET_PLAYERS_FIELD.message_type = COMMON_PB.PLAYERINFO
+localTable.ENTERAREARET_PLAYERS_FIELD.type = 11
+localTable.ENTERAREARET_PLAYERS_FIELD.cpp_type = 10
+
+ENTERAREARET.name = "enterAreaRet"
+ENTERAREARET.full_name = ".http.enterAreaRet"
+ENTERAREARET.nested_types = {}
+ENTERAREARET.enum_types = {}
+ENTERAREARET.fields = {localTable.ENTERAREARET_TOKEN_FIELD, localTable.ENTERAREARET_PLAYERS_FIELD}
+ENTERAREARET.is_extendable = false
+ENTERAREARET.extensions = {}
+
+enterArea = protobuf.Message(ENTERAREA)
+enterAreaRet = protobuf.Message(ENTERAREARET)
 error = protobuf.Message(ERROR)
 login = protobuf.Message(LOGIN)
 loginRet = protobuf.Message(LOGINRET)

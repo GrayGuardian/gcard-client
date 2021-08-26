@@ -12,11 +12,24 @@ localTable.ERRORCODE_CLIENTTIP_FIELD = protobuf.FieldDescriptor()
 USERINFO = protobuf.Descriptor()
 localTable.USERINFO_UID_FIELD = protobuf.FieldDescriptor()
 localTable.USERINFO_USERNAME_FIELD = protobuf.FieldDescriptor()
+localTable.USERINFO_BANTIME_FIELD = protobuf.FieldDescriptor()
+localTable.USERINFO_STATE_FIELD = protobuf.FieldDescriptor()
 localTable.USERINFO_LASTAID_FIELD = protobuf.FieldDescriptor()
 AREAINFO = protobuf.Descriptor()
 localTable.AREAINFO_AID_FIELD = protobuf.FieldDescriptor()
 localTable.AREAINFO_NAME_FIELD = protobuf.FieldDescriptor()
 localTable.AREAINFO_STATE_FIELD = protobuf.FieldDescriptor()
+PLAYERINFO = protobuf.Descriptor()
+localTable.PLAYERINFO_PID_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_UID_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_AID_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_NAME_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_LV_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_EXP_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_LOGINTIME_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_LOGOUTTIME_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_ONLINE_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERINFO_STATE_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.ERRORCODE_ID_FIELD.name = "id"
@@ -76,10 +89,30 @@ localTable.USERINFO_USERNAME_FIELD.default_value = ""
 localTable.USERINFO_USERNAME_FIELD.type = 9
 localTable.USERINFO_USERNAME_FIELD.cpp_type = 9
 
+localTable.USERINFO_BANTIME_FIELD.name = "banTime"
+localTable.USERINFO_BANTIME_FIELD.full_name = ".common.UserInfo.banTime"
+localTable.USERINFO_BANTIME_FIELD.number = 3
+localTable.USERINFO_BANTIME_FIELD.index = 2
+localTable.USERINFO_BANTIME_FIELD.label = 2
+localTable.USERINFO_BANTIME_FIELD.has_default_value = false
+localTable.USERINFO_BANTIME_FIELD.default_value = 0
+localTable.USERINFO_BANTIME_FIELD.type = 5
+localTable.USERINFO_BANTIME_FIELD.cpp_type = 1
+
+localTable.USERINFO_STATE_FIELD.name = "state"
+localTable.USERINFO_STATE_FIELD.full_name = ".common.UserInfo.state"
+localTable.USERINFO_STATE_FIELD.number = 4
+localTable.USERINFO_STATE_FIELD.index = 3
+localTable.USERINFO_STATE_FIELD.label = 2
+localTable.USERINFO_STATE_FIELD.has_default_value = false
+localTable.USERINFO_STATE_FIELD.default_value = 0
+localTable.USERINFO_STATE_FIELD.type = 5
+localTable.USERINFO_STATE_FIELD.cpp_type = 1
+
 localTable.USERINFO_LASTAID_FIELD.name = "lastAid"
 localTable.USERINFO_LASTAID_FIELD.full_name = ".common.UserInfo.lastAid"
-localTable.USERINFO_LASTAID_FIELD.number = 6
-localTable.USERINFO_LASTAID_FIELD.index = 2
+localTable.USERINFO_LASTAID_FIELD.number = 5
+localTable.USERINFO_LASTAID_FIELD.index = 4
 localTable.USERINFO_LASTAID_FIELD.label = 1
 localTable.USERINFO_LASTAID_FIELD.has_default_value = false
 localTable.USERINFO_LASTAID_FIELD.default_value = 0
@@ -90,7 +123,7 @@ USERINFO.name = "UserInfo"
 USERINFO.full_name = ".common.UserInfo"
 USERINFO.nested_types = {}
 USERINFO.enum_types = {}
-USERINFO.fields = {localTable.USERINFO_UID_FIELD, localTable.USERINFO_USERNAME_FIELD, localTable.USERINFO_LASTAID_FIELD}
+USERINFO.fields = {localTable.USERINFO_UID_FIELD, localTable.USERINFO_USERNAME_FIELD, localTable.USERINFO_BANTIME_FIELD, localTable.USERINFO_STATE_FIELD, localTable.USERINFO_LASTAID_FIELD}
 USERINFO.is_extendable = false
 USERINFO.extensions = {}
 localTable.AREAINFO_AID_FIELD.name = "aid"
@@ -130,9 +163,117 @@ AREAINFO.enum_types = {}
 AREAINFO.fields = {localTable.AREAINFO_AID_FIELD, localTable.AREAINFO_NAME_FIELD, localTable.AREAINFO_STATE_FIELD}
 AREAINFO.is_extendable = false
 AREAINFO.extensions = {}
+localTable.PLAYERINFO_PID_FIELD.name = "pid"
+localTable.PLAYERINFO_PID_FIELD.full_name = ".common.PlayerInfo.pid"
+localTable.PLAYERINFO_PID_FIELD.number = 1
+localTable.PLAYERINFO_PID_FIELD.index = 0
+localTable.PLAYERINFO_PID_FIELD.label = 2
+localTable.PLAYERINFO_PID_FIELD.has_default_value = false
+localTable.PLAYERINFO_PID_FIELD.default_value = ""
+localTable.PLAYERINFO_PID_FIELD.type = 9
+localTable.PLAYERINFO_PID_FIELD.cpp_type = 9
+
+localTable.PLAYERINFO_UID_FIELD.name = "uid"
+localTable.PLAYERINFO_UID_FIELD.full_name = ".common.PlayerInfo.uid"
+localTable.PLAYERINFO_UID_FIELD.number = 2
+localTable.PLAYERINFO_UID_FIELD.index = 1
+localTable.PLAYERINFO_UID_FIELD.label = 2
+localTable.PLAYERINFO_UID_FIELD.has_default_value = false
+localTable.PLAYERINFO_UID_FIELD.default_value = ""
+localTable.PLAYERINFO_UID_FIELD.type = 9
+localTable.PLAYERINFO_UID_FIELD.cpp_type = 9
+
+localTable.PLAYERINFO_AID_FIELD.name = "aid"
+localTable.PLAYERINFO_AID_FIELD.full_name = ".common.PlayerInfo.aid"
+localTable.PLAYERINFO_AID_FIELD.number = 3
+localTable.PLAYERINFO_AID_FIELD.index = 2
+localTable.PLAYERINFO_AID_FIELD.label = 2
+localTable.PLAYERINFO_AID_FIELD.has_default_value = false
+localTable.PLAYERINFO_AID_FIELD.default_value = 0
+localTable.PLAYERINFO_AID_FIELD.type = 5
+localTable.PLAYERINFO_AID_FIELD.cpp_type = 1
+
+localTable.PLAYERINFO_NAME_FIELD.name = "name"
+localTable.PLAYERINFO_NAME_FIELD.full_name = ".common.PlayerInfo.name"
+localTable.PLAYERINFO_NAME_FIELD.number = 4
+localTable.PLAYERINFO_NAME_FIELD.index = 3
+localTable.PLAYERINFO_NAME_FIELD.label = 2
+localTable.PLAYERINFO_NAME_FIELD.has_default_value = false
+localTable.PLAYERINFO_NAME_FIELD.default_value = ""
+localTable.PLAYERINFO_NAME_FIELD.type = 9
+localTable.PLAYERINFO_NAME_FIELD.cpp_type = 9
+
+localTable.PLAYERINFO_LV_FIELD.name = "lv"
+localTable.PLAYERINFO_LV_FIELD.full_name = ".common.PlayerInfo.lv"
+localTable.PLAYERINFO_LV_FIELD.number = 5
+localTable.PLAYERINFO_LV_FIELD.index = 4
+localTable.PLAYERINFO_LV_FIELD.label = 2
+localTable.PLAYERINFO_LV_FIELD.has_default_value = false
+localTable.PLAYERINFO_LV_FIELD.default_value = 0
+localTable.PLAYERINFO_LV_FIELD.type = 5
+localTable.PLAYERINFO_LV_FIELD.cpp_type = 1
+
+localTable.PLAYERINFO_EXP_FIELD.name = "exp"
+localTable.PLAYERINFO_EXP_FIELD.full_name = ".common.PlayerInfo.exp"
+localTable.PLAYERINFO_EXP_FIELD.number = 6
+localTable.PLAYERINFO_EXP_FIELD.index = 5
+localTable.PLAYERINFO_EXP_FIELD.label = 2
+localTable.PLAYERINFO_EXP_FIELD.has_default_value = false
+localTable.PLAYERINFO_EXP_FIELD.default_value = 0
+localTable.PLAYERINFO_EXP_FIELD.type = 5
+localTable.PLAYERINFO_EXP_FIELD.cpp_type = 1
+
+localTable.PLAYERINFO_LOGINTIME_FIELD.name = "loginTime"
+localTable.PLAYERINFO_LOGINTIME_FIELD.full_name = ".common.PlayerInfo.loginTime"
+localTable.PLAYERINFO_LOGINTIME_FIELD.number = 7
+localTable.PLAYERINFO_LOGINTIME_FIELD.index = 6
+localTable.PLAYERINFO_LOGINTIME_FIELD.label = 1
+localTable.PLAYERINFO_LOGINTIME_FIELD.has_default_value = false
+localTable.PLAYERINFO_LOGINTIME_FIELD.default_value = 0
+localTable.PLAYERINFO_LOGINTIME_FIELD.type = 5
+localTable.PLAYERINFO_LOGINTIME_FIELD.cpp_type = 1
+
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.name = "logoutTime"
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.full_name = ".common.PlayerInfo.logoutTime"
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.number = 8
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.index = 7
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.label = 1
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.has_default_value = false
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.default_value = 0
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.type = 5
+localTable.PLAYERINFO_LOGOUTTIME_FIELD.cpp_type = 1
+
+localTable.PLAYERINFO_ONLINE_FIELD.name = "online"
+localTable.PLAYERINFO_ONLINE_FIELD.full_name = ".common.PlayerInfo.online"
+localTable.PLAYERINFO_ONLINE_FIELD.number = 9
+localTable.PLAYERINFO_ONLINE_FIELD.index = 8
+localTable.PLAYERINFO_ONLINE_FIELD.label = 2
+localTable.PLAYERINFO_ONLINE_FIELD.has_default_value = false
+localTable.PLAYERINFO_ONLINE_FIELD.default_value = 0
+localTable.PLAYERINFO_ONLINE_FIELD.type = 5
+localTable.PLAYERINFO_ONLINE_FIELD.cpp_type = 1
+
+localTable.PLAYERINFO_STATE_FIELD.name = "state"
+localTable.PLAYERINFO_STATE_FIELD.full_name = ".common.PlayerInfo.state"
+localTable.PLAYERINFO_STATE_FIELD.number = 10
+localTable.PLAYERINFO_STATE_FIELD.index = 9
+localTable.PLAYERINFO_STATE_FIELD.label = 2
+localTable.PLAYERINFO_STATE_FIELD.has_default_value = false
+localTable.PLAYERINFO_STATE_FIELD.default_value = 0
+localTable.PLAYERINFO_STATE_FIELD.type = 5
+localTable.PLAYERINFO_STATE_FIELD.cpp_type = 1
+
+PLAYERINFO.name = "PlayerInfo"
+PLAYERINFO.full_name = ".common.PlayerInfo"
+PLAYERINFO.nested_types = {}
+PLAYERINFO.enum_types = {}
+PLAYERINFO.fields = {localTable.PLAYERINFO_PID_FIELD, localTable.PLAYERINFO_UID_FIELD, localTable.PLAYERINFO_AID_FIELD, localTable.PLAYERINFO_NAME_FIELD, localTable.PLAYERINFO_LV_FIELD, localTable.PLAYERINFO_EXP_FIELD, localTable.PLAYERINFO_LOGINTIME_FIELD, localTable.PLAYERINFO_LOGOUTTIME_FIELD, localTable.PLAYERINFO_ONLINE_FIELD, localTable.PLAYERINFO_STATE_FIELD}
+PLAYERINFO.is_extendable = false
+PLAYERINFO.extensions = {}
 
 AreaInfo = protobuf.Message(AREAINFO)
 ErrorCode = protobuf.Message(ERRORCODE)
+PlayerInfo = protobuf.Message(PLAYERINFO)
 UserInfo = protobuf.Message(USERINFO)
 
 return m_table
