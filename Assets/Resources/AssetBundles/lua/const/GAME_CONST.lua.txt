@@ -1,17 +1,16 @@
 local GAME_CONST = {}
 setmetatable(GAME_CONST, {__index = _G.GameConst})
 if (GAME_CONST.PRO_ENV == ENV_TYPE.MASTER) then
-    GAME_CONST.Api_Url = 'http://192.168.108.56/'
+    GAME_CONST.API_URL = 'http://127.0.0.1:8200'
 else
-    GAME_CONST.Api_Url = 'http://127.0.0.1/'
+    GAME_CONST.API_URL = 'http://127.0.0.1:8200'
 end
-GAME_CONST.ConsoleComp = nil
 
-GAME_CONST.Download_Url = 'https://test-1251361371.cos-website.ap-nanjing.myqcloud.com/' .. 'Download/'
-GAME_CONST.Download_Version_Url = GAME_CONST.Download_Url .. 'Version'
+GAME_CONST.DOWNLOAD_URL = 'https://test-1251361371.cos-website.ap-nanjing.myqcloud.com/' .. 'Download/'
+GAME_CONST.DOWNLOAD_VERSION_URL = GAME_CONST.DOWNLOAD_URL .. 'Version'
 
-GAME_CONST.Asset_Version_Path = GAME_CONST.Asset_ROOT .. '/Version'
+GAME_CONST.ASSET_VERSION_PATH = GAME_CONST.ASSET_ROOT .. '/Version'
 
-GAME_CONST.Download_Root = Application.persistentDataPath .. '/Temp'
+GAME_CONST.DOWNLOAD_ROOT = Application.persistentDataPath .. '/Temp'
 
 return GAME_CONST

@@ -211,6 +211,7 @@ public static class CustomSettings
         _GT(typeof(System.Uri)),
         _GT(typeof(System.Net.HttpWebResponse)),
         _GT(typeof(System.Net.HttpWebRequest)),
+        _GT(typeof(System.Net.WebHeaderCollection)),
 
         _GT(typeof(HttpResult)),
         _GT(typeof(HttpUtil)),

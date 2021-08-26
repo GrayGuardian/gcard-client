@@ -68,27 +68,21 @@ function UI:onCloseBtnClick()
 end
 
 function UI:onConfirmBtnClick()
-    if (self.isCloseBtn) then
-        self:close()
-    end
+    self:close()
     if (self.onClick ~= nil) then
         self:onClick(true)
     end
 end
 
 function UI:onYesBtnClick()
-    if (self.isCloseBtn) then
-        self:close()
-    end
+    self:close()
     if (self.onClick ~= nil) then
         self:onClick(true)
     end
 end
 
 function UI:onNoBtnClick()
-    if (self.isCloseBtn) then
-        self:close()
-    end
+    self:close()
     if (self.onClick ~= nil) then
         self:onClick(false)
     end

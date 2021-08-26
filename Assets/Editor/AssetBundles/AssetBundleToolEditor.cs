@@ -201,7 +201,7 @@ public class AssetBundleEditor : MonoBehaviour
     [MenuItem("Tools/AssetBundle/Open Folder/AssetBundles Folder")]
     static void OpenABFolder()
     {
-        OpenFolder(GameConst.AssetBundles_ROOT);
+        OpenFolder(GameConst.ASSETBUNDLES_ROOT);
     }
     [MenuItem("Tools/AssetBundle/Open Folder/Build Folder")]
     static void OpenBuildFolder()
@@ -211,7 +211,7 @@ public class AssetBundleEditor : MonoBehaviour
     [MenuItem("Tools/AssetBundle/Open Folder/Asset Folder")]
     static void OpenAssetFolder()
     {
-        OpenFolder(GameConst.Asset_ROOT);
+        OpenFolder(GameConst.ASSET_ROOT);
     }
 
     [MenuItem("Tools/AssetBundle/Build/Build")]
@@ -222,12 +222,12 @@ public class AssetBundleEditor : MonoBehaviour
         var rootABDir = new DirectoryInfo(Path.Combine(rootDir.FullName, "./AssetBundles"));
         var versionFile = new FileInfo(Path.Combine(rootDir.FullName, "./Version"));
         var relyFile = new FileInfo(Path.Combine(rootDir.FullName, "./AssetBundleRely"));
-        if (!Directory.Exists(GameConst.AssetBundles_ROOT))
+        if (!Directory.Exists(GameConst.ASSETBUNDLES_ROOT))
         {
-            Directory.CreateDirectory(GameConst.AssetBundles_ROOT);
+            Directory.CreateDirectory(GameConst.ASSETBUNDLES_ROOT);
             Debug.Log("AssetBundles文件夹不存在，重新创建");
         }
-        foreach (var fileInfo in new DirectoryInfo(GameConst.AssetBundles_ROOT).GetFiles())
+        foreach (var fileInfo in new DirectoryInfo(GameConst.ASSETBUNDLES_ROOT).GetFiles())
         {
             //清空文件夹
             fileInfo.Delete();
@@ -254,7 +254,7 @@ public class AssetBundleEditor : MonoBehaviour
         }
         // 构建资源
         // 导出AB包
-        BuildPipeline.BuildAssetBundles(GameConst.AssetBundles_ROOT, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
+        BuildPipeline.BuildAssetBundles(GameConst.ASSETBUNDLES_ROOT, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
         // 二次加密导出AB包
         byte[] bytes;
         string hash, name, fileName;
@@ -262,7 +262,7 @@ public class AssetBundleEditor : MonoBehaviour
 
         List<AssetVModel> assetVModelList = new List<AssetVModel>();
         string[] blackFilesName = new string[] { "AssetBundles" };
-        foreach (var file in new DirectoryInfo(GameConst.AssetBundles_ROOT).GetFiles())
+        foreach (var file in new DirectoryInfo(GameConst.ASSETBUNDLES_ROOT).GetFiles())
         {
             //Debug.Log(string.Format("文件路径：{0} 后缀名：{1} 文件名{2}",VARIABLE,Path.GetExtension(VARIABLE),Path.GetFileNameWithoutExtension(VARIABLE)) );
             //存在后缀名则跳过
@@ -339,6 +339,6 @@ public class AssetBundleEditor : MonoBehaviour
     static void BuildAndCopy1()
     {
         Build();
-        CopyResToRoot(new DirectoryInfo(GameConst.Asset_ROOT));
+        CopyResToRoot(new DirectoryInfo(GameConst.ASSET_ROOT));
     }
 }

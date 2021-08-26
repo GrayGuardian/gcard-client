@@ -1,18 +1,18 @@
-local base = require("ui_base")
-local UI = class("ui_hotupdate", base)
+local base = require('ui_base')
+local UI = class('ui_hotupdate', base)
 
-UI.ASSET_INFO = {key = "hotupdate", asset = "ui_hotupdate"}
+UI.ASSET_INFO = {key = 'hotupdate', asset = 'ui_hotupdate'}
 UI.LOAD_ARG = {maskInput = false, maskColor = {r = 0, g = 0, b = 0, a = 0}}
 
 function UI:onStart()
     -- 初始化变量
-    self.barNode = self.node:Find("barNode")
+    self.barNode = self.node:Find('barNode')
     -- 初始化版本文本
     self:refreshVersionText()
 
     -- 更新逻辑
     Middleware:new():use(
-        function(ctx,next)
+        function(ctx, next)
             -- 尝试检查更新
             self:tryGetUpdateInfo(
                 function()
@@ -24,7 +24,7 @@ function UI:onStart()
             )
         end
     ):use(
-        function(ctx,next)
+        function(ctx, next)
             -- 提示资源更新信息
             self:showUpdateMsg(
                 function()
@@ -36,7 +36,7 @@ function UI:onStart()
             )
         end
     ):use(
-        function(ctx,next)
+        function(ctx, next)
             -- 开始下载更新文件
             self:downloadFiles(
                 function()
@@ -45,17 +45,17 @@ function UI:onStart()
             )
         end
     ):use(
-        function(ctx,next)
+        function(ctx, next)
             -- 校验下载资源
             -- 下载资源是否有效
-            local isValid = update:checkAssetFile(GAME_CONST.Download_Root)
+            local isValid = update:checkAssetFile(GAME_CONST.DOWNLOAD_ROOT)
             if (not isValid) then
                 -- 资源校验失败，需要重新下载
                 uiMgr:load(
-                    "ui_hotupdate_msg",
+                    'ui_hotupdate_msg',
                     {
-                        msg = "资源校验失败，是否重新下载？",
-                        btnTitle = "开始下载",
+                        msg = '资源校验失败，是否重新下载？',
+                        btnTitle = '开始下载',
                         isCloseBtn = false,
                         onClick = function()
                             next(2)
@@ -67,17 +67,17 @@ function UI:onStart()
                 -- 资源从下载临时目录移至正式目录
                 for index, info in ipairs(update.updateAssetInfos) do
                     CSFileUtil:MoveTo(
-                        GAME_CONST.Download_Root .. "/" .. info.fileName,
-                        GAME_CONST.Asset_ROOT .. "/" .. info.fileName,
+                        GAME_CONST.DOWNLOAD_ROOT .. '/' .. info.fileName,
+                        GAME_CONST.ASSET_ROOT .. '/' .. info.fileName,
                         true
                     )
                 end
-                ctx.isRestart = update.webVersion.IsRestart;
+                ctx.isRestart = update.webVersion.IsRestart
                 next()
             end
         end
     ):use(
-        function(ctx,next)
+        function(ctx, next)
             ctx.isRestart = ctx.isRestart or false
             -- 清理冗余资源
             self:ClearInvalidAssetFiles()
@@ -87,9 +87,9 @@ function UI:onStart()
             -- 是否需要重启游戏
             if (ctx.isRestart) then
                 uiMgr:load(
-                    "ui_hotupdate_msg",
+                    'ui_hotupdate_msg',
                     {
-                        msg = "更新完毕，请重启游戏",
+                        msg = '更新完毕，请重启游戏',
                         isCloseBtn = false,
                         onClick = function()
                             Application.Quit()
@@ -101,16 +101,16 @@ function UI:onStart()
             end
         end
     ):use(
-        function(ctx,next)
-            print("加载数据")
+        function(ctx, next)
+            print('加载数据')
 
             next()
         end
     ):use(
-        function(ctx,next)
-            print("进入游戏")
+        function(ctx, next)
+            print('进入游戏')
 
-            sceneMgr:load("Game")
+            sceneMgr:load('Game')
         end
     ):next()
 end
@@ -133,7 +133,7 @@ function UI:tryGetUpdateInfo(onSuccess, onError)
     local barUpdate = nil
     barUpdate = function()
         num = num + UE.Time.deltaTime / t
-        self:refreshBar(num, "正在检查更新。。。")
+        self:refreshBar(num, '正在检查更新。。。')
         if (num > 1) then
             self:broadcast_out(BROADCAST_CODE.MONO_UPDATE, barUpdate)
             if (isGet) then
@@ -145,10 +145,10 @@ function UI:tryGetUpdateInfo(onSuccess, onError)
                 -- 出现错误
                 -- 出现消息框提示错误并提供重试
                 uiMgr:load(
-                    "ui_hotupdate_msg",
+                    'ui_hotupdate_msg',
                     {
-                        msg = "网络连接超时，是否重试？",
-                        btnTitle = "重试",
+                        msg = '网络连接超时，是否重试？',
+                        btnTitle = '重试',
                         isCloseBtn = false,
                         onClick = function()
                             if (onError ~= nil) then
@@ -164,7 +164,7 @@ function UI:tryGetUpdateInfo(onSuccess, onError)
 end
 -- 提示更新
 function UI:showUpdateMsg(onDownload, notUpdate)
-    local msg = ""
+    local msg = ''
     if (update.updateCode == 0) then
         -- 不需要更新
         if (notUpdate ~= nil) then
@@ -174,10 +174,10 @@ function UI:showUpdateMsg(onDownload, notUpdate)
     elseif (update.updateCode == 1) then
         -- 客户端更新
         uiMgr:load(
-            "ui_hotupdate_msg",
+            'ui_hotupdate_msg',
             {
-                msg = "需要手动下载安装包进行更新，是否前往下载？",
-                btnTitle = "前往下载",
+                msg = '需要手动下载安装包进行更新，是否前往下载？',
+                btnTitle = '前往下载',
                 isCloseBtn = false,
                 onClick = function()
                     Application.Quit()
@@ -187,19 +187,19 @@ function UI:showUpdateMsg(onDownload, notUpdate)
         return
     elseif (update.updateCode == 2) then
         -- 第一次打开应用下载资源
-        msg = string.format("首次下载资源文件，共计需要下载%s资源文件", util.sizeFormat(update.updateSize))
+        msg = string.format('首次下载资源文件，共计需要下载%s资源文件', util.sizeFormat(update.updateSize))
     elseif (update.updateCode == 3) then
         -- 版本需要更新
-        msg = string.format("发现新版本，共计需要下载%s资源文件", util.sizeFormat(update.updateSize))
+        msg = string.format('发现新版本，共计需要下载%s资源文件', util.sizeFormat(update.updateSize))
     elseif (update.updateCode == 4) then
         -- 资源损坏
-        msg = string.format("文件损坏,需要重新下载\n共计需要下载%s资源文件", util.sizeFormat(update.updateSize))
+        msg = string.format('文件损坏,需要重新下载\n共计需要下载%s资源文件', util.sizeFormat(update.updateSize))
     end
     uiMgr:load(
-        "ui_hotupdate_msg",
+        'ui_hotupdate_msg',
         {
             msg = msg,
-            btnTitle = "开始下载",
+            btnTitle = '开始下载',
             isCloseBtn = false,
             onClick = function()
                 if (onDownload ~= nil) then
@@ -214,12 +214,12 @@ function UI:downloadFiles(cb)
     local order = 1
     local fcount = #update.updateAssetInfos
     Middleware:new():use(
-        function(ctx,next)
+        function(ctx, next)
             -- 单次下载
             local info = update.updateAssetInfos[order]
 
-            local url = GAME_CONST.Download_Url .. info.fileName
-            local filePath = GAME_CONST.Download_Root .. "/" .. info.fileName
+            local url = GAME_CONST.DOWNLOAD_URL .. info.fileName
+            local filePath = GAME_CONST.DOWNLOAD_ROOT .. '/' .. info.fileName
 
             DownloadFile:new(url):downloadToFile(
                 5,
@@ -229,7 +229,7 @@ function UI:downloadFiles(cb)
                     self:refreshBar(
                         size / count,
                         string.format(
-                            "正在下载资源[%s/%s]：%s/%s",
+                            '正在下载资源[%s/%s]：%s/%s',
                             order,
                             fcount,
                             util.sizeFormat(size),
@@ -249,7 +249,7 @@ function UI:downloadFiles(cb)
             )
         end
     ):use(
-        function(ctx,next)
+        function(ctx, next)
             -- 全部下载完毕
             if (cb ~= nil) then
                 cb()
@@ -262,7 +262,7 @@ function UI:ClearInvalidAssetFiles()
     local fileNames = {}
     for key, asset in pairs(update.webVersion.Assets) do
         local fileName = asset.fileName
-        local min, max = string.rfind(fileName, "/")
+        local min, max = string.rfind(fileName, '/')
 
         if (min ~= nil) then
             fileName = string.sub(fileName, min + 1)
@@ -270,7 +270,7 @@ function UI:ClearInvalidAssetFiles()
 
         table.insert(fileNames, fileName)
     end
-    for index, fileRoot in ipairs({GAME_CONST.Asset_ROOT, GAME_CONST.Download_Root}) do
+    for index, fileRoot in ipairs({GAME_CONST.ASSET_ROOT, GAME_CONST.DOWNLOAD_ROOT}) do
         local fileInfos = CSFileUtil:GetChildFiles(fileRoot)
         for i = 0, fileInfos.Length - 1 do
             local fileInfo = fileInfos:GetValue(i)
@@ -285,7 +285,7 @@ function UI:refreshVersionText()
     local version = update.localVersion
     textComp.gameObject:SetActive(version ~= nil)
     if (version ~= nil) then
-        textComp.text = string.format("资源版本号：V%s\n客户端版本号：V%s", version.Version, version.ClientVersion)
+        textComp.text = string.format('资源版本号：V%s\n客户端版本号：V%s', version.Version, version.ClientVersion)
     end
 end
 

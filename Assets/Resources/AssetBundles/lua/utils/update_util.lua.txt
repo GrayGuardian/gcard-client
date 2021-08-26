@@ -17,13 +17,13 @@ function Update:refresh(cb, error)
     Middleware:new():use(
         function(ctx, next)
             -- 获取本地资源版本文件
-            local json = CSEncryptUtil:ReadString(GAME_CONST.Asset_Version_Path)
+            local json = CSEncryptUtil:ReadString(GAME_CONST.ASSET_VERSION_PATH)
             if (json ~= '') then
                 self.localVersion = cjson.decode(json)
             end
             -- 获取远程资源版本文件
             http:getAsyn(
-                GAME_CONST.Download_Version_Url,
+                GAME_CONST.DOWNLOAD_VERSION_URL,
                 function(result)
                     local json = CSEncryptUtil:AesDecrypt(System.String(CSLuaUtil:BytesToString_UTF8(result.bytes)))
                     self.webVersion = cjson.decode(json)
@@ -80,7 +80,7 @@ function Update:getUpdateAssetFile()
     for key, info in pairs(assetInfos) do
         local size = info.size
         local hash = info.hash
-        local filePath = GAME_CONST.Asset_ROOT .. '/' .. info.fileName
+        local filePath = GAME_CONST.ASSET_ROOT .. '/' .. info.fileName
 
         local bytes = CSFileUtil:ReadBytes(filePath)
 
@@ -112,7 +112,7 @@ end
 -- 更新资源版本文件
 function Update:updateVersionFile()
     CSFileUtil:WriteString(
-        GAME_CONST.Asset_Version_Path,
+        GAME_CONST.ASSET_VERSION_PATH,
         CSEncryptUtil:AesEncrypt(System.String(cjson.encode(self.webVersion)))
     )
 end

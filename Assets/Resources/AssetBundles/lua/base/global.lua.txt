@@ -15,6 +15,7 @@ _G.CSLuaUtil = LuaUtil.Instance
 _G.GAME_CONST = require('GAME_CONST')
 _G.BROADCAST_CODE = require('BROADCAST_CODE')
 _G.Template = require('template')
+_G.ERROR_INFO = Template.template_error_info
 
 _G.Middleware = require('middleware')
 _G.DownloadFile = require('downloadFile')
@@ -34,30 +35,95 @@ _G.sceneMgr = require('scene_mgr'):new()
 _G.update = require('update_util'):new()
 
 -- Http测试代码
--- local data =
---     pb:encode(
---     'http.rpc',
---     {
---         router = 'test',
---         test = {}
---     }
--- )
+Middleware:new():use(
+    function(ctx, next)
+        http:send(
+            'login',
+            {username = 'vsdf123', password = '1djkfls'},
+            function(data)
+                print('登录成功')
+                next()
+            end,
+            function(data)
+                print('出现错误', '>>', data.error.info.code, data.error.info.tip)
 
--- local bytes = luaBytesToCsBytes(stringToBytes(data))
+                uiMgr:load(
+                    'ui_msg',
+                    {
+                        msg = '网络连接超时，是否重试？' ..
+                            '\n' .. data.error.info.id .. '  -  ' .. data.router .. '  -  ' .. data.error.info.tip,
+                        btnTitle = '重试',
+                        isCloseBtn = false,
+                        onClick = function()
+                            if (data.cb ~= nil) then
+                                data.cb()
+                            end
+                        end
+                    }
+                )
+            end
+        )
+        -- next()
+    end
+):use(
+    function(ctx, next)
+        http:send(
+            'enterArea',
+            {aid = 2},
+            function(data)
+                print('进入区服成功')
+                next()
+            end,
+            function(data)
+                print('出现错误', '>>', data.error.info.code, data.error.info.tip)
 
--- HttpUtil.Instance:PostAsyn(
---     System.Net.HttpWebRequest.Create(System.Uri('http://127.0.0.1:8200')),
---     bytes,
---     System.Action_HttpResult(
---         function(result)
---             local d = bytesToString(csBytesToLuaBytes(result.bytes))
---             local dataPack = pb:decode('http.rpc', d)
---             local router = dataPack.router
---             local data = dataPack[router]
---             print(router, '>>>', data)
---         end
---     )
--- )
+                uiMgr:load(
+                    'ui_msg',
+                    {
+                        msg = '网络连接超时，是否重试？' ..
+                            '\n' .. data.error.info.id .. '  -  ' .. data.router .. '  -  ' .. data.error.info.tip,
+                        btnTitle = '重试',
+                        isCloseBtn = false,
+                        onClick = function()
+                            if (data.cb ~= nil) then
+                                data.cb()
+                            end
+                        end
+                    }
+                )
+            end
+        )
+    end
+):use(
+    function(ctx, next)
+        http:send(
+            'enterGame',
+            {pid = 'bvdf1450-058b-11ec-988a-a30baafb095f'},
+            function(data)
+                print('进入游戏成功')
+                next()
+            end,
+            function(data)
+                print('出现错误', '>>', data.error.info.code, data.error.info.tip)
+
+                uiMgr:load(
+                    'ui_msg',
+                    {
+                        msg = '网络连接超时，是否重试？' ..
+                            '\n' .. data.error.info.id .. '  -  ' .. data.router .. '  -  ' .. data.error.info.tip,
+                        btnTitle = '重试',
+                        isCloseBtn = false,
+                        onClick = function()
+                            if (data.cb ~= nil) then
+                                data.cb()
+                            end
+                        end
+                    }
+                )
+            end
+        )
+    end
+):next()
 
 -- Socket测试代码
 -- local client = SocketClient('127.0.0.1', 8100)

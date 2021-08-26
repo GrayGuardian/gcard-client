@@ -7,7 +7,7 @@ function Main()
     -- GAME_CONST.ConsoleComp = compMgr:addCSComponent(mono.monoNode, TestConsole)
     -- GAME_CONST.ConsoleComp:Show()
 
-    sceneMgr:load('Hotupdate')
+    -- sceneMgr:load('Hotupdate')
 end
 --场景切换通知
 function OnLevelWasLoaded(idx, name)

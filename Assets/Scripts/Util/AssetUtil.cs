@@ -69,7 +69,7 @@ public class AssetUtil : Singleton<AssetUtil>
     public byte[] getAssetFileBytes(string name)
     {
         // 从本地资源文件读取
-        string filePath = Path.Combine(GameConst.Asset_ROOT, name);
+        string filePath = Path.Combine(GameConst.ASSET_ROOT, name);
         if (File.Exists(filePath))
         {
             return FileUtil.Instance.ReadBytes(filePath);

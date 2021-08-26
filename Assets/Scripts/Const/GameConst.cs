@@ -44,7 +44,7 @@ public class GameConst
     /// 资源存放根目录
     /// </summary>
     /// <returns></returns>
-    public static string Asset_ROOT = Path.Combine(Application.persistentDataPath, "./Asset");
+    public static string ASSET_ROOT = Path.Combine(Application.persistentDataPath, "./Asset");
     /// <summary>
     /// 打包根目录
     /// </summary>
@@ -54,7 +54,7 @@ public class GameConst
     /// AB包根目录
     /// </summary>
     /// <returns></returns>
-    public static string AssetBundles_ROOT = Path.Combine(Application.dataPath, "../AssetBundles");
+    public static string ASSETBUNDLES_ROOT = Path.Combine(Application.dataPath, "../AssetBundles");
 
     /// <summary>
     /// StreamingAssetsPath目录

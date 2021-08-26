@@ -184,10 +184,15 @@ public static class LuaBinder
 		L.BeginModule("Generic");
 		System_Collections_Generic_List_byteWrap.Register(L);
 		L.EndModule();
+		L.BeginModule("Specialized");
+		System_Collections_Specialized_NameValueCollectionWrap.Register(L);
+		System_Collections_Specialized_NameObjectCollectionBaseWrap.Register(L);
+		L.EndModule();
 		L.EndModule();
 		L.BeginModule("Net");
 		System_Net_HttpWebResponseWrap.Register(L);
 		System_Net_HttpWebRequestWrap.Register(L);
+		System_Net_WebHeaderCollectionWrap.Register(L);
 		System_Net_WebResponseWrap.Register(L);
 		System_Net_WebRequestWrap.Register(L);
 		L.RegFunction("HttpContinueDelegate", System_Net_HttpContinueDelegate);

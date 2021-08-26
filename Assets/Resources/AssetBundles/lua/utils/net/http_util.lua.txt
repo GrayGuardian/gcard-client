@@ -1,14 +1,7 @@
 local HttpUtil = class('HttpUtil')
 local CSHttpUtil = _G.HttpUtil.Instance
-
+-- 封装C#
 function HttpUtil:post(url, data, error)
-    if (type(data) == 'string') then
-        data = stringToBytes(data)
-    end
-    if (type(data) == 'table') then
-        data = luaBytesToCsBytes(data)
-    end
-
     local request = System.Net.HttpWebRequest.Create(System.Uri(url))
     request.Timeout = 1000
 
@@ -27,13 +20,6 @@ function HttpUtil:post(url, data, error)
     return result
 end
 function HttpUtil:postAsyn(url, data, cb, error)
-    if (type(data) == 'string') then
-        data = stringToBytes(data)
-    end
-    if (type(data) == 'table') then
-        data = luaBytesToCsBytes(data)
-    end
-
     local request = System.Net.HttpWebRequest.Create(System.Uri(url))
     request.Timeout = 1000
 
@@ -56,7 +42,6 @@ function HttpUtil:postAsyn(url, data, cb, error)
         )
     )
 end
-
 function HttpUtil:get(url, error)
     local request = System.Net.HttpWebRequest.Create(System.Uri(url))
     request.Timeout = 1000
@@ -94,6 +79,78 @@ function HttpUtil:getAsyn(url, cb, error)
             end
         )
     )
+end
+
+-- 业务逻辑
+
+function HttpUtil:ctor()
+    self.token = nil
+
+    broadcast:on(
+        BROADCAST_CODE.HTTP_ERROR,
+        function(data)
+            print('http error', '>>>>>', data.router, data.error.info.code)
+        end
+    )
+end
+function HttpUtil:send(router, data, cb, errorCb)
+    local t_send = nil
+    local t_error = function(router, data, error, cb)
+        local t_data = {router = router, data = data, error = error, cb = cb}
+        broadcast:notify(BROADCAST_CODE.HTTP_ERROR, t_data)
+        broadcast:notify(BROADCAST_CODE.GET_HTTP_ERROR(error.info.code), t_data)
+        if (errorCb ~= nil) then
+            errorCb(t_data)
+        end
+    end
+    t_send = function()
+        local dataPack = {}
+        dataPack.router = router
+        dataPack[router] = data
+        local buff = pb:encode('http.rpc', dataPack)
+        local bytes = luaBytesToCsBytes(stringToBytes(buff))
+        local httpWebRequest = System.Net.HttpWebRequest.Create(System.Uri(GAME_CONST.API_URL))
+        if (self.token ~= nil) then
+            httpWebRequest.Headers:Add('Token', self.token)
+        end
+        CSHttpUtil:PostAsyn(
+            httpWebRequest,
+            bytes,
+            System.Action_HttpResult(
+                function(result)
+                    local t_buff = bytesToString(csBytesToLuaBytes(result.bytes))
+                    local t_dataPack = pb:decode('http.rpc', t_buff)
+                    local t_router = t_dataPack.router
+                    local t_data = t_dataPack[t_router]
+
+                    if t_router == 'error' then
+                        --出现业务逻辑错误
+                        t_error(router, data, t_data, t_send)
+                        return
+                    end
+
+                    if (t_data['token'] ~= null) then
+                        self.token = t_data['token']
+                        print('http update token', '>>>>>', t_data['token'])
+                    end
+
+                    if cb ~= nil then
+                        cb(t_data)
+                    end
+                end
+            ),
+            System.Action_System_Exception(
+                function(ex)
+                    print(ex:ToString())
+                    -- HTTP请求错误
+                    local info = ERROR_INFO.UNKNOWN_ERROR
+                    info.tip = info.clientTip
+                    t_error(router, data, {info = info}, t_send)
+                end
+            )
+        )
+    end
+    t_send()
 end
 
 return HttpUtil
