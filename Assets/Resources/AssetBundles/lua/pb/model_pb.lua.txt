@@ -30,6 +30,13 @@ SERVERCONFIG = protobuf.Descriptor()
 localTable.SERVERCONFIG_ID_FIELD = protobuf.FieldDescriptor()
 localTable.SERVERCONFIG_HOST_FIELD = protobuf.FieldDescriptor()
 localTable.SERVERCONFIG_PORT_FIELD = protobuf.FieldDescriptor()
+PLAYERCURRENCY = protobuf.Descriptor()
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD = protobuf.FieldDescriptor()
+PLAYERPROPS = protobuf.Descriptor()
+localTable.PLAYERPROPS_PROPSID_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERPROPS_CNT_FIELD = protobuf.FieldDescriptor()
+localTable.PLAYERPROPS_CREATETIME_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.USERINFO_UID_FIELD.name = "uid"
@@ -270,9 +277,75 @@ SERVERCONFIG.enum_types = {}
 SERVERCONFIG.fields = {localTable.SERVERCONFIG_ID_FIELD, localTable.SERVERCONFIG_HOST_FIELD, localTable.SERVERCONFIG_PORT_FIELD}
 SERVERCONFIG.is_extendable = false
 SERVERCONFIG.extensions = {}
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.name = "currency0"
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.full_name = ".model.PlayerCurrency.currency0"
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.number = 1
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.index = 0
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.label = 2
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.has_default_value = false
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.default_value = 0
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.type = 5
+localTable.PLAYERCURRENCY_CURRENCY0_FIELD.cpp_type = 1
+
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.name = "currency1"
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.full_name = ".model.PlayerCurrency.currency1"
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.number = 2
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.index = 1
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.label = 2
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.has_default_value = false
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.default_value = 0
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.type = 5
+localTable.PLAYERCURRENCY_CURRENCY1_FIELD.cpp_type = 1
+
+PLAYERCURRENCY.name = "PlayerCurrency"
+PLAYERCURRENCY.full_name = ".model.PlayerCurrency"
+PLAYERCURRENCY.nested_types = {}
+PLAYERCURRENCY.enum_types = {}
+PLAYERCURRENCY.fields = {localTable.PLAYERCURRENCY_CURRENCY0_FIELD, localTable.PLAYERCURRENCY_CURRENCY1_FIELD}
+PLAYERCURRENCY.is_extendable = false
+PLAYERCURRENCY.extensions = {}
+localTable.PLAYERPROPS_PROPSID_FIELD.name = "propsId"
+localTable.PLAYERPROPS_PROPSID_FIELD.full_name = ".model.PlayerProps.propsId"
+localTable.PLAYERPROPS_PROPSID_FIELD.number = 1
+localTable.PLAYERPROPS_PROPSID_FIELD.index = 0
+localTable.PLAYERPROPS_PROPSID_FIELD.label = 2
+localTable.PLAYERPROPS_PROPSID_FIELD.has_default_value = false
+localTable.PLAYERPROPS_PROPSID_FIELD.default_value = 0
+localTable.PLAYERPROPS_PROPSID_FIELD.type = 5
+localTable.PLAYERPROPS_PROPSID_FIELD.cpp_type = 1
+
+localTable.PLAYERPROPS_CNT_FIELD.name = "cnt"
+localTable.PLAYERPROPS_CNT_FIELD.full_name = ".model.PlayerProps.cnt"
+localTable.PLAYERPROPS_CNT_FIELD.number = 2
+localTable.PLAYERPROPS_CNT_FIELD.index = 1
+localTable.PLAYERPROPS_CNT_FIELD.label = 2
+localTable.PLAYERPROPS_CNT_FIELD.has_default_value = false
+localTable.PLAYERPROPS_CNT_FIELD.default_value = 0
+localTable.PLAYERPROPS_CNT_FIELD.type = 5
+localTable.PLAYERPROPS_CNT_FIELD.cpp_type = 1
+
+localTable.PLAYERPROPS_CREATETIME_FIELD.name = "createTime"
+localTable.PLAYERPROPS_CREATETIME_FIELD.full_name = ".model.PlayerProps.createTime"
+localTable.PLAYERPROPS_CREATETIME_FIELD.number = 3
+localTable.PLAYERPROPS_CREATETIME_FIELD.index = 2
+localTable.PLAYERPROPS_CREATETIME_FIELD.label = 2
+localTable.PLAYERPROPS_CREATETIME_FIELD.has_default_value = false
+localTable.PLAYERPROPS_CREATETIME_FIELD.default_value = 0
+localTable.PLAYERPROPS_CREATETIME_FIELD.type = 5
+localTable.PLAYERPROPS_CREATETIME_FIELD.cpp_type = 1
+
+PLAYERPROPS.name = "PlayerProps"
+PLAYERPROPS.full_name = ".model.PlayerProps"
+PLAYERPROPS.nested_types = {}
+PLAYERPROPS.enum_types = {}
+PLAYERPROPS.fields = {localTable.PLAYERPROPS_PROPSID_FIELD, localTable.PLAYERPROPS_CNT_FIELD, localTable.PLAYERPROPS_CREATETIME_FIELD}
+PLAYERPROPS.is_extendable = false
+PLAYERPROPS.extensions = {}
 
 AreaInfo = protobuf.Message(AREAINFO)
+PlayerCurrency = protobuf.Message(PLAYERCURRENCY)
 PlayerInfo = protobuf.Message(PLAYERINFO)
+PlayerProps = protobuf.Message(PLAYERPROPS)
 ServerConfig = protobuf.Message(SERVERCONFIG)
 UserInfo = protobuf.Message(USERINFO)
 

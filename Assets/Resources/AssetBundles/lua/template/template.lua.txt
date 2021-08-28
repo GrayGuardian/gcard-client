@@ -18,7 +18,9 @@ local getMap = function(name, key)
 end
 
 local template_error_info = getMap('template_error_info', "code");
+local template_props = getMap("template_props", 'id');
 
 Template.template_error_info = template_error_info;
+Template.template_props = template_props;
 
 return Template
