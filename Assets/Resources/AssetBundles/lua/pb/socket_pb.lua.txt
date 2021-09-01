@@ -15,6 +15,8 @@ localTable.RPC_ERROR_FIELD = protobuf.FieldDescriptor()
 localTable.RPC_UPDATEMODELDATA_FIELD = protobuf.FieldDescriptor()
 localTable.RPC_CONN_FIELD = protobuf.FieldDescriptor()
 localTable.RPC_CONNRET_FIELD = protobuf.FieldDescriptor()
+localTable.RPC_TEST_FIELD = protobuf.FieldDescriptor()
+localTable.RPC_TESTRET_FIELD = protobuf.FieldDescriptor()
 UPDATEMODELDATA = protobuf.Descriptor()
 localTable.UPDATEMODELDATA_CLSNAME_FIELD = protobuf.FieldDescriptor()
 localTable.UPDATEMODELDATA_IDX_FIELD = protobuf.FieldDescriptor()
@@ -25,6 +27,8 @@ CONN = protobuf.Descriptor()
 localTable.CONN_TOKEN_FIELD = protobuf.FieldDescriptor()
 CONNRET = protobuf.Descriptor()
 localTable.CONNRET_PLAYER_FIELD = protobuf.FieldDescriptor()
+TEST = protobuf.Descriptor()
+TESTRET = protobuf.Descriptor()
 
 
 localTable.RPC_ROUTER_FIELD.name = "router"
@@ -81,11 +85,33 @@ localTable.RPC_CONNRET_FIELD.message_type = CONNRET
 localTable.RPC_CONNRET_FIELD.type = 11
 localTable.RPC_CONNRET_FIELD.cpp_type = 10
 
+localTable.RPC_TEST_FIELD.name = "test"
+localTable.RPC_TEST_FIELD.full_name = ".socket.rpc.test"
+localTable.RPC_TEST_FIELD.number = 200
+localTable.RPC_TEST_FIELD.index = 5
+localTable.RPC_TEST_FIELD.label = 1
+localTable.RPC_TEST_FIELD.has_default_value = false
+localTable.RPC_TEST_FIELD.default_value = nil
+localTable.RPC_TEST_FIELD.message_type = TEST
+localTable.RPC_TEST_FIELD.type = 11
+localTable.RPC_TEST_FIELD.cpp_type = 10
+
+localTable.RPC_TESTRET_FIELD.name = "testRet"
+localTable.RPC_TESTRET_FIELD.full_name = ".socket.rpc.testRet"
+localTable.RPC_TESTRET_FIELD.number = 201
+localTable.RPC_TESTRET_FIELD.index = 6
+localTable.RPC_TESTRET_FIELD.label = 1
+localTable.RPC_TESTRET_FIELD.has_default_value = false
+localTable.RPC_TESTRET_FIELD.default_value = nil
+localTable.RPC_TESTRET_FIELD.message_type = TESTRET
+localTable.RPC_TESTRET_FIELD.type = 11
+localTable.RPC_TESTRET_FIELD.cpp_type = 10
+
 RPC.name = "rpc"
 RPC.full_name = ".socket.rpc"
 RPC.nested_types = {}
 RPC.enum_types = {}
-RPC.fields = {localTable.RPC_ROUTER_FIELD, localTable.RPC_ERROR_FIELD, localTable.RPC_UPDATEMODELDATA_FIELD, localTable.RPC_CONN_FIELD, localTable.RPC_CONNRET_FIELD}
+RPC.fields = {localTable.RPC_ROUTER_FIELD, localTable.RPC_ERROR_FIELD, localTable.RPC_UPDATEMODELDATA_FIELD, localTable.RPC_CONN_FIELD, localTable.RPC_CONNRET_FIELD, localTable.RPC_TEST_FIELD, localTable.RPC_TESTRET_FIELD}
 RPC.is_extendable = false
 RPC.extensions = {}
 localTable.UPDATEMODELDATA_CLSNAME_FIELD.name = "clsName"
@@ -183,10 +209,26 @@ CONNRET.enum_types = {}
 CONNRET.fields = {localTable.CONNRET_PLAYER_FIELD}
 CONNRET.is_extendable = false
 CONNRET.extensions = {}
+TEST.name = "test"
+TEST.full_name = ".socket.test"
+TEST.nested_types = {}
+TEST.enum_types = {}
+TEST.fields = {}
+TEST.is_extendable = false
+TEST.extensions = {}
+TESTRET.name = "testRet"
+TESTRET.full_name = ".socket.testRet"
+TESTRET.nested_types = {}
+TESTRET.enum_types = {}
+TESTRET.fields = {}
+TESTRET.is_extendable = false
+TESTRET.extensions = {}
 
 conn = protobuf.Message(CONN)
 connRet = protobuf.Message(CONNRET)
 rpc = protobuf.Message(RPC)
+test = protobuf.Message(TEST)
+testRet = protobuf.Message(TESTRET)
 updateModelData = protobuf.Message(UPDATEMODELDATA)
 
 return m_table
