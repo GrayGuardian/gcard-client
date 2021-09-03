@@ -28,7 +28,9 @@ localTable.CONN_TOKEN_FIELD = protobuf.FieldDescriptor()
 CONNRET = protobuf.Descriptor()
 localTable.CONNRET_PLAYER_FIELD = protobuf.FieldDescriptor()
 TEST = protobuf.Descriptor()
+localTable.TEST_TEXT_FIELD = protobuf.FieldDescriptor()
 TESTRET = protobuf.Descriptor()
+localTable.TESTRET_TEXT_FIELD = protobuf.FieldDescriptor()
 
 
 localTable.RPC_ROUTER_FIELD.name = "router"
@@ -209,18 +211,38 @@ CONNRET.enum_types = {}
 CONNRET.fields = {localTable.CONNRET_PLAYER_FIELD}
 CONNRET.is_extendable = false
 CONNRET.extensions = {}
+localTable.TEST_TEXT_FIELD.name = "text"
+localTable.TEST_TEXT_FIELD.full_name = ".socket.test.text"
+localTable.TEST_TEXT_FIELD.number = 1
+localTable.TEST_TEXT_FIELD.index = 0
+localTable.TEST_TEXT_FIELD.label = 2
+localTable.TEST_TEXT_FIELD.has_default_value = false
+localTable.TEST_TEXT_FIELD.default_value = ""
+localTable.TEST_TEXT_FIELD.type = 9
+localTable.TEST_TEXT_FIELD.cpp_type = 9
+
 TEST.name = "test"
 TEST.full_name = ".socket.test"
 TEST.nested_types = {}
 TEST.enum_types = {}
-TEST.fields = {}
+TEST.fields = {localTable.TEST_TEXT_FIELD}
 TEST.is_extendable = false
 TEST.extensions = {}
+localTable.TESTRET_TEXT_FIELD.name = "text"
+localTable.TESTRET_TEXT_FIELD.full_name = ".socket.testRet.text"
+localTable.TESTRET_TEXT_FIELD.number = 2
+localTable.TESTRET_TEXT_FIELD.index = 0
+localTable.TESTRET_TEXT_FIELD.label = 2
+localTable.TESTRET_TEXT_FIELD.has_default_value = false
+localTable.TESTRET_TEXT_FIELD.default_value = ""
+localTable.TESTRET_TEXT_FIELD.type = 9
+localTable.TESTRET_TEXT_FIELD.cpp_type = 9
+
 TESTRET.name = "testRet"
 TESTRET.full_name = ".socket.testRet"
 TESTRET.nested_types = {}
 TESTRET.enum_types = {}
-TESTRET.fields = {}
+TESTRET.fields = {localTable.TESTRET_TEXT_FIELD}
 TESTRET.is_extendable = false
 TESTRET.extensions = {}
 
