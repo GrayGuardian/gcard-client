@@ -16,7 +16,9 @@ BROADCAST_CODE.MONO_ONFOCUS = 'MONO_ONFOCUS'
 BROADCAST_CODE.MONO_QUIT = 'MONO_QUIT'
 
 BROADCAST_CODE.HTTP_ERROR = 'HTTP_ERROR'
-BROADCAST_CODE.GET_HTTP_ERROR = function(code)
+BROADCAST_CODE.GET_HTTP_ERROR = function(errorInfo)
+    errorInfo = errorInfo or ERROR_INFO.UNKNOWN_ERROR;
+    local code = errorInfo.code;
     return string.format('HTTP_ERROR_%s', code)
 end
 

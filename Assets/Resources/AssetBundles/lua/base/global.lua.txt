@@ -35,95 +35,64 @@ _G.sceneMgr = require('scene_mgr'):new()
 _G.update = require('update_util'):new()
 
 -- Http测试代码
-Middleware:new():use(
-    function(ctx, next)
-        http:send(
-            'login',
-            {username = 'vsdf123', password = '1djkfls'},
-            function(data)
-                print('登录成功')
-                next()
-            end,
-            function(data)
-                print('出现错误', '>>', data.error.info.code, data.error.info.tip)
+-- broadcast:on(
+--     BROADCAST_CODE.HTTP_ERROR,
+--     function(data)
+--         print('出现错误', '>>', data.error.info.code, data.error.info.tip)
 
-                uiMgr:load(
-                    'ui_msg',
-                    {
-                        msg = '网络连接超时，是否重试？' ..
-                            '\n' .. data.error.info.id .. '  -  ' .. data.router .. '  -  ' .. data.error.info.tip,
-                        btnTitle = '重试',
-                        isCloseBtn = false,
-                        onClick = function()
-                            if (data.cb ~= nil) then
-                                data.cb()
-                            end
-                        end
-                    }
-                )
-            end
-        )
-        -- next()
-    end
-):use(
-    function(ctx, next)
-        http:send(
-            'enterArea',
-            {aid = 2},
-            function(data)
-                print('进入区服成功')
-                next()
-            end,
-            function(data)
-                print('出现错误', '>>', data.error.info.code, data.error.info.tip)
+--         uiMgr:load(
+--             'ui_msg',
+--             {
+--                 msg = '网络连接超时，是否重试？' ..
+--                     '\n' .. data.error.info.id .. '  -  ' ..data.error.info.code..'  -  ' .. data.router .. '  -  ' .. data.error.info.tip,
+--                 btnTitle = '重试',
+--                 isCloseBtn = false,
+--                 onClick = function()
+--                     if (data.cb ~= nil) then
+--                         data.cb()
+--                     end
+--                 end
+--             }
+--         )
+--     end
+-- )
 
-                uiMgr:load(
-                    'ui_msg',
-                    {
-                        msg = '网络连接超时，是否重试？' ..
-                            '\n' .. data.error.info.id .. '  -  ' .. data.router .. '  -  ' .. data.error.info.tip,
-                        btnTitle = '重试',
-                        isCloseBtn = false,
-                        onClick = function()
-                            if (data.cb ~= nil) then
-                                data.cb()
-                            end
-                        end
-                    }
-                )
-            end
-        )
-    end
-):use(
-    function(ctx, next)
-        http:send(
-            'enterGame',
-            {pid = 'bvdf1450-058b-11ec-988a-a30baafb095f'},
-            function(data)
-                print('进入游戏成功')
-                next()
-            end,
-            function(data)
-                print('出现错误', '>>', data.error.info.code, data.error.info.tip)
 
-                uiMgr:load(
-                    'ui_msg',
-                    {
-                        msg = '网络连接超时，是否重试？' ..
-                            '\n' .. data.error.info.id .. '  -  ' .. data.router .. '  -  ' .. data.error.info.tip,
-                        btnTitle = '重试',
-                        isCloseBtn = false,
-                        onClick = function()
-                            if (data.cb ~= nil) then
-                                data.cb()
-                            end
-                        end
-                    }
-                )
-            end
-        )
-    end
-):next()
+-- Middleware:new():use(
+--     function(ctx, next)
+--         http:send(
+--             'login',
+--             {username = 'vsdf123', password = '1djkfls'},
+--             function(data)
+--                 print('登录成功')
+--                 next()
+--             end
+--         )
+--         -- next()
+--     end
+-- ):use(
+--     function(ctx, next)
+--         http:send(
+--             'enterArea',
+--             {aid = 2},
+--             function(data)
+--                 print('进入区服成功')
+--                 next()
+--             end
+--         )
+--     end
+-- ):use(
+--     function(ctx, next)
+--         http:send(
+--             'enterGame',
+--             {pid = 'bvdf1450-058b-11ec-988a-a30baafb095f'},
+--             function(data)
+--                 print('进入游戏成功')
+--                 next()
+--             end
+--         )
+--     end
+-- ):next()
 
 -- Socket测试代码
 -- local client = SocketClient('127.0.0.1', 8100)

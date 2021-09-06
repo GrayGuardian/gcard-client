@@ -98,7 +98,7 @@ function HttpUtil:send(router, data, cb, errorCb)
     local t_error = function(router, data, error, cb)
         local t_data = {router = router, data = data, error = error, cb = cb}
         broadcast:notify(BROADCAST_CODE.HTTP_ERROR, t_data)
-        broadcast:notify(BROADCAST_CODE.GET_HTTP_ERROR(error.info.code), t_data)
+        broadcast:notify(BROADCAST_CODE.GET_HTTP_ERROR(error.info), t_data)
         if (errorCb ~= nil) then
             errorCb(t_data)
         end
