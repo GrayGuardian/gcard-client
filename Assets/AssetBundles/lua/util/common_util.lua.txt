@@ -1,0 +1,13 @@
+_G.Common = {}
+
+-- 调用函数
+Common.call = function(this,action,...)
+    if(action==nil) then
+        return nil
+    end
+    if(this) then
+        return action(this,...)
+    else
+        return action(...)
+    end
+end

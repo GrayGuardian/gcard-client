@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-public class AssetVModel
+public class AssetFileVersion
 {
     /// <summary>
     /// 资源名
@@ -24,7 +24,7 @@ public class AssetVModel
         return JsonConvert.SerializeObject(this);
     }
 }
-public class VModel
+public class AssetVersion
 {
     /// <summary>
     /// 版本号
@@ -45,7 +45,7 @@ public class VModel
     /// <summary>
     /// AB包版本信息
     /// </summary>
-    public AssetVModel[] Assets;
+    public AssetFileVersion[] Assets;
 
     public string toString()
     {

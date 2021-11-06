@@ -1,0 +1,14 @@
+local UIID = {
+    UI_TEST = "ui_test",                        -- 测试
+
+    UI_VIEW = "ui_view",                        -- 底图UI
+    UI_MSG = "ui_msg",                          -- 提示弹窗
+
+    UI_HOTUPDATE = "ui_hotupdate"               -- 热更UI
+}
+
+for key, value in pairs(UIID) do
+    _G[key] = require(value)
+end
+
+return UIID

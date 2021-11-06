@@ -1,0 +1,101 @@
+-- UI基类
+local base = require('node_base')
+local UIBase = class('UIBase', base)
+UIBase.override = {onLoadStart=false,onLoadEnd=false,onLoad=false,close=false}
+
+-------------------- 继承重写 --------------------
+-- 资源配置
+UIBase.getter.ASSET_CONFIG = function(this) return { key = 'ui', assetName = this.className } end
+-- 加载参数
+-- ALLOW_UI_ACTIVATION：加载UI完毕后是否直接打开
+-- Layer：渲染层级
+-- MaskInfo：遮罩信息 可阻挡下层点击事件 isMask-是否存在遮罩 color-遮罩颜色
+UIBase.getter.LOAD_ARG = function () return { ALLOW_SCENE_ACTIVATION = true , Layer = 'UI_Default' , MaskInfo = {isMask=true, color=Color(0,0,0,0.5)} } end
+
+-- 初始化UIControl
+function UIBase:initUIControl()
+end
+-- 开始加载 界面未实例化
+function UIBase:onLoadStart(...)
+end
+-- 加载完毕 界面已实例化
+function UIBase:onLoadEnd(...)
+end
+-- 加载完毕并打开UI
+function UIBase:onLoad(...)
+end
+-- 卸载UI
+function UIBase:close()
+end
+-------------------- 继承重写 --------------------
+function UIBase:ctor(loadArg,...)
+    loadArg = loadArg or {}
+    for key, value in pairs(self.LOAD_ARG) do
+        if(loadArg[key] == nil) then
+            loadArg[key] = self.LOAD_ARG[key]
+        end
+    end
+    self.LOAD_ARG = loadArg
+    self.name = self.className
+    self.arg = {...}
+    self.node = nil
+    -- 此处是游戏结束时销毁组件的处理
+    self:EventOn(Event.MONO("OnDestroy"),self.closeSelf,self)
+end
+-- 卸载UI
+function UIBase:close()
+    -- 清理UIControl
+    for key, value in pairs(self) do
+        if(type(value)=='table' and value.className~=nil) then
+            if(value.className == 'UIControl') then
+                value:close()
+            end
+        end
+    end
+end
+function UIBase:onLoadEnd(...)
+    -- 更新遮罩信息
+    self:updateMaskInfo()
+    -- 更新UIControl
+    self:initUIControl()
+    -- 自动打开
+    if(self.LOAD_ARG.ALLOW_SCENE_ACTIVATION) then
+        self:show()
+    end
+end
+-- 显示UI
+function UIBase:show()
+    self.node.gameObject:SetActive(true)
+    -- 更新渲染层级
+    self:updateLayer()
+    -- 第一次显示则触发onLoad生命周期
+    if(self.firstShow == nil or self.firstShow )then
+        self.firstShow = false
+        self:onLoad(table.unpack(self.arg) or {})
+    end
+end
+-- 隐藏UI
+function UIBase:hide()
+    self.node.gameObject:SetActive(false)
+end
+-- 卸载自身
+function UIBase:closeSelf()
+    UIManager.CloseUIFromClass(self)
+end
+-- 更新遮罩信息
+function UIBase:updateMaskInfo(info)
+    info = info or self.LOAD_ARG.MaskInfo
+    local maskImage = CompManager.GetCSComponent(self.node,CS.UnityEngine.UI.Image) or CompManager.AddCSComponent(self.node,CS.UnityEngine.UI.Image)
+    maskImage.enabled = info.isMask
+    maskImage.color = info.color
+end
+-- 更新渲染层级
+function UIBase:updateLayer(layer)
+    layer = layer or self.LOAD_ARG.Layer
+    local canvas = CompManager.GetCSComponent(self.node,CS.UnityEngine.Canvas) or CompManager.AddCSComponent(self.node,CS.UnityEngine.Canvas)
+    canvas.overrideSorting = true
+    canvas.sortingLayerID = CS.UnityEngine.SortingLayer.NameToID(layer)
+    canvas.sortingOrder = UIManager.UICount[self.LOAD_ARG.Layer]
+    local graphicRaycaster = CompManager.GetCSComponent(self.node,CS.UnityEngine.UI.GraphicRaycaster) or CompManager.AddCSComponent(self.node,CS.UnityEngine.UI.GraphicRaycaster)
+end
+return UIBase

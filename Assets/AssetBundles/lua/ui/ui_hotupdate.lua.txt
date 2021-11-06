@@ -1,0 +1,267 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+
+local base = require('ui_base')
+local UI_HOTUPDATE = class('ui_hotupdate', base)
+
+function UI_HOTUPDATE:initUIControl()
+	self.progressBarNode = UIControl:new(self.node, 'progressBarNode')
+	self.progressBarValueImage = UIControl:new(self.node, 'progressBarNode/progressBarValueImage')
+	self.assetVersionText = UIControl:new(self.node, 'assetVersionText')
+	self.clientVersionText = UIControl:new(self.node, 'clientVersionText')
+	self.progressText = UIControl:new(self.node, 'progressText')
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+function UI_HOTUPDATE:onLoad(arg)
+	self:registerEvent()
+
+	self:refresh()
+	self:checkAssetVersion()
+end
+function UI_HOTUPDATE:registerEvent()
+	self:EventOn(Event.RefreshVersion, self.refreshVersion, self)
+end
+function UI_HOTUPDATE:refresh()
+	self:refreshVersion()
+	self.progressBarNode:SetActive(false)
+	self.progressText:SetActive(false)
+end
+function UI_HOTUPDATE:showBarText(text)
+	self.progressText:SetActive(true)
+	self.progressText:SetText(text)
+end
+function UI_HOTUPDATE:showBarValue(value)
+	self.progressBarNode:SetActive(true)
+	self.progressBarValueImage:SetFillAmount(value)
+end
+-- 检查资源版本
+function UI_HOTUPDATE:checkAssetVersion()
+	AssetVersionControl.Refresh(self, self.checkAssetVersionSuccess, self.checkAssetVersionError)
+	-- 采取伪检查形式 防止一闪而过的情况
+	self.checkTextAniTimer = self:showEllipsisText(self.progressText, Template.template_text:getText(400106), 0.25, 3, 3)
+	self.progressText:SetActive(true)
+	self:TimerOn(2, self, self.checkAssetVersionOver)
+end
+-- 检查资源版本成功
+function UI_HOTUPDATE:checkAssetVersionSuccess()
+	self.isCheckSuccess = true
+end
+-- 检查资源版本失败
+function UI_HOTUPDATE:checkAssetVersionError()
+	self.isCheckSuccess = false
+end
+-- 检查资源版本完毕
+function UI_HOTUPDATE:checkAssetVersionOver()
+	self:stopEllipsisText(self.checkTextAniTimer)
+	self.progressText:SetActive(false)
+	if (self.isCheckSuccess) then
+		self:onUpdateState()
+	else
+		UIManager.Show(
+			UIID.UI_MSG,
+			{
+				title = Template.template_text:getText(400101),
+				msg = Template.template_text:getText(400108),
+				btnTitles = Template.template_text:getText(400102),
+				isShowCloseBtn = false,
+				this = self,
+				onClick = self.checkAssetVersion
+			}
+		)
+	end
+end
+-- 处理资源版本状态
+function UI_HOTUPDATE:onUpdateState()
+	if (AssetVersionControl.UpdateState == ASSET_UPDATE_STATE.NONE) then
+		-- 无需更新
+		self:updateOver()
+	elseif (AssetVersionControl.UpdateState == ASSET_UPDATE_STATE.CLIENT) then
+		-- 更新客户端
+		self:updateClient()
+	elseif (AssetVersionControl.UpdateState == ASSET_UPDATE_STATE.HOTUPDATE) then
+		-- 热更新资源文件
+		self:hotupdateAsset()
+	elseif (AssetVersionControl.UpdateState == ASSET_UPDATE_STATE.HOTFIX) then
+		-- 热修复资源文件
+		self:hotfixAsset()
+	end
+end
+-- 关闭客户端
+local closeGameClient = function()
+	CS.UnityEngine.Application.Quit()
+end
+-- 更新客户端
+function UI_HOTUPDATE:updateClient()
+	-- log.print(AssetVersionControl.ClientDowanloadUrl)
+	UIManager.Show(
+		UIID.UI_MSG,
+		{
+			msg = Template.template_text:getText(400112),
+			isClickClose = false,
+			isShowCloseBtn = false,
+			onClick = closeGameClient
+		}
+	)
+end
+-- 热更新资源文件
+function UI_HOTUPDATE:hotupdateAsset()
+	UIManager.Show(
+		UIID.UI_MSG,
+		{
+			msg = Template.template_text:getText(400113, string.getFileSizeText(AssetVersionControl.DownloadInfo.size)),
+			isShowCloseBtn = false,
+			this = self,
+			onClick = self.downloadAssets
+		}
+	)
+end
+-- 热修复资源文件
+function UI_HOTUPDATE:hotfixAsset()
+	UIManager.Show(
+		UIID.UI_MSG,
+		{
+			msg = Template.template_text:getText(400114, string.getFileSizeText(AssetVersionControl.DownloadInfo.size)),
+			isShowCloseBtn = false,
+			this = self,
+			onClick = self.downloadAssets
+		}
+	)
+end
+-- 开始下载资源文件
+local Index = 1
+function UI_HOTUPDATE:downloadAssets()
+	Index = 1
+	Middleware:new(self):use(self.downloadOneAsset):use(self.downloadOver):next()
+end
+-- 下载单个文件
+function UI_HOTUPDATE:downloadOneAsset(ctx, next)
+	self:showBarValue(0)
+	local downloadTextAniTimer =
+		self:showEllipsisText(self.progressText, Template.template_text:getText(400116), 0.25, 3, 3)
+	self.progressText:SetActive(true)
+
+	local assets = AssetVersionControl.DownloadInfo.assets
+	local asset = assets[Index]
+	local url = asset.url
+	local filePath = table.concat({GameConst.DOWNLOAD_ROOT, '/', asset.fileName})
+	local downloadFile = DownloadFile:new(url)
+	local downloadOnError = function(ex)
+		downloadFile:close()
+		self.progressBarNode:SetActive(false)
+		self.progressText:SetActive(false)
+		if (downloadTextAniTimer ~= nil) then
+			self:stopEllipsisText(downloadTextAniTimer)
+			downloadTextAniTimer = nil
+		end
+		UIManager.Show(
+			UIID.UI_MSG,
+			{
+				msg = Template.template_text:getText(400115),
+				isShowCloseBtn = false,
+				onClick = function()
+					next(0)
+				end
+			}
+		)
+	end
+	downloadFile:onError(downloadOnError)
+	downloadFile:downloadToFile(
+		5,
+		filePath,
+		function(size, count)
+			-- 正在下载
+			if (downloadTextAniTimer ~= nil) then
+				self:stopEllipsisText(downloadTextAniTimer)
+				downloadTextAniTimer = nil
+			end
+			self:showBarValue(size / count)
+			self:showBarText(
+				Template.template_text:getText(400107, Index, #assets, string.getFileSizeText(size), string.getFileSizeText(count))
+			)
+		end,
+		function(data)
+			-- 下载完毕
+			downloadFile:close()
+			-- 检查下载文件有效性
+			if (AssetVersionControl.CheckAssetFile(GameConst.DOWNLOAD_ROOT, asset)) then
+				-- 有效直接移动至正式目录
+				CS.FileUtil.Instance:MoveTo(
+					table.concat({GameConst.DOWNLOAD_ROOT, '/', asset.fileName}),
+					table.concat({GameConst.ASSET_ROOT, '/', asset.fileName}),
+					true
+				)
+			else
+				-- 无效暂不处理 全部下载完毕后二次检查处理
+			end
+			Index = Index + 1
+			if (Index <= #assets) then
+				next(0)
+			else
+				next(1)
+			end
+		end
+	)
+end
+-- 下载完毕
+function UI_HOTUPDATE:downloadOver(ctx, next)
+	self.progressBarNode:SetActive(false)
+	self.progressText:SetActive(false)
+	-- 再次检查更新状态
+	AssetVersionControl.Check()
+	if (AssetVersionControl.UpdateState ~= ASSET_UPDATE_STATE.NONE) then
+		AssetVersionControl.UpdateState = ASSET_UPDATE_STATE.HOTFIX
+		self:onUpdateState()
+	else
+		if (AssetVersionControl.WebVersion.IsRestart) then
+			UIManager.Show(
+				UIID.UI_MSG,
+				{
+					msg = Template.template_text:getText(400111),
+					isClickClose = false,
+					isShowCloseBtn = false,
+					onClick = closeGameClient
+				}
+			)
+			return
+		end
+		AssetManager.Reset()
+		self:updateOver()
+	end
+end
+-- 更新完毕 到此步资源均为最新
+function UI_HOTUPDATE:updateOver()
+	AssetVersionControl.RefreshVersion()
+	self:clearInvalidAssetFiles()
+	SceneManager.Load('Login')
+end
+
+-- 清理冗余文件
+function UI_HOTUPDATE:clearInvalidAssetFiles()
+	local files = nil
+	-- 清理下载临时文件
+	files = CS.FileUtil.Instance:GetChildFiles(GameConst.DOWNLOAD_ROOT)
+	for i = 0, files.Length - 1 do
+		local file = files:GetValue(i)
+		CS.FileUtil.Instance:DeleteFileInfo(file)
+	end
+	-- 清理冗余资源文件
+	local validFileNames = {'Version'} -- 有效资源文件名数组
+	for index, asset in ipairs(AssetVersionControl.Version.Assets) do
+		table.insert(validFileNames, table.concat({asset.name, '_', asset.hash}))
+	end
+	files = CS.FileUtil.Instance:GetChildFiles(GameConst.ASSET_ROOT)
+	for i = 0, files.Length - 1 do
+		local file = files:GetValue(i)
+		if (not table.exist(validFileNames, file.Name)) then
+			CS.FileUtil.Instance:DeleteFileInfo(file)
+		end
+	end
+end
+function UI_HOTUPDATE:refreshVersion()
+	local version = AssetVersionControl.Version
+	self.assetVersionText:SetText(Template.template_text:getText(400104, version.Version))
+	self.clientVersionText:SetText(Template.template_text:getText(400105, version.ClientVersion))
+end
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return UI_HOTUPDATE

@@ -1,0 +1,127 @@
+local CompManager = {}
+
+-- CS
+function CompManager.AddCSComponent(node, comp)
+    return node.gameObject:AddComponent(typeof(comp))
+end
+function CompManager.GetCSComponent(node, comp)
+    local o = node.gameObject:GetComponent(typeof(comp))
+    if(CS.LuaUtil.Instance:IsNull(o)) then  -- 一个坑 有些时候C#判空但是Lua不判nil
+        return nil
+    end
+    return o
+end
+function CompManager.GetCSComponents(node,comp)
+    return node.gameObject:GetComponents(typeof(comp))
+end
+function CompManager.CloseCSComponent(comp)
+    CS.UnityEngine.Object.Destroy(comp)
+end
+function CompManager.GetCSComponentInChildren(node, comp)
+    return node.gameObject:GetComponentInChildren(typeof(comp))
+end
+function CompManager.GetCSComponentsInChildren(node, comp)
+    return node.gameObject:GetComponentsInChildren(typeof(comp))
+end
+function CompManager.GetCSComponentInParent(node, comp)
+    return node.gameObject:GetComponentInParent(typeof(comp))
+end
+function CompManager.GetCSComponentsInParent(node, comp)
+    return node.gameObject:GetComponentsInParent(typeof(comp))
+end
+
+--Lua
+function CompManager.AddComponent(node, compName, ...)
+    local compClass;
+    if(type(compName) == 'string') then
+        compClass = require(compName)
+    else
+        compClass = compName;
+        compName = compClass.className
+    end
+    if(compClass==nil) then return; end
+    local comp = CompManager.GetComponent(node, compName)
+    if comp ~= nil then
+        return comp
+    end
+
+    comp = compClass:new(node,...)
+
+    return comp
+end
+function CompManager.GetComponent(node, compName)
+    local compList = CompManager.GetCSComponents(node,CS.LuaComponent)
+    if compList.Length == 0 then
+        return nil
+    end
+    for i = 0, compList.Length-1 do
+        local csComp = compList:GetValue(i)
+        if(csComp.LuaName == compName) then
+            return csComp.LuaTable
+        end
+    end
+    return nil
+end
+function CompManager.CloseComponent(node, compName)
+    local compClass;
+    if(type(compName) == 'string') then
+        compClass = CompManager.GetComponent(node,compName)
+    elseif(type(compName) == 'table') then
+        compClass = compName
+        compName = compClass.className
+    elseif(type(node)=='table' and compName == nil) then
+        compClass = node;
+        compName = compClass.className
+        node = compClass.node
+    end
+    if(compClass==nil) then
+        return false
+    end
+    CompManager.CloseCSComponent(compClass.csComp)
+    return true
+end
+
+function CompManager.GetComponentInChildren(node, compName)
+    local csComps = CompManager.GetCSComponentsInChildren(node, CS.LuaComponent)
+    for i = 0, csComps.Length - 1 do
+        local csComp = csComps:GetValue(i)
+        if csComp.LuaName == compName then
+            return csComp.LuaTable
+        end
+    end
+    return nil
+end
+function CompManager.GetComponentsInChildren(node, compName)
+    local comps = {}
+    local csComps = CompManager.GetCSComponentsInChildren(node, CS.LuaComponent)
+    for i = 0, csComps.Length - 1 do
+        local csComp = csComps:GetValue(i)
+        if csComp.LuaName == compName then
+            table.insert(comps, csComp.LuaTable)
+        end
+    end
+    return comps
+end
+function CompManager.GetComponentInParent(node, compName)
+    local csComps = CompManager.GetCSComponentsInParent(node, CS.LuaComponent)
+    for i = 0, csComps.Length - 1 do
+        local csComp = csComps:GetValue(i)
+        if csComp.LuaName == compName then
+            return csComp.LuaTable
+        end
+    end
+    return nil
+end
+function CompManager.GetComponentsInParent(node, compName)
+    local comps = {}
+    local csComps = CompManager.GetCSComponentsInParent(node, CS.LuaComponent)
+    for i = 0, csComps.Length - 1 do
+        local csComp = csComps:GetValue(i)
+        if csComp.LuaName == compName then
+            table.insert(comps, csComp.LuaTable)
+        end
+    end
+    return comps
+end
+
+return CompManager

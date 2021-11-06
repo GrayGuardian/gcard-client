@@ -1,0 +1,12 @@
+local ShowStyleControl = {}
+local this = ShowStyleControl
+
+local ShowStyleMsg = require('ShowStyleMsg')
+
+--- 显示信息
+---@param type SHOW_STYLE_MSG 显示样式
+function ShowStyleControl.ShowMsg(type,...)
+    return ShowStyleMsg.ShowMsg(type,...)
+end
+
+return ShowStyleControl

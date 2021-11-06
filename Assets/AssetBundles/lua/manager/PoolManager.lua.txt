@@ -1,0 +1,186 @@
+local PoolManager = {}
+
+-- 检查周期
+local CHECK_TIME = 5
+-- 默认配置项
+-- cnt:常驻数量
+local DEFAULT_CONFIG = {cnt = 10}
+
+local go = CS.UnityEngine.GameObject('PoolRoot')
+CS.UnityEngine.GameObject.DontDestroyOnLoad(go)
+local root = go.transform
+local configMap = {}
+local usePoolObject = {}
+
+--池是否存在
+function PoolManager.ExistPool(key)
+    return configMap[key] ~= nil
+end
+--获取池对象
+function PoolManager.GetPool(key, isCreate)
+    isCreate = isCreate==nil and true or false
+    local node = root:Find(key)
+    if node == nil and isCreate then
+        node = CS.UnityEngine.GameObject(key).transform
+        node.parent = root
+    end
+    return node
+end
+function PoolManager.GetUsePoolObjectCnt(key)
+    if not PoolManager.ExistPool(key) then
+        return 0
+    end
+    return #usePoolObject[key]
+end
+function PoolManager.GetUnUsePoolObjectCnt(key)
+    return PoolManager.GetPoolObjectCnt(key) - PoolManager.GetUsePoolObjectCnt(key)
+end
+--获取池内实例数量
+function PoolManager.GetPoolObjectCnt(key)
+    if not PoolManager.ExistPool(key) then
+        return 0
+    end
+    local poolNode = PoolManager.GetPool(key, false)
+    return poolNode.childCount
+end
+function PoolManager.LoadPoolByBundle(key, bundleKey, assetName, config, cb)
+    if PoolManager.ExistPool(key) then
+        print('对象池已存在 无法加载>>>', key)
+        return
+    end
+    AssetManager.LoadPrefabAsync(
+        bundleKey,
+        assetName,
+        function(prefab)
+            local cnt = PoolManager.LoadPool(key, prefab, config)
+            if cb ~= nil then
+                cb(cnt)
+            end
+        end
+    )
+end
+function PoolManager.LoadPool(key, prefab, config)
+    if PoolManager.ExistPool(key) then
+        print('对象池已存在 无法加载>>>', key)
+        return nil
+    end
+    config = config or table.deepCopy(DEFAULT_CONFIG)
+    for key, value in pairs(DEFAULT_CONFIG) do
+        if config[key] == nil then
+            config[key] = value
+        end
+    end
+    config.prefab = prefab
+    configMap[key] = config
+    usePoolObject[key] = {}
+
+    local poolNode = PoolManager.GetPool(key)
+    for i = 1, config.cnt do
+        local node = CS.UnityEngine.GameObject.Instantiate(prefab).transform
+        node.parent = poolNode
+        node.gameObject:SetActive(false)
+    end
+    return PoolManager.GetPoolObjectCnt(key)
+end
+
+function PoolManager.UnLoadPool(key)
+    if not self:existPool(key) then
+        print('对象池不存在 无法卸载>>>', key)
+        return false
+    end
+    local poolNode = PoolManager.GetPool(key)
+    poolNode.gameObject:Destroy()
+    configMap[key] = nil
+    usePoolObject[key] = nil
+    return true
+end
+--获取池实例
+function PoolManager.LoadPoolObject(key)
+    if not PoolManager.ExistPool(key) then
+        print('对象池不存在 无法加载实例>>>', key)
+        return nil
+    end
+    local poolNode = PoolManager.GetPool(key)
+    local poolObject = nil
+    for i = 0, PoolManager.GetPoolObjectCnt(key) - 1 do
+        local obj = poolNode:GetChild(i)
+        if not table.exist(usePoolObject[key], obj) then
+            table.insert(usePoolObject[key], obj)
+            poolObject = obj
+            break
+        end
+    end
+    if poolObject == nil then
+        --无可用实例 生成新实例
+        local config = configMap[key]
+        poolObject = CS.UnityEngine.GameObject.Instantiate(config.prefab).transform
+        poolObject.parent = poolNode
+        table.insert(usePoolObject[key], poolObject)
+    end
+    poolObject.gameObject:SetActive(true)
+
+    PoolManager.UpPoolObjectCnt(key)
+
+    return poolObject
+end
+function PoolManager.UnLoadPoolObject(key, poolObject)
+    if not PoolManager.ExistPool(key) then
+        print('对象池不存在 无法卸载实例>>>', key)
+        return false
+    end
+    if not table.exist(usePoolObject[key], poolObject) then
+        print('实例未使用或不存在，无法卸载>>>', key)
+        return false
+    end
+    table.del(usePoolObject[key], poolObject)
+    poolObject.gameObject:SetActive(false)
+
+    PoolManager.UpPoolObjectCnt(key)
+
+    return true
+end
+
+-- 更新对象池数量
+function PoolManager.UpPoolObjectCnt()
+    for key, config in pairs(configMap) do
+        local poolNode = PoolManager.GetPool(key)
+        local cnt = PoolManager.GetPoolObjectCnt(key)
+        local useCnt = PoolManager.GetUsePoolObjectCnt(key)
+        local unUseCnt = PoolManager.GetUnUsePoolObjectCnt(key)
+        -- print("数量", cnt, useCnt, unUseCnt)
+        -- 数量同步
+        if cnt < config.cnt then
+            --添加至常驻数量
+            for i = 1, config.cnt - cnt do
+                local node = CS.UnityEngine.GameObject.Instantiate(config.prefab).transform
+                node.parent = poolNode
+                node.gameObject:SetActive(false)
+            end
+        elseif cnt > config.cnt then
+            --超过常驻数量 判断是否允许删除
+            local num = cnt - unUseCnt > config.cnt and unUseCnt or cnt - config.cnt
+            -- print("多余数量>>>", num)
+            for i = 0, cnt - 1 do
+                if num <= 0 then
+                    break
+                end
+                local obj = poolNode:GetChild(i)
+                if not table.exist(usePoolObject[key], obj) then
+                    --未使用 允许删除
+                    num = num - 1
+                    obj.gameObject:Destroy()
+                end
+            end
+        end
+        --清理数据
+        for index, node in pairs(usePoolObject[key]) do
+            if node == nil then
+                usePoolObject[key][index] = nil
+            end
+        end
+    end
+end
+
+TimerManager.On(CHECK_TIME,PoolManager.UpPoolObjectCnt,true)
+
+return PoolManager

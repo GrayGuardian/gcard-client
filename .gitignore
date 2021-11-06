@@ -1,9 +1,10 @@
 .vscode/
+Assets/ThirdParty/XLua/Gen/
+Assets/ThirdParty/XLua/Gen.meta
 Library/
 Logs/
 obj/
 Packages/
-UserSettings/
 *.csproj
 *.sln
 Temp/

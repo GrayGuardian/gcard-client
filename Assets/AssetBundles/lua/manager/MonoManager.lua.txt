@@ -1,0 +1,46 @@
+local MonoManager = {}
+
+local CSMonoUtil = CS.MonoUtil.Instance
+local MonoComp = CSMonoUtil.MonoComponent
+
+local monoEventMap = {}
+
+MonoManager.monoNode = CSMonoUtil.MonoNode
+
+for index, mono in ipairs(MonoLifecycle.Global) do
+    monoEventMap[mono] = function(arg1)  -- 目前只可能有一个参数
+        EventManager.Dispatch(Event.MONO(mono), arg1)
+    end
+end
+
+local Regist = function()
+    for index, mono in ipairs(MonoLifecycle.Global) do
+        if(not table.exist({'Awake','Start','OnDestroy'},mono)) then    -- Mono调用顺序不可控导致的问题，部分函数需要手动调用
+            local eventName = string.format("%sEvent",mono)
+            MonoComp[eventName](MonoComp,"+",monoEventMap[mono])
+        end
+    end
+end
+local UnRegist = function()
+    for index, mono in ipairs(MonoLifecycle.Global) do
+        if(not table.exist({'Awake','Start','OnDestroy'},mono)) then    -- Mono调用顺序不可控导致的问题，部分函数需要手动调用
+            local eventName = string.format("%sEvent",mono)
+            MonoComp[eventName](MonoComp,"-",monoEventMap[mono])
+        end
+    end
+end
+
+-- Mono调用顺序不可控导致的问题，起始函数手动调用
+monoEventMap['Awake']()
+monoEventMap['OnEnable']()
+monoEventMap['Start']()
+
+Regist()
+
+EventManager.On(Event.MONO("OnDisable"),function()
+    -- 由于Mono调用顺序不可控，导致OnDestroy不一定会成功调用 因此监听OnDisable来手动调用
+    monoEventMap['OnDestroy']()
+    UnRegist()
+end)
+
+return MonoManager

@@ -1,0 +1,19 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+
+local base = require('ui_base')
+local UI_VIEW = class('ui_view', base)
+
+function UI_VIEW:initUIControl()
+	self.bg = UIControl:new(self.node,"bg")
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+function UI_VIEW:onLoad(assetID)
+	assetID = next(assetID) and assetID or AssetID.BG_VIEW1
+	self:LoadInIDAsync(assetID,function (asset)
+		self.bg:SetTexture(asset)
+	end)
+end
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return UI_VIEW

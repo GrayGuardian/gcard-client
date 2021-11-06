@@ -1,0 +1,60 @@
+
+ƒ
+db.protodb"à
+UserInfo
+uid (	Ruid
+username (	Rusername
+password (	Rpassword"
+registerTime (RregisterTime
+	loginTime (R	loginTime
+banTime (RbanTime
+state (Rstate
+lastAid (RlastAid"‚
+ServerConfig
+id (Rid
+name (	Rname
+type (Rtype
+host (	Rhost
+port (Rport
+desc (	Rdesc"f
+AreaInfo
+aid (Raid
+name (	Rname
+state (Rstate
+
+createTime (R
+createTime"¤
+
+PlayerInfo
+pid (	Rpid
+uid (	Ruid
+aid (Raid
+name (	Rname
+lv (Rlv
+exp (Rexp
+
+createTime (R
+createTime
+	loginTime (R	loginTime
+
+logoutTime	 (R
+logoutTime
+
+deleteTime
+ (R
+deleteTime
+online (Ronline
+state (Rstate"^
+PlayerCurrency
+pid (	Rpid
+	currency0 (R	currency0
+	currency1 (R	currency1"›
+PlayerProps
+propsId (RpropsId
+pid (	Rpid
+cnt (Rcnt
+
+createTime (R
+createTime
+useTime (RuseTime
+state (Rstate

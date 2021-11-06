@@ -1,0 +1,10 @@
+^D:\TESTTTTT\XLUA-BUILD\BUILD64\CMAKEFILES\CC999AA9F55DC6BC8A9937EDDF6EE1DC\GENERATE.STAMP.RULE
+setlocal
+D:\Soft\CMake\bin\cmake.exe -SD:/testtttt/xlua-build -BD:/testtttt/xlua-build/build64 --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/testtttt/xlua-build/build64/XLua.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

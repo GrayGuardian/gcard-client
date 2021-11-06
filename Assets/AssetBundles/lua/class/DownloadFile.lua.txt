@@ -1,0 +1,59 @@
+local DownloadFile = class("DownloadFile")
+local CSDownloadFile = CS.DownloadFile
+function DownloadFile:ctor(url)
+    self.client = CSDownloadFile(url)
+end
+function DownloadFile:onError(cb)
+    self.client.OnError(self.client,"+",cb)
+end
+function DownloadFile:outError(cb)
+    self.client.OnError(self.client,"-",cb)
+end
+function DownloadFile:getFileSize()
+    return self.client:GetFileSize()
+end
+function DownloadFile:getFileSizeAsyn(cb)
+    self.client:GetFileSizeAsyn(
+        function(size)
+            if (cb ~= nil) then
+                cb(size)
+            end
+        end
+    )
+end
+function DownloadFile:downloadToFile(threadCount, filePath, onDownloading, onTrigger)
+    self.client:DownloadToFile(
+        threadCount,
+        filePath,
+        function(size, count)
+            if (onDownloading ~= nil) then
+                onDownloading(size, count)
+            end
+        end,
+        function(data)
+            if (onTrigger ~= nil) then
+                onTrigger(data)
+            end
+        end
+    )
+end
+function DownloadFile:downloadToMemory(threadCount, onDownloading, onTrigger)
+    self.client:DownloadToMemory(
+        threadCount,
+        function(size, count)
+            if (onDownloading ~= nil) then
+                onDownloading(size, count)
+            end
+        end,
+        function(data)
+            if (onTrigger ~= nil) then
+                onTrigger(data)
+            end
+        end
+    )
+end
+
+function DownloadFile:close()
+    self.client:Close()
+end
+return DownloadFile

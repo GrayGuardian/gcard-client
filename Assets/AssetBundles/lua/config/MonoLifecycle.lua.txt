@@ -1,0 +1,10 @@
+local MonoLifecycle = {}
+
+MonoLifecycle.Global = {"Awake","Start","OnEnable","OnDestroy", "OnDisable","Update","FixedUpdate","OnPause","OnFocus"};
+
+MonoLifecycle.Component = table.merge(
+    MonoLifecycle.Global,
+    {"OnTriggerEnter", "OnTriggerStay","OnTriggerExit","OnCollisionEnter","OnCollisionStay","OnCollisionExit","OnTriggerEnter2D","OnTriggerStay2D","OnTriggerExit2D","OnCollisionEnter2D","OnCollisionStay2D","OnCollisionExit2D"}
+)
+
+return MonoLifecycle

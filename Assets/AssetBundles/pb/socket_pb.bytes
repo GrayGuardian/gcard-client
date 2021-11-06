@@ -1,0 +1,26 @@
+
+Ì
+socket.protosocketmodel.protodb.protoerror.proto" 
+rpc
+router (	Rrouter"
+error (2.error.ErrorRerrorA
+updateModelData (2.socket.updateModelDataRupdateModelData 
+conn2 (2.socket.connRconn)
+connRet3 (2.socket.connRetRconnRet!
+testÈ (2.socket.testRtest*
+testRetÉ (2.socket.testRetRtestRet"Ý
+updateModelData
+clsName (	RclsName
+idx (Ridx)
+Player
+ (2.model.PlayerInfoRPlayer=
+PlayerCurrency (2.model.PlayerCurrencyRPlayerCurrency4
+PlayerProps (2.model.PlayerPropsRPlayerProps"
+conn
+token (	Rtoken"4
+connRet)
+player (2.model.PlayerInfoRplayer"
+test
+text (	Rtext"
+testRet
+text (	Rtext

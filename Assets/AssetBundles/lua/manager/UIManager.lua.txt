@@ -1,0 +1,137 @@
+local UIManager = {}
+
+local UILAYER = CS.UnityEngine.LayerMask.NameToLayer("UI")
+
+local createUIRoot = function ()
+    local uiRoot = CS.UnityEngine.GameObject('UIRoot').transform
+    CS.UnityEngine.GameObject.DontDestroyOnLoad(uiRoot.gameObject)
+
+    local cameraNode = CS.UnityEngine.GameObject('UICamera').transform
+    cameraNode.parent = uiRoot
+    local uiCamera = CompManager.AddCSComponent(cameraNode,CS.UnityEngine.Camera)
+    uiCamera.clearFlags = CS.UnityEngine.CameraClearFlags.Depth
+    uiCamera.cullingMask = CS.UnityEngine.LayerMask.GetMask("UI")
+    uiCamera.orthographic = true
+    uiCamera.orthographicSize = 7
+    uiCamera.depth = 100
+
+    local uiCanvas = CS.UnityEngine.GameObject('UICanvas').transform
+    uiCanvas.gameObject.layer = UILAYER;
+    uiCanvas.parent = uiRoot
+    uiCanvas = CompManager.AddCSComponent(uiCanvas,CS.UnityEngine.RectTransform)
+    local canvas = CompManager.AddCSComponent(uiCanvas,CS.UnityEngine.Canvas)
+    canvas.renderMode = CS.UnityEngine.RenderMode.ScreenSpaceCamera
+    canvas.worldCamera = uiCamera
+    local canvasScaler = CompManager.AddCSComponent(uiCanvas,CS.UnityEngine.UI.CanvasScaler)
+    canvasScaler.uiScaleMode = CS.UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize
+    canvasScaler.referenceResolution = GameConst.SCREEN_NORMAL
+    local graphicRaycaster = CompManager.AddCSComponent(uiCanvas,CS.UnityEngine.UI.GraphicRaycaster)
+
+    local eventSystem = CS.UnityEngine.GameObject('EventSystem').transform
+    eventSystem.parent = uiRoot
+    CompManager.AddCSComponent(eventSystem,CS.UnityEngine.EventSystems.EventSystem)
+    CompManager.AddCSComponent(eventSystem,CS.UnityEngine.EventSystems.StandaloneInputModule)
+
+    return uiRoot,uiCamera,uiCanvas
+end
+
+local uiRoot,uiCamera,uiCanvas = createUIRoot()
+-- 创建UI物体实例
+local createUINode = function (prefab)
+    local node = CS.UnityEngine.GameObject.Instantiate(prefab).transform
+    node = CompManager.GetCSComponent(node,CS.UnityEngine.RectTransform)
+    node.gameObject:SetActive(false)
+    node:SetParent(uiCanvas)
+    node.gameObject.layer = UILAYER;
+    node.anchorMin = Vector2.zero
+    node.anchorMax = Vector2.one
+    node.offsetMin = Vector2.zero
+    node.offsetMax = Vector2.zero
+    node.anchoredPosition3D = Vector3.zero
+    node.localScale = Vector3.one
+    return node
+end
+
+UIManager.UIInfoArr = {}
+UIManager.UICount = {}
+-- 加载UI
+---@param id string UI名
+---@param loadArg table 加载配置 ui_base.LOAD_ARG
+---@param cb Action<uiClass> 加载完毕回调
+function UIManager.Load(id,loadArg,cb,...)
+    local arg = {...}
+    local uiclass = _G[string.upper(id)]:new(loadArg,...)
+    uiclass:onLoadStart(...)
+    log.print(uiclass.ASSET_CONFIG)
+    AssetManager.LoadPrefabAsync(
+        uiclass.ASSET_CONFIG.key,
+        uiclass.ASSET_CONFIG.assetName,
+        function(prefab)
+            if UIManager.UICount[uiclass.LOAD_ARG.Layer] then
+                UIManager.UICount[uiclass.LOAD_ARG.Layer] =  UIManager.UICount[uiclass.LOAD_ARG.Layer] + 1
+            else
+                UIManager.UICount[uiclass.LOAD_ARG.Layer] = 0
+            end
+
+            table.insert(UIManager.UIInfoArr,{id=id,asset=prefab,class=uiclass})
+            local node = createUINode(prefab)
+            uiclass:bind(node)
+            uiclass:onLoadEnd(table.unpack(arg))
+            if(cb~=nil) then cb(uiclass) end
+        end
+    )
+    return uiclass
+end
+-- 加载UI
+---@param id string UI名
+function UIManager.Show(id,...)
+    return UIManager.Load(id,nil,nil,...)
+end
+-- UI卸载回调
+local onUIClose = function (uiInfo)
+    uiInfo.class:close()
+    local node = uiInfo.class.node
+
+    if(not CS.LuaUtil.Instance:IsNull(node)) then
+        CS.UnityEngine.GameObject.Destroy(node.gameObject)
+    end
+    AssetManager.UnLoadAsset(uiInfo.asset)
+end
+-- 通过类实例卸载UI 只卸载一个
+function UIManager.CloseUIFromClass(class)
+    for index, uiInfo in ipairs(UIManager.UIInfoArr) do
+        if(uiInfo.class==class) then
+            onUIClose(uiInfo)
+            table.remove(UIManager.UIInfoArr, index)
+            return true
+        end
+    end
+    return false
+end
+-- 通过ID卸载UI 允许卸载多个
+function UIManager.CloseUIFromID(id)
+    local count = 0
+    local temp = {}
+    for index, uiInfo in ipairs(UIManager.UIInfoArr) do
+        if(uiInfo.id==id) then
+            onUIClose(uiInfo)
+            table.insert(temp,index)
+            count = count + 1
+        end
+    end
+    table.removeIndexs(UIManager.UIInfoArr,temp)
+    return count
+end
+-- 卸载所有UI
+function UIManager.CloseAllUI(id)
+    local temp = {}
+    for index, uiInfo in ipairs(UIManager.UIInfoArr) do
+        onUIClose(uiInfo)
+        table.insert(temp,index)
+    end
+    table.removeIndexs(UIManager.UIInfoArr,temp)
+    UIManager.UIInfoArr = {}
+    UIManager.UICount = {}
+end
+
+return UIManager

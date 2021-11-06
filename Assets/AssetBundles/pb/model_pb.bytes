@@ -1,0 +1,41 @@
+
+¹
+model.protomodel"‚
+UserInfo
+uid (	Ruid
+username (	Rusername
+banTime (RbanTime
+state (Rstate
+lastAid (RlastAid"F
+AreaInfo
+aid (Raid
+name (	Rname
+state (Rstate"ä
+
+PlayerInfo
+pid (	Rpid
+uid (	Ruid
+aid (Raid
+name (	Rname
+lv (Rlv
+exp (Rexp
+	loginTime (R	loginTime
+
+logoutTime (R
+logoutTime
+online	 (Ronline
+state
+ (Rstate"F
+ServerConfig
+id (Rid
+host (	Rhost
+port (Rport"L
+PlayerCurrency
+	currency0 (R	currency0
+	currency1 (R	currency1"Y
+PlayerProps
+propsId (RpropsId
+cnt (Rcnt
+
+createTime (R
+createTime

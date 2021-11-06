@@ -1,17 +1,26 @@
 ManifestFileVersion: 0
-CRC: 2994226571
+CRC: 1451765483
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: p1
+      Name: pb
       Dependencies: {}
     Info_1:
+      Name: lua
+      Dependencies: {}
+    Info_2:
+      Name: p2
+      Dependencies: {}
+    Info_3:
+      Name: p1
+      Dependencies: {}
+    Info_4:
+      Name: prefab
+      Dependencies: {}
+    Info_5:
       Name: ui
       Dependencies:
         Dependency_0: p1
-    Info_2:
-      Name: lua
-      Dependencies: {}
-    Info_3:
-      Name: hotupdate
+    Info_6:
+      Name: view
       Dependencies: {}

@@ -1,0 +1,3 @@
+D:/testtttt/xlua-build/build64/CMakeFiles/xlua.dir
+D:/testtttt/xlua-build/build64/CMakeFiles/ALL_BUILD.dir
+D:/testtttt/xlua-build/build64/CMakeFiles/ZERO_CHECK.dir

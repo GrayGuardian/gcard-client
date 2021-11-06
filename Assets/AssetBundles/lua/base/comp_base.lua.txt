@@ -1,0 +1,78 @@
+-- Lua组件基类 模拟Unity Component的使用 建议少用，避免过多mono带来的性能消耗
+local base = require('node_base')
+local CompBase = class('CompBase', base)
+CompBase.override = {onLoad = false,close = false}
+for index, mono in pairs(MonoLifecycle.Component) do
+    CompBase.override[mono] = false
+end
+-------------------- 继承重写 --------------------
+-- Mono生命周期 MonoLifecycle.Component
+
+-- Comp入口函数 建议代替Awake Start使用 执行顺序在Start之后
+function CompBase:onLoad(...)
+end
+-- Comp销毁函数 建议代替OnDestroy使用
+function CompBase:close()
+end
+-------------------- 继承重写 --------------------
+
+local monoEventMap = {}
+
+function CompBase:ctor(node,...)
+    self.csComp = CompManager.AddCSComponent(node, CS.LuaComponent)
+    self.csComp.LuaName = self.className
+    self.csComp.LuaTable = self
+
+    for index, mono in ipairs(MonoLifecycle.Component) do
+        monoEventMap[mono] = function(arg1)  -- 目前只可能有一个参数
+            -- log.print(mono)
+            if(self[mono]~=nil) then
+                self[mono](self,arg1)
+            end
+        end
+    end
+
+    -- Mono调用顺序不可控导致的问题，起始函数手动调用
+    monoEventMap['Awake']()
+    monoEventMap['OnEnable']()
+    monoEventMap['Start']()
+
+    self:onLoad(...)
+
+    self:RegistMonoLifecycle();
+    -- 此处是游戏结束时集中销毁组件的处理
+    self:EventOn(Event.MONO("OnDestroy"),function()
+        -- 游戏结束时集中销毁组件的Mono调用顺序随机，销毁函数手动调用
+        monoEventMap['OnDisable']()
+        monoEventMap['OnDestroy']()
+    end)
+end
+
+function CompBase:RegistMonoLifecycle()
+    for index, mono in ipairs(MonoLifecycle.Component) do
+        if(not table.exist({'Awake','Start'},mono)) then    -- Mono调用顺序不可控导致的问题，部分函数需要手动调用
+            local eventName = string.format("%sEvent",mono)
+            self.csComp[eventName](self.csComp,"+",monoEventMap[mono])
+        end
+    end
+end
+function CompBase:UnRegistMonoLifecycle()
+    for index, mono in ipairs(MonoLifecycle.Component) do
+        if(not table.exist({'Awake','Start'},mono)) then    -- Mono调用顺序不可控导致的问题，部分函数需要手动调用
+            local eventName = string.format("%sEvent",mono)
+            self.csComp[eventName](self.csComp,"-",monoEventMap[mono])
+        end
+    end
+end
+-- 卸载自身
+function CompBase:closeSelf()
+    CompManager.CloseComponent(self)
+end
+function CompBase:OnDestroy()
+    self:close();
+end
+function CompBase:close()
+    self:UnRegistMonoLifecycle();
+end
+
+return CompBase

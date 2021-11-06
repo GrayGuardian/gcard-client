@@ -1,0 +1,122 @@
+local HttpManager = {}
+local CSHttpUtil = CS.HttpUtil.Instance
+-- 封装C#
+function HttpManager.Post(url, data, error, this)
+    local request = CS.System.Net.HttpWebRequest.Create(CS.System.Uri(url))
+    request.Timeout = 1000
+
+    local result =
+        CSHttpUtil:Post(
+        request,
+        data,
+        function(ex)
+            Common.call(this, error, ex)
+        end
+    )
+    return result
+end
+function HttpManager.PostAsync(url, data, cb, error, this)
+    local request = CS.System.Net.HttpWebRequest.Create(CS.System.Uri(url))
+    request.Timeout = 1000
+
+    CSHttpUtil:PostAsync(
+        request,
+        data,
+        function(result)
+            Common.call(this, cb, result)
+        end,
+        function(ex)
+            Common.call(this, error, ex)
+        end
+    )
+end
+function HttpManager.Get(url, error, this)
+    local request = CS.System.Net.HttpWebRequest.Create(CS.System.Uri(url))
+    request.Timeout = 1000
+
+    local result =
+        CSHttpUtil:Get(
+        request,
+        function(ex)
+            Common.call(this, error, ex)
+        end
+    )
+    return result
+end
+function HttpManager.GetAsync(url, cb, error, this)
+    local request = CS.System.Net.HttpWebRequest.Create(CS.System.Uri(url))
+    request.Timeout = 1000
+    CSHttpUtil:GetAsync(
+        request,
+        function(result)
+            Common.call(this, cb, result)
+        end,
+        function(ex)
+            Common.call(this, error, ex)
+        end
+    )
+end
+-- 业务逻辑
+local token = nil
+local onError = function(error, data, rpcRouter, rpcData)
+    log.print(
+        '[HTTP]',
+        string.getColorText(Color.Red, '[Error]'),
+        string.format('[%s]', error:get_id()),
+        error:getTip(data),
+        data,
+        rpcRouter,
+        rpcData
+    )
+
+    ErrorControl.Receive(error, data, rpcRouter, rpcData)
+end
+local onReceive = function(retRouter, retData, rpcRouter, rpcData)
+    log.print('[HTTP]', '[ToClient]', string.format('[%s]', retRouter), retData)
+    EventManager.Dispatch(Event.HTTP_RECEIVE, retRouter, retData, rpcRouter, rpcData)
+    EventManager.Dispatch(Event.HTTP_RECEIVE(retRouter), retData, rpcRouter, rpcData)
+end
+
+function HttpManager.Send(router, data, this, cb, errorFunc)
+    log.print('[HTTP]', '[ToServer]', string.format('[%s]', router), data)
+    local dataPack = {}
+    dataPack.router = router
+    dataPack[router] = data or {}
+    local buff = ProtoBufManager.Encode('http.rpc', dataPack)
+    HttpManager.PostAsync(
+        GameConst.API_URL,
+        buff,
+        function(result)
+            local t_dataPack = ProtoBufManager.Decode('http.rpc', result.bytes)
+            local t_router = t_dataPack.router
+            local t_data = t_dataPack[t_router]
+
+            if (t_router == 'error') then
+                -- 出现业务逻辑错误
+                local errorInfo = ERROR_INFO[t_data.id] or ERROR_INFO.UNKNOWN_ERROR
+                local errorData = nil
+                if (t_data.data ~= nil) then
+                    errorData = t_data.data[errorInfo:get_id()]
+                end
+                onError(errorInfo, errorData, router, data)
+                Common.call(this, errorFunc, errorInfo, errorData, router, data)
+                return
+            end
+            if (t_data['token'] ~= nil) then
+                token = t_data['token']
+                log.print('[HTTP]', string.format('update token is %s', token))
+            end
+
+            onReceive(t_router, t_data, router, data)
+            Common.call(this, cb, t_router, t_data)
+        end,
+        function(ex)
+            -- HTTP请求错误
+            local errorInfo = ERROR_INFO.HTTP_ERROR or ERROR_INFO.UNKNOWN_ERROR
+            onError(errorInfo, ex, router, data)
+            Common.call(this, errorFunc, errorInfo, ex, router, data)
+        end
+    )
+end
+
+return HttpManager

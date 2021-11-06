@@ -1,0 +1,19 @@
+-- 该文件通过工具生成，请勿更改
+
+local Template = {};
+
+Template.template_text = require('template_textManager'):new()
+Template.template_props = require('template_propsManager'):new()
+Template.template_error = require('template_errorManager'):new()
+
+Template.refresh = function ()
+	Template.template_text:refresh()
+	Template.template_props:refresh()
+	Template.template_error:refresh()
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+_G.ERROR_INFO = Template.template_error
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return Template;

@@ -1,0 +1,53 @@
+local rapidjson = require("rapidjson")
+
+local Base = class("template_manager_base");
+
+function Base:init()
+    self.Model = require(string.format("template_%sModel",self.name));
+    self.Data = require(string.format("template_%s",self.name));
+    self.tplModelMap = {};
+
+    -- self:refresh();
+end
+
+-- 更新数据
+function Base:refresh()
+    self.baseInfo = {};
+    for index, data in pairs(self.Data.data) do
+        local field = data[self.field]
+        local keyTable = {}
+        keyTable[self.field] = field
+        local tplModel = self:getTplModel(keyTable)
+        self.baseInfo[field] = tplModel
+        self[field] = tplModel
+    end
+end
+
+function Base:getTplInfo(keyTable)
+    for index, data in pairs(self.Data.data) do
+        local flag = true
+        for key, value in pairs(keyTable) do
+            if (data[key] ~= value) then
+                flag = false;
+                break;
+            end
+        end
+        if (flag) then
+            return data
+        end
+    end
+    return nil
+end
+
+function Base:getTplModel(keyTable)
+    local key = rapidjson.encode(keyTable)
+    local model = self.tplModelMap[key]
+    if(model~=nil)then
+        return model
+    end
+    model = self.Model:new(self:getTplInfo(keyTable))
+    self.tplModelMap[key] = model;
+    return model
+end
+
+return Base

@@ -1,0 +1,63 @@
+local SceneManager = {}
+local CSSceneManager = CS.UnityEngine.SceneManagement.SceneManager
+local nowScene = nil
+-- 监听场景切换
+local event = function()
+    if(nowScene~=nil) then
+        EventManager.Dispatch(Event.SCENE_LOAD, nowScene.name,table.unpack(nowScene.arg))
+    end
+end
+CSSceneManager.sceneLoaded("+", event)
+EventManager.On(Event.MONO("OnDestroy"),function()
+    CSSceneManager.sceneLoaded("-", event)
+end)
+
+-- 监听场景相关广播
+local onSceneUnLoad = function ()
+    nowScene:close()
+end
+local onSceneLoadStart = function(...)
+    nowScene:onLoadStart(...)
+end
+local onSceneLoading = function (...)
+    nowScene:onLoading(...)
+end
+local onSceneLoadEnd = function (...)
+    nowScene:onLoadEnd(...)
+end
+local onSceneLoad = function (...)
+    nowScene:onLoad(...)
+end
+EventManager.On(Event.SCENE_UNLOAD,onSceneUnLoad)
+EventManager.On(Event.SCENE_LOAD_START,onSceneLoadStart)
+EventManager.On(Event.SCENE_LOADING,onSceneLoading)
+EventManager.On(Event.SCENE_LOAD_END,onSceneLoadEnd)
+EventManager.On(Event.SCENE_LOAD,onSceneLoad)
+
+
+function SceneManager.Load(name,loadArg,cb,...)
+    if(nowScene~=nil) then
+        EventManager.Dispatch(Event.SCENE_UNLOAD,nowScene.name);
+    end
+    local luaName = string.format("scene_%s",string.lower(name))
+    local cls = require(luaName)
+
+    local arg = {...}
+    nowScene = cls:new(loadArg,table.unpack(arg))
+
+    EventManager.Dispatch(Event.SCENE_LOAD_START, table.unpack(arg))
+    CS.LuaUtil.Instance:LoadScene(
+        name,
+        function(ao)
+            EventManager.Dispatch(Event.SCENE_LOAD_END,table.unpack(table.merge({ao},arg)))
+            if(cb~=nil) then cb(name,ao) end
+        end,
+        function (ao, progress)
+            EventManager.Dispatch(Event.SCENE_LOADING,table.unpack(table.merge({ao,progress},arg)))
+        end,
+        false,
+        CS.UnityEngine.SceneManagement.LoadSceneMode.Single
+    )
+end
+
+return SceneManager

@@ -1,0 +1,138 @@
+-- Lua生命周期基类 管理广播、计时器、资源等内存的注册与卸载
+local LifecycleBase = class('LifecycleBase')
+LifecycleBase.override = {close = false}
+-------------------- 继承重写 --------------------
+function LifecycleBase:close()
+end
+-------------------- 继承重写 --------------------
+function LifecycleBase:ctor(...)
+    self.timerMap = {}
+    self.eventMap = {}
+    self.assetMap = {}
+end
+function LifecycleBase:close()
+    self:ClearAllTimer()
+    self:ClearAllEvent()
+    self:UnLoadAllAseet()
+end
+function LifecycleBase:TimerOn(time,this,onTrigger,loopCount)
+    local t = TimerManager.On(time,this,onTrigger,loopCount)
+    table.insert(self.timerMap, t)
+    return t
+end
+function LifecycleBase:TimerOut(time)
+    TimerManager.Out(time)
+    table.del(self.timerMap, time)
+end
+function LifecycleBase:ClearAllTimer()
+    local tempMap = {}
+    for index, t in pairs(self.timerMap) do
+        table.insert(tempMap, t)
+    end
+    for index, t in pairs(tempMap) do
+        self:TimerOut(t)
+    end
+    self.timerMap = {}
+end
+function LifecycleBase:EventOn(key, callback, this, order, isOnce)
+    local flag = EventManager.On(key, callback, this, order, isOnce)
+    if flag then
+        local info = {key = key, callback = callback}
+        table.insert(self.eventMap, info)
+    end
+    return flag
+end
+function LifecycleBase:EventOut(key, callback)
+    local flag = EventManager.Out(key, callback)
+    if flag then
+        table.del(self.eventMap, {key = key, callback = callback})
+    end
+    return flag
+end
+function LifecycleBase:ClearAllEvent()
+    local tempMap = {}
+    for index, info in pairs(self.eventMap) do
+        table.insert(tempMap, info)
+    end
+    for index, info in pairs(tempMap) do
+        self:EventOut(info.key, info.callback)
+    end
+    self.eventMap = {}
+end
+
+-- 根据AssetID加载资源
+---@param assetID AssetID
+function LifecycleBase:LoadInID(assetID)
+    local asset = AssetManager.LoadInID(assetID)
+    if(asset~=nil and not assetID.isPreLoad) then
+        table.insert(self.assetMap, asset)
+    end
+    return asset
+end
+-- 根据AssetID异步加载资源
+---@param assetID AssetID
+function LifecycleBase:LoadInIDAsync(assetID,cb)
+    local asset = AssetManager.LoadInIDAsync(assetID,function (asset)
+        if(asset~=nil and not assetID.isPreLoad) then
+            table.insert(self.assetMap, asset)
+        end
+        cb(asset)
+    end)
+end
+-- 加载类型资源函数动态创建
+for k, info in pairs(ASSET_TYPE) do
+    LifecycleBase[string.format("Load%s",k)] = function(this,key,assetName)
+        local asset = AssetManager[string.format("Load%s",k)](key, assetName)
+        table.insert(this.assetMap, asset)
+        return asset
+    end
+    LifecycleBase[string.format("Load%sAsync",k)] = function(this,key,assetName,cb)
+        AssetManager[string.format("Load%sAsync",k)](
+            key,
+            assetName,
+            function(asset)
+                table.insert(this.assetMap, asset)
+                if (cb ~= nil) then
+                    cb(asset)
+                end
+            end
+        )
+    end
+    LifecycleBase[string.format("LoadAll%s",k)] = function(this,key)
+        local assets = AssetManager[string.format("LoadAll%s",k)](key)
+        for index, asset in ipairs(assets) do
+            table.insert(this.assetMap, asset)
+        end
+        return assets
+    end
+    LifecycleBase[string.format("LoadAll%sAsync",k)] = function(this,key,cb)
+        AssetManager[string.format("LoadAll%sAsync",k)](
+            key,
+            function(assets)
+                for index, asset in ipairs(assets) do
+                    table.insert(this.assetMap, asset)
+                end
+                if (cb ~= nil) then
+                    cb(assets)
+                end
+            end
+        )
+    end
+end
+
+
+function LifecycleBase:UnLoadAsset(asset)
+    AssetManager.UnLoadAsset(asset)
+end
+function LifecycleBase:UnLoadAllAseet()
+    local tempMap = {}
+    for index, asset in pairs(self.assetMap) do
+        table.insert(tempMap, asset)
+    end
+    for index, asset in pairs(tempMap) do
+        self:UnLoadAsset(asset)
+    end
+    self.assetMap = {}
+end
+
+return LifecycleBase

@@ -1,0 +1,105 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+
+local base = require('ui_base')
+local UI_MSG = class('ui_msg', base)
+
+function UI_MSG:initUIControl()
+	self.closeBtn = UIControl:new(self.node,"closeBtn")
+	self.titleText = UIControl:new(self.node,"titleText")
+	self.msgText = UIControl:new(self.node,"msgText")
+	self.confirmBtn = UIControl:new(self.node,"confirmBtn")
+	self.confirmBtnText = UIControl:new(self.node,"confirmBtn/confirmBtnText")
+	self.yesBtn = UIControl:new(self.node,"yesBtn")
+	self.yesBtnText = UIControl:new(self.node,"yesBtn/yesBtnText")
+	self.noBtn = UIControl:new(self.node,"noBtn")
+	self.noBtnText = UIControl:new(self.node,"noBtn/noBtnText")
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+UI_MSG.getter.LOAD_ARG = function () return { ALLOW_SCENE_ACTIVATION = true , Layer = 'UI_Msg' , MaskInfo = {isMask=true, color=Color(0,0,0,0.5)} } end
+
+UI_MSG.ButtonType = {
+    One = enum(0),
+    Two = enum(),
+}
+
+---@type string title 标题
+---@type string msg 内容
+---@type boolean isClickClose 点击按钮是否自动关闭
+---@type boolean isShowCloseBtn 是否显示关闭按钮
+---@type class this 调用方实例
+---@type Action<uiClass> onClose 关闭按钮回调
+---@type Action<uiClass,boolean> onClick 消息按钮回调 参数表示点击了 是 or 否
+---@type Array<string> btnTitles 按钮标题数组
+---@type UI_MSG.ButtonType btnType 提示按钮类型
+function UI_MSG:onLoad(arg)
+    -- 参数处理
+    self.title = arg.title or '提示'
+    self.msg = arg.msg or ''
+    self.isClickClose = true
+    if(arg.isClickClose~=nil) then
+        self.isClickClose = arg.isClickClose
+    end
+    self.isShowCloseBtn = true
+    if (arg.isShowCloseBtn ~= nil) then
+        self.isShowCloseBtn = arg.isShowCloseBtn
+    end
+    self.this = arg.this
+    self.onClose = arg.onClose
+    self.onClick = arg.onClick
+    self.btnTitles = arg.btnTitles
+    if (self.btnTitles ~= nil) then
+        -- 非数组转为单成员数组
+        if (type(self.btnTitles) == 'string') then
+            self.btnTitles = {self.btnTitles}
+        end
+    end
+    self.btnType = arg.btnType or UI_MSG.ButtonType.One
+    -- UIControl
+    self.btns = {
+        [UI_MSG.ButtonType.One] = {self.confirmBtn},
+        [UI_MSG.ButtonType.Two] = {self.yesBtn,self.noBtn},
+    }
+    self.btnTexts = {
+        [UI_MSG.ButtonType.One] = {self.confirmBtnText},
+        [UI_MSG.ButtonType.Two] = {self.yesBtnText,self.noBtnText},
+    }
+    self.closeBtn:SetOnButtonClick(self,self.onCloseBtn)
+    self.confirmBtn:SetOnButtonClick(self,self.onClickBtn,true)
+    self.yesBtn:SetOnButtonClick(self,self.onClickBtn,true)
+    self.noBtn:SetOnButtonClick(self,self.onClickBtn,false)
+    -- 刷新
+    self:refresh();
+end
+
+function UI_MSG:refresh(arg)
+    self.titleText:SetText(self.title)
+    self.msgText:SetText(self.msg)
+    self.closeBtn:SetActive(self.isShowCloseBtn)
+    for type, btns in pairs(self.btns) do
+        for index, btn in ipairs(btns) do
+            btn:SetActive( type == self.btnType )
+        end
+    end
+    if(self.btnTitles~=nil) then
+        local btnTexts = self.btnTexts[self.btnType]
+        for index, btnText in ipairs(btnTexts) do
+            btnText:SetText( index > #self.btnTitles and self.btnTitles[#self.btnTitles] or self.btnTitles[index]  )
+        end
+    end
+end
+
+function UI_MSG:onCloseBtn(control)
+    self:closeSelf()
+    Common.call(self.this,self.onClose,self)
+end
+
+function UI_MSG:onClickBtn(control,flag)
+    if(self.isClickClose) then
+        self:closeSelf()
+    end
+    Common.call(self.this,self.onClick,self,flag)
+end
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return UI_MSG

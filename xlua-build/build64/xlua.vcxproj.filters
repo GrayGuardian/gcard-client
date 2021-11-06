@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lapi.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lauxlib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lbaselib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lbitlib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lcode.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lcorolib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lctype.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ldblib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ldebug.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ldo.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ldump.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lfunc.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lgc.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\linit.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\liolib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\llex.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lmathlib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lmem.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\loadlib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lobject.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lopcodes.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\loslib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lparser.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lstate.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lstring.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lstrlib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ltable.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ltablib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ltm.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lundump.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lutf8lib.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lvm.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lzio.c">
+      <Filter>lua-5.3.5\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\i64lib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\xlua.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\memory_leak_checker.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-rapidjson\source\Document.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-rapidjson\source\rapidjson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-rapidjson\source\Schema.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-rapidjson\source\values.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-protobuf\pb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\testtttt\xlua-build\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{839BA8FA-0314-3BCE-BB86-4B2D558355EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua-5.3.5">
+      <UniqueIdentifier>{1CE8243C-4AFF-3CF9-B260-FC23CAA68A35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua-5.3.5\src">
+      <UniqueIdentifier>{A7620226-B1C9-3568-A912-47333D6ADD5F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

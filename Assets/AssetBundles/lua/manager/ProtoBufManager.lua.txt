@@ -1,0 +1,17 @@
+local ProtoBufManager = {}
+
+local pb = require('pb')
+for index, buff in ipairs(AssetManager.LoadAllBytes('pb')) do
+    pb.load(buff)
+end
+
+function ProtoBufManager.Encode(key,data)
+    return assert(pb.encode(key, data))
+end
+
+function ProtoBufManager.Decode(key,data)
+    return assert(pb.decode(key, data))
+end
+
+
+return ProtoBufManager

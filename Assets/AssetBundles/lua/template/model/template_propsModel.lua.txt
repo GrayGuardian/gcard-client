@@ -1,0 +1,14 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+local Base = require('template_model_base')
+local Model = class('template_propsModel', Base)
+
+function Model:ctor(data)
+    self.name = 'props'
+    self:init(data)
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return Model

@@ -1,0 +1,8 @@
+local base = require('scene_base')
+local SceneStep = class('scene_step', base)
+
+function SceneStep:onLoad()
+    SceneManager.Load('Hotupdate')
+end
+
+return SceneStep

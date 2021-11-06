@@ -1,0 +1,54 @@
+-- 分割字符串
+string.split = function(str,separator)
+	local result = {}
+	string.gsub(str,table.concat({"[^",separator,"]+"}),function ( w )
+        table.insert(result,w)
+    end)
+    return result
+end
+-- 字符串倒序查找
+string.rfind = function(str, pattern)
+    local rstr = string.reverse(str)
+    local rpattern = string.reverse(pattern)
+    local t_min, t_max = string.find(rstr, rpattern)
+    if (t_min == nil and t_max == nil) then
+        return nil, nil
+    end
+    local len = string.len(rstr)
+    local min = len - t_max + 1
+    local max = len - t_min + 1
+    return min, max
+end
+-- 通过table格式化字符串
+string.formatTable = function(formatText,t)
+    local result = formatText
+    try{
+        function()
+            for k, v in pairs( t ) do
+                result = string.gsub(result,table.concat({'{',k,'}'}),v)
+            end
+        end,
+        catch = function()
+            result = formatText
+        end
+    }
+    return result
+end
+-- 获取携带Color颜色信息的字符串
+---@type color color
+---@type string text
+string.getColorText = function (color,text)
+    return string.format('<color=%s>%s</color>', color:ToHex(), text)
+end
+-- 获取文件大小描述字符串
+---@type int size
+string.getFileSizeText = function (size)
+    if size > (1024 * 1024 * 1024) * 0.95 then
+        return string.format('%0.2fGB', size / (1024 * 1024 * 1024))
+    elseif size > (1024 * 1024) * 0.95 then
+        return string.format('%0.2fMB', size / (1024 * 1024))
+    elseif size > 1024 * 0.95 then
+        return string.format('%0.2fKB', size / 1024)
+    end
+    return string.format('%0.2fByte', size)
+end

@@ -1,0 +1,11 @@
+
+---@param key string AssetBundle名
+---@param assetName string Asset名
+---@param isPreLoad boolean 是否预加载
+local AssetID = {
+    BG_VIEW1 = { key="view", assetName="bg_view1", type=ASSET_TYPE.Texture, isPreLoad = true},
+    BG_VIEW2 = { key="view", assetName="bg_view2", type=ASSET_TYPE.Texture, isPreLoad = true},
+}
+
+
+return AssetID

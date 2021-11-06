@@ -1,0 +1,93 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+
+local base = require('ui_base')
+local UI_TEST = class('ui_test', base)
+
+function UI_TEST:initUIControl()
+	self.Button1 = UIControl:new(self.node,"GameObject/GameObject/Button1")
+	self.Button2 = UIControl:new(self.node,"GameObject/GameObject/Button2")
+	self.Button3 = UIControl:new(self.node,"GameObject/GameObject/Button3")
+	self.InputField1 = UIControl:new(self.node,"GameObject/GameObject (1)/InputField1")
+	self.InputField2 = UIControl:new(self.node,"GameObject/GameObject (1)/InputField2")
+	self.InputField3 = UIControl:new(self.node,"GameObject/GameObject (1)/InputField3")
+	self.Dropdown1 = UIControl:new(self.node,"GameObject/GameObject (2)/Dropdown1")
+	self.Dropdown2 = UIControl:new(self.node,"GameObject/GameObject (2)/Dropdown2")
+	self.Dropdown3 = UIControl:new(self.node,"GameObject/GameObject (2)/Dropdown3")
+	self.Slider1 = UIControl:new(self.node,"GameObject/GameObject (3)/Slider1")
+	self.Slider2 = UIControl:new(self.node,"GameObject/GameObject (3)/Slider2")
+	self.Slider3 = UIControl:new(self.node,"GameObject/GameObject (3)/Slider3")
+	self.Toggle1 = UIControl:new(self.node,"GameObject/GameObject (4)/Toggle1")
+	self.Toggle2 = UIControl:new(self.node,"GameObject/GameObject (4)/Toggle2")
+	self.Toggle3 = UIControl:new(self.node,"GameObject/GameObject (4)/Toggle3")
+	self.Scrollbar1 = UIControl:new(self.node,"GameObject/GameObject (5)/Scrollbar1")
+	self.Scrollbar2 = UIControl:new(self.node,"GameObject/GameObject (5)/Scrollbar2")
+	self.Scrollbar3 = UIControl:new(self.node,"GameObject/GameObject (5)/Scrollbar3")
+	self.Toggle4 = UIControl:new(self.node,"GameObject/GameObject (6)/Toggle4")
+	self.Toggle5 = UIControl:new(self.node,"GameObject/GameObject (6)/Toggle5")
+	self.Toggle6 = UIControl:new(self.node,"GameObject/GameObject (6)/Toggle6")
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+function UI_TEST:onLoad(arg)
+	self.Button1:SetOnButtonClick(self,self.OnButtonClick,{order=1})
+	self.Button2:SetOnButtonClick(self,self.OnButtonClick,{order=2})
+	self.Button3:SetOnButtonClick(self,self.OnButtonClick,{order=3})
+
+	self.InputField1:SetOnInputFieldValueChanged(self,self.OnInputFieldValueChanged,{order=1})
+	self.InputField2:SetOnInputFieldValueChanged(self,self.OnInputFieldValueChanged,{order=2})
+	self.InputField3:SetOnInputFieldValueChanged(self,self.OnInputFieldValueChanged,{order=3})
+	self.InputField1:SetOnInputFieldEndEdit(self,self.OnInputFieldEndEdit,{order=1})
+	self.InputField2:SetOnInputFieldEndEdit(self,self.OnInputFieldEndEdit,{order=2})
+	self.InputField3:SetOnInputFieldEndEdit(self,self.OnInputFieldEndEdit,{order=3})
+
+	self.Dropdown1:SetOnDropdownValueChanged(self,self.OnDropdownValueChanged,{order=1})
+	self.Dropdown2:SetOnDropdownValueChanged(self,self.OnDropdownValueChanged,{order=2})
+	self.Dropdown3:SetOnDropdownValueChanged(self,self.OnDropdownValueChanged,{order=3})
+
+	self.Slider1:SetOnDropdownValueChanged(self,self.OnSliderValueChanged,{order=1})
+	self.Slider2:SetOnDropdownValueChanged(self,self.OnSliderValueChanged,{order=2})
+	self.Slider3:SetOnDropdownValueChanged(self,self.OnSliderValueChanged,{order=3})
+
+	self.Toggle1:SetOnToggleValueChanged(self,self.OnToggleValueChanged,{order=1})
+	self.Toggle2:SetOnToggleValueChanged(self,self.OnToggleValueChanged,{order=2})
+	self.Toggle3:SetOnToggleValueChanged(self,self.OnToggleValueChanged,{order=3})
+
+	self.Scrollbar1:SetOnScrollbarValueChanged(self,self.OnScrollbarValueChanged,{order=1})
+	self.Scrollbar2:SetOnScrollbarValueChanged(self,self.OnScrollbarValueChanged,{order=2})
+	self.Scrollbar3:SetOnScrollbarValueChanged(self,self.OnScrollbarValueChanged,{order=3})
+
+	self.Toggle4:SetOnToggleValueChanged(self,self.OnToggleValueChanged,{order=4})
+	self.Toggle5:SetOnToggleValueChanged(self,self.OnToggleValueChanged,{order=5})
+	self.Toggle6:SetOnToggleValueChanged(self,self.OnToggleValueChanged,{order=6})
+end
+
+function UI_TEST:OnButtonClick(control,data)
+	log.print("OnButtonClick",control.name,data)
+end
+
+function UI_TEST:OnInputFieldValueChanged(control,text,data)
+	log.print("InputFieldOnValueChanged",control.name,text,data)
+end
+
+function UI_TEST:OnInputFieldEndEdit(control,text,data)
+	log.print("OnInputFieldEndEdit",control.name,text,data)
+end
+
+function UI_TEST:OnDropdownValueChanged(control,value,data)
+	log.print("OnDropdownValueChanged",control.name,value,data)
+end
+
+function UI_TEST:OnSliderValueChanged(control,value,data)
+	log.print("OnSliderValueChanged",control.name,value,data)
+end
+
+function UI_TEST:OnToggleValueChanged(control,value,data)
+	log.print("OnToggleValueChanged",control.name,value,data)
+end
+
+function UI_TEST:OnScrollbarValueChanged(control,value,data)
+	log.print("OnScrollbarValueChanged",control.name,value,data)
+end
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return UI_TEST

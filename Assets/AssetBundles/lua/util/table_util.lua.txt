@@ -1,0 +1,136 @@
+-- 深拷贝
+table.deepCopy = function(t)
+    local fun = nil
+    fun = function (object)
+        if type(object) ~= "table" then
+            return object
+        end
+        local NewTable = {}
+        for k, v in pairs(object) do
+            NewTable[fun(k)] = fun(v)
+        end
+        return setmetatable(NewTable, getmetatable(object))
+    end
+
+    return fun(t)
+end
+-- 取table成员数量
+function table.count(t)
+    if not t or type(t) ~= "table" then
+        return 0
+    end
+
+    local n = 0
+    for _, _ in pairs(t) do
+        n = n + 1
+    end
+    return n
+end
+-- 判断是否是数组
+function table.isArray(t)
+    for i = 1, table.count(t) do
+        if t[i]==nil then
+            return false
+        end
+    end
+    return true
+end
+-- 合并
+table.merge = function(t,...)
+    local result = table.deepCopy(t);
+    for i, v in ipairs( {...} ) do
+    	if(table.isArray(result) and table.isArray(v)) then
+	        for index, value in ipairs(v) do
+	            table.insert(result,value)
+	        end
+	    else
+	        for key, value in pairs(v) do
+	            result[key] = value;
+	        end
+	    end
+    end
+
+    return result
+end
+-- 数组成员存在检查
+table.exist = function(t, value)
+    for k, v in pairs(t) do
+        if v == value then
+            return true
+        end
+    end
+    return false
+end
+-- 数组删除成员
+table.del = function(t, value)
+    for k, v in pairs(t) do
+        if v == value then
+            table.remove(t, k)
+            --t[k] = nil
+            return true
+        end
+    end
+    return false
+end
+-- 数组批量删除索引
+table.removeIndexs = function (t,indexs)
+    for i, v in ipairs( indexs ) do
+        table.remove(t,v-i+1)
+    end
+    return t
+end
+
+-- CS数组对象转Table
+table.csArrayToTable = function(csArray)
+    local t = {}
+    for i = 0, csArray.Length-1 do
+        table.insert(t,csArray:GetValue(i))
+    end
+    return t
+end
+-- table转字符串
+---@type table t
+---@type int tier 遍历最大深度
+---@type boolean child 是否为子字符串 主要用于table判断是否加类型前缀[]
+table.toString = function ( t,depth,child )
+	depth = depth or 3
+	child = child or false
+	if(t==nil) then
+		return 'nil'
+	elseif(type(t)=='number') then
+		return tostring(t)
+	elseif(type(t)=='boolean') then
+		return tostring(t)
+	elseif(type(t)=='string') then
+		return table.concat({'"',t,'"'})
+	elseif(type(t)=='userdata') then
+		return table.concat({'[',tostring(t),']'})
+	elseif(type(t)=='function') then
+		return table.concat({'[',tostring(t),']'})
+	elseif(type(t)=='thread') then
+		return table.concat({'[',tostring(t),']'})
+	elseif(type(t)=='table') then
+		local tstr = ''
+		if(depth<=0) then
+			return table.concat({'[',tostring(t),']'})
+		end
+		local arr = {}
+		if(table.isArray(t)) then
+			for i, v in ipairs( t ) do
+				local vstr = table.toString(v,depth-1,true)
+				table.insert( arr, vstr )
+			end
+			tstr = table.concat({'[',table.concat(arr,','),']'})
+		else
+			for k, v in pairs( t ) do
+				local kstr = type(k)~='number'and table.toString(k) or table.concat({'[',k,']'})
+				local vstr = table.toString(v,depth-1,true)
+                -- print(kstr,vstr,kstr.ToString,)
+				table.insert( arr, table.concat({kstr,'=',vstr}) )
+			end
+			tstr = table.concat({'{',table.concat(arr,','),'}'})
+		end
+		return child and tstr or table.concat({'[',tostring(t),']','(',tstr,')'})
+	end
+	return ''
+end

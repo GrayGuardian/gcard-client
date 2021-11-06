@@ -1,0 +1,349 @@
+local UIControl = class("UIControl")
+---------------- base ----------------
+---@type string
+UIControl.getter.name = function(this)
+    return this.node.name
+end
+---@type Transform
+UIControl.getter.transform = function(this)
+    return this.node
+end
+---@type GameObject
+UIControl.getter.gameObject = function(this)
+    if(rawget(this,"gameObject")==nil) then
+        this.gameObject = this.node.gameObject
+    end
+    return this.gameObject
+end
+---@type RectTransform
+UIControl.getter.rectTransform = function(this)
+    return this:GetComponent(CS.UnityEngine.RectTransform,'rectTransform')
+end
+---------------- graphic ----------------
+---@type Graphic
+UIControl.getter.graphic = function(this)
+    return this:GetComponent(CS.UnityEngine.UI.Graphic,"graphic")
+end
+UIControl.getter.image = function (this)
+    return this.graphic
+end
+UIControl.getter.rawImage = function (this)
+    return this.graphic
+end
+UIControl.getter.text = function(this)
+    return this.graphic
+end
+---------------- selectable ----------------
+---@type Selectable
+UIControl.getter.selectable = function(this)
+    return this:GetComponent(CS.UnityEngine.UI.Selectable,"selectable")
+end
+---@type Button
+UIControl.getter.button = function(this)
+    return this.selectable
+end
+---@type Dropdown
+UIControl.getter.dropdown = function(this)
+    return this.selectable
+end
+---@type InputField
+UIControl.getter.inputField = function(this)
+    return this.selectable
+end
+---@type Scrollbar
+UIControl.getter.scrollbar = function(this)
+    return this.selectable
+end
+---@type Slider
+UIControl.getter.slider = function(this)
+    return this.selectable
+end
+---@type Toggle
+UIControl.getter.toggle = function(this)
+    return this.selectable
+end
+
+-- 构造函数
+function UIControl:ctor(node,path)
+    path = path or ''
+    self.node = node:Find(path)
+    self.root = node
+    self.path = path
+
+    self.unityEventInfo = {}
+end
+-- 卸载事件
+function UIControl:close()
+    -- 清理所有UnityEvent监听事件
+    for unityEvent, infos in pairs(self.unityEventInfo) do
+        self:ClearUnityEventListener(unityEvent)
+    end
+end
+
+-- 获得Component
+---@param t CS.Type Component Type
+---@param name string 可为空 对应缓存属性名，获取成功将自动存储至self中
+function UIControl:GetComponent(t,name)
+    local c = rawget(self,name)
+    if(c~=nil) then return c end
+    c = CompManager.GetCSComponent(self.node,t)
+    if(c==nil) then return nil end
+    if(name~=nil) then
+        self[name] = c
+    end
+    return c
+end
+-- 获得Component 不存在则添加
+---@param t CS.Type Component Type
+---@param name string 可为空 对应缓存属性名，获取成功将自动存储至self中
+function UIControl:GetOrAddComponent(t,name)
+    local c = rawget(self,name)
+    if(c~=nil) then return c end
+    c = CompManager.GetCSComponent(self.node,t)
+    if(c==nil) then
+        c = CompManager.AddCSComponent(self.node,t)
+    end
+    if(name~=nil) then
+        self[name] = c
+    end
+    return c
+end
+
+-- 添加UnityEvent监听事件
+---@param unityEvent UnityEvent
+---@param callback Action
+function UIControl:AddUnityEventListener(unityEvent,this,callback,uiControl,...)
+    local data = {...}
+    local event = function(...)
+        local arg = table.merge({uiControl},{...},data)
+        Common.call(this,callback,table.unpack(arg))
+    end
+    local info = {callback=callback,event=event}
+
+    unityEvent:AddListener(info.event)
+
+    if(not self.unityEventInfo[unityEvent]) then
+        self.unityEventInfo[unityEvent] = {}
+    end
+    table.insert(self.unityEventInfo[unityEvent],info)
+
+    return true
+end
+-- 移除UnityEvent监听事件
+---@param unityEvent UnityEvent
+---@param callback Action
+function UIControl:removeUnityEventListener(unityEvent,callback)
+    if(not self.unityEventInfo[unityEvent]) then return false end
+    for index, info in ipairs(self.unityEventInfo[unityEvent]) do
+        if(info.callback==callback) then
+            unityEvent:RemoveListener(info.event)
+            unityEvent:Invoke();
+
+            table.remove(self.unityEventInfo[unityEvent],index)
+            return true
+        end
+    end
+    return false
+end
+-- 移除UnityEvent所有监听事件
+---@param unityEvent UnityEvent
+function UIControl:ClearUnityEventListener(unityEvent)
+    if(not self.unityEventInfo[unityEvent]) then return false end
+    unityEvent:RemoveAllListeners()
+    unityEvent:Invoke();
+
+    self.unityEventInfo[unityEvent] = nil
+end
+---------------- base ----------------
+--- Transform
+function UIControl:GetPosition()
+    return Vector3(self.transform.position)
+end
+function UIControl:SetPosition(value)
+    self.transform.position = value
+end
+function UIControl:GetLocalPosition()
+    return Vector3(self.transform.localPosition)
+end
+function UIControl:SetLocalPosition(value)
+    self.transform.localPosition = value
+end
+function UIControl:GetEulerAngles()
+    return Vector3(self.transform.eulerAngles)
+end
+function UIControl:SetEulerAngles(value)
+    self.transform.eulerAngles = value
+end
+function UIControl:GetLocalEulerAngles()
+    return Vector3(self.transform.localEulerAngles)
+end
+function UIControl:SetLocalEulerAngles(value)
+    self.transform.localEulerAngles = value
+end
+function UIControl:GetRotation()
+    return Quaternion(self.transform.rotation)
+end
+function UIControl:SetRotation(value)
+    self.transform.rotation = value
+end
+function UIControl:GetLocalRotation()
+    return Quaternion(self.transform.localRotation)
+end
+function UIControl:SetLocalRotation(value)
+    self.transform.localRotation = value
+end
+function UIControl:GetLocalScale()
+    return Vector3(self.transform.localScale)
+end
+function UIControl:SetLocalScale(value)
+    self.transform.localScale = value
+end
+--- GameObject
+function UIControl:GetActive()
+    return self.gameObject.activeSelf
+end
+function UIControl:SetActive(flag)
+    self.gameObject:SetActive(flag)
+end
+--- RectTransform
+function UIControl:GetAnchoredPosition()
+    return Vector2(self.transform.anchoredPosition)
+end
+function UIControl:SetAnchoredPosition(value)
+    self.transform.anchoredPosition = value
+end
+function UIControl:GetAnchoredPosition3D()
+    return Vector3(self.transform.anchoredPosition3D)
+end
+function UIControl:SetAnchoredPosition3D(value)
+    self.transform.anchoredPosition3D = value
+end
+function UIControl:GetOffsetMax()
+    return Vector2(self.transform.offsetMax)
+end
+function UIControl:SetOffsetMax(value)
+    self.transform.offsetMax = value
+end
+function UIControl:GetOffsetMin()
+    return Vector2(self.transform.offsetMin)
+end
+function UIControl:SetOffsetMin(value)
+    self.transform.offsetMin = value
+end
+function UIControl:GetAnchorMax()
+    return Vector2(self.transform.anchorMax)
+end
+function UIControl:SetAnchorMax(value)
+    self.transform.anchorMax = value
+end
+function UIControl:GetAnchorMin()
+    return Vector2(self.transform.anchorMin)
+end
+function UIControl:SetAnchorMin(value)
+    self.transform.anchorMin = value
+end
+function UIControl:GetPivot()
+    return Vector2(self.transform.pivot)
+end
+function UIControl:SetPivot(value)
+    self.transform.pivot = value
+end
+function UIControl:GetSizeDelta()
+    return Vector2(self.transform.sizeDelta)
+end
+function UIControl:SetSizeDelta(value)
+    self.transform.sizeDelta = value
+end
+---------------- graphic ----------------
+--- Image
+function UIControl:SetSprite(sprite)
+    self.image.sprite = sprite
+end
+function UIControl:SetFillAmount(value)
+    self.image.fillAmount = value
+end
+--- RawImage
+function UIControl:SetTexture(texture)
+    self.rawImage.texture = texture
+end
+--- Text
+function UIControl:GetText()
+    return self.text.text
+end
+function UIControl:SetText(text)
+    self.text.text = text
+end
+---------------- selectable ----------------
+--- Button
+function UIControl:SetOnButtonClick(this,callback,data)
+    local unityEvent = self.button.onClick
+    self:ClearUnityEventListener(unityEvent)
+    self:AddUnityEventListener(unityEvent,this,callback,self,data)
+end
+--- Dropdown
+function UIControl:GetDropdownValue()
+    return self.dropdown.value
+end
+function UIControl:SetDropdownValue(value)
+    self.dropdown.value = value
+end
+function UIControl:SetOnDropdownValueChanged(this,callback,data)
+    local unityEvent = self.dropdown.onValueChanged
+    self:ClearUnityEventListener(unityEvent)
+    self:AddUnityEventListener(unityEvent,this,callback,self,data)
+end
+-- InputField
+function UIControl:GetInputText()
+    return self.inputField.text
+end
+function UIControl:SetInputText(text)
+    self.inputField.text = text
+end
+function UIControl:SetOnInputFieldValueChanged(this,callback,data)
+    local unityEvent = self.inputField.onValueChanged
+    self:ClearUnityEventListener(unityEvent)
+    self:AddUnityEventListener(unityEvent,this,callback,self,data)
+end
+function UIControl:SetOnInputFieldEndEdit(this,callback,data)
+    local unityEvent = self.inputField.onEndEdit
+    self:ClearUnityEventListener(unityEvent)
+    self:AddUnityEventListener(unityEvent,this,callback,self,data)
+end
+--- Scrollbar
+function UIControl:GetScrollbarValue()
+    return self.scrollbar.value
+end
+function UIControl:SetScrollbarValue(value)
+    self.scrollbar.value = value
+end
+function UIControl:SetOnScrollbarValueChanged(this,callback,data)
+    local unityEvent = self.scrollbar.onValueChanged
+    self:ClearUnityEventListener(unityEvent)
+    self:AddUnityEventListener(unityEvent,this,callback,self,data)
+end
+--- Slider
+function UIControl:GetSliderValue()
+    return self.slider.value
+end
+function UIControl:SetSliderValue(value)
+    self.slider.value = value
+end
+function UIControl:SetOnSliderValueChanged(this,callback,data)
+    local unityEvent = self.slider.onValueChanged
+    self:ClearUnityEventListener(unityEvent)
+    self:AddUnityEventListener(unityEvent,this,callback,self,data)
+end
+--- Toggle
+function UIControl:GetIsOn()
+    return self.toggle.isOn
+end
+function UIControl:SetIsOn(isOn)
+    self.toggle.isOn = isOn
+end
+function UIControl:SetOnToggleValueChanged(this,callback,data)
+    local unityEvent = self.toggle.onValueChanged
+    self:ClearUnityEventListener(unityEvent)
+    self:AddUnityEventListener(unityEvent,this,callback,self,data)
+end
+
+return UIControl

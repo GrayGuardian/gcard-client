@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 764394126
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: db269d137b8aebc53cd048cbb73586fe
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/AssetBundles/pb/error_pb.bytes
+- Assets/AssetBundles/pb/db_pb.bytes
+- Assets/AssetBundles/pb/http_pb.bytes
+- Assets/AssetBundles/pb/socket_pb.bytes
+- Assets/AssetBundles/pb/model_pb.bytes
+- Assets/AssetBundles/pb/s2s_pb.bytes
+Dependencies: []

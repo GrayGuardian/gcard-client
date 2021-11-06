@@ -1,0 +1,29 @@
+local GameConst = {}
+-- 设置CS.GameConst为元表
+setmetatable(GameConst, {__index = CS.GameConst})
+_G.ENV_TYPE = CS.ENV_TYPE
+-- HTTP API URL
+if (GameConst.PRO_ENV == ENV_TYPE.MASTER) then
+    GameConst.API_URL = 'http://127.0.0.1:8200'
+else
+    GameConst.API_URL = 'http://127.0.0.1:8200'
+end
+-- SOCKET URL
+GameConst.SOCKET_HOST = nil
+-- SOCKET PORT
+GameConst.SOCKET_PORT = nil
+-- 资源下载URL
+GameConst.DOWNLOAD_URL = 'http://127.0.0.1/Download'
+-- 资源版本URL
+GameConst.VERSION_URL = table.concat({GameConst.DOWNLOAD_URL, '/', 'Version'})
+-- 资源文件下载临时文件目录
+GameConst.DOWNLOAD_ROOT = table.concat({CS.UnityEngine.Application.persistentDataPath, '/Temp'})
+-- 本地资源版本文件路径
+GameConst.VERSION_PATH = table.concat({GameConst.ASSET_ROOT, '/Version'})
+-- 可视化控制台组件
+GameConst.TEST_CONSOLE_COMP = nil
+-- 标准分辨率
+GameConst.SCREEN_NORMAL = Vector2(750, 1334)
+-- 实际分辨率
+GameConst.SCREEN = Vector2(CS.LuaUtil.Instance:GetScreen())
+return GameConst

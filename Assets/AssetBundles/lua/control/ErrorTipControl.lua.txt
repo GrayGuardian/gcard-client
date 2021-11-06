@@ -1,0 +1,8 @@
+local ErrorTipControl = {}
+local this = ErrorTipControl
+
+function ErrorTipControl.USER_BAN(data)
+    return {time = Date.getTimeText('%Y-%m-%d %H:%M:%S', data.time)}
+end
+
+return ErrorTipControl

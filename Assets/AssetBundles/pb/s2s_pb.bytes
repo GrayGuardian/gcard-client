@@ -1,0 +1,80 @@
+
+ª
+	s2s.protos2smodel.protodb.protoerror.protosocket.proto"Š
+rpc
+code (Rcode
+from (	Rfrom
+to (	Rto
+router (	Rrouter
+type (	Rtype"
+error (2.error.ErrorRerror
+conn2 (2	.s2s.connRconn&
+connRet3 (2.s2s.connRetRconnRet2
+playerEnterd (2.s2s.playerEnterRplayerEnter;
+playerEnterRete (2.s2s.playerEnterRetRplayerEnterRet2
+playerLeavef (2.s2s.playerLeaveRplayerLeave;
+playerLeaveRetg (2.s2s.playerLeaveRetRplayerLeaveRet,
+	socketRpch (2.s2s.socketRpcR	socketRpc5
+socketRpcReti (2.s2s.socketRpcRetRsocketRpcRet;
+kickOutFromIdxj (2.s2s.kickOutFromIdxRkickOutFromIdxD
+kickOutFromIdxRetk (2.s2s.kickOutFromIdxRetRkickOutFromIdxRet>
+pushIDToChannell (2.s2s.pushIDToChannelRpushIDToChannelG
+pushIDToChannelRetm (2.s2s.pushIDToChannelRetRpushIDToChannelRet>
+pullIDToChanneln (2.s2s.pullIDToChannelRpullIDToChannelG
+pullIDToChannelReto (2.s2s.pullIDToChannelRetRpullIDToChannelRet)
+sendToIDp (2.s2s.sendToIDRsendToID2
+sendToIDRetq (2.s2s.sendToIDRetRsendToIDRet8
+sendToChannelr (2.s2s.sendToChannelRsendToChannelA
+sendToChannelRets (2.s2s.sendToChannelRetRsendToChannelRet6
+getPlayerAidÈ (2.s2s.getPlayerAidRgetPlayerAid?
+getPlayerAidRetÉ (2.s2s.getPlayerAidRetRgetPlayerAidRet<
+getPlayerModel¬ (2.s2s.getPlayerModelRgetPlayerModelE
+getPlayerModelRet­ (2.s2s.getPlayerModelRetRgetPlayerModelRet"0
+conn(
+config (2.db.ServerConfigRconfig"	
+connRet"5
+playerEnter&
+player (2.db.PlayerInfoRplayer"
+playerEnterRet"
+playerLeave
+pid (	Rpid"
+playerLeaveRet" 
+getPlayerAid
+pid (	Rpid"#
+getPlayerAidRet
+aid (Raid"F
+getPlayerModel
+pid (	Rpid"
+data (2.db.PlayerInfoRdata"/
+getPlayerModelRet
+jsonBuff (RjsonBuff"P
+	socketRpc
+data (2.socket.rpcRdata
+pid (	Rpid
+aid (Raid"/
+socketRpcRet
+data (2.socket.rpcRdata""
+kickOutFromIdx
+idx (	Ridx"'
+kickOutFromIdxRet
+flag (Rflag"5
+pushIDToChannel
+key (	Rkey
+idx (	Ridx"(
+pushIDToChannelRet
+flag (Rflag"5
+pullIDToChannel
+key (	Rkey
+idx (	Ridx"(
+pullIDToChannelRet
+flag (Rflag"=
+sendToID
+idx (	Ridx
+data (2.socket.rpcRdata"!
+sendToIDRet
+flag (Rflag"B
+sendToChannel
+key (	Rkey
+data (2.socket.rpcRdata"(
+sendToChannelRet
+count (Rcount

@@ -1,0 +1,17 @@
+require('global')
+
+if (GameConst.PRO_ENV == ENV_TYPE.DEV) then -- 此处为断点代码，需要注意的是，当改为正式环境时会失效，需要手动调整
+    -- 连接EmmyLua
+    try {
+        function()
+            local dbg = require('emmy_core')
+            dbg.tcpConnect('localhost', 9966)
+        end,
+        catch = function(error)
+            log.warn('EmmyLua未连接，若不需要IDE断点则忽略')
+        end
+    }
+end
+-- GameConst.TEST_CONSOLE_COMP:Show()
+
+SceneManager.Load('Step')

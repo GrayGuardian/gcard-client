@@ -1,22 +1,36 @@
 ManifestFileVersion: 0
-CRC: 1877105705
+CRC: 1745687229
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f9600fb6fdccd5ea49d1f9bdadb43816
+    Hash: e97bb2ebc055380fbe1ba27684151ed8
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4df8c69f2c8a6ad9e3cbf82bb83e4dc3
+    Hash: 8d614ba2bf78fe185c64b512c1591e5d
 HashAppended: 0
 ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers: []
+- Class: 687078895
+  Script: {instanceID: 0}
 Assets:
-- Assets/Resources/AssetBundles/p1/pop1.png
-- Assets/Resources/AssetBundles/p1/btn1.png
-- Assets/Resources/AssetBundles/p1/btn_close1.png
-- Assets/Resources/AssetBundles/p1/btn2.png
+- Assets/AssetBundles/atlas/p1/bar3_val2.png
+- Assets/AssetBundles/atlas/p1/btn_jia1.png
+- Assets/AssetBundles/atlas/p1/btn_page1_on.png
+- Assets/AssetBundles/atlas/p1/bar2_val.png
+- Assets/AssetBundles/atlas/p1/bar2_bg.png
+- Assets/AssetBundles/atlas/p1/bar1_bg.png
+- Assets/AssetBundles/atlas/p1/bar3_val1.png
+- Assets/AssetBundles/atlas/p1/btn1.png
+- Assets/AssetBundles/atlas/p1/bg_pop1.png
+- Assets/AssetBundles/atlas/p1/p1.spriteatlas
+- Assets/AssetBundles/atlas/p1/bar3_bg.png
+- Assets/AssetBundles/atlas/p1/btn2.png
+- Assets/AssetBundles/atlas/p1/bg_content1.png
+- Assets/AssetBundles/atlas/p1/bar1_val.png
+- Assets/AssetBundles/atlas/p1/btn_page1_off.png
+- Assets/AssetBundles/atlas/p1/btn_close1.png
+- Assets/AssetBundles/atlas/p1/btn3.png
 Dependencies: []

@@ -1,0 +1,12 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+
+local base = require('ui_base')
+local {0} = class('{1}', base)
+
+function {0}:initUIControl()
+{2}
+end
+
+[EDITOR]
+
+return {0}

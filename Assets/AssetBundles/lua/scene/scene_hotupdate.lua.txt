@@ -1,0 +1,9 @@
+local base = require('scene_base')
+local SceneHotupdate = class('scene_hotupdate', base)
+
+function SceneHotupdate:onLoad()
+    UIManager.Show(UIID.UI_VIEW)
+    UIManager.Show(UIID.UI_HOTUPDATE)
+end
+
+return SceneHotupdate

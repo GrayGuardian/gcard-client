@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 2537557942
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: aac364290224cd795476d61362985476
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f19fbf085e00d23fbc8d6cf7b345590b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/AssetBundles/texture/view/bg_view2.jpg
+- Assets/AssetBundles/texture/view/bg_view1.jpg
+Dependencies: []

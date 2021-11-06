@@ -1,0 +1,182 @@
+local AssetManager = {}
+local CSAssetUtil = CS.AssetUtil.Instance
+-- 预加载资源集合
+AssetManager.PreLoadAssetMap = {}
+
+function AssetManager.Load(type, key, assetName)
+    local asset = CSAssetUtil:LoadAsset(typeof(type), key, assetName)
+    return asset
+end
+function AssetManager.LoadAsync(type, key, assetName, cb)
+    CSAssetUtil:LoadAssetAsync(
+        typeof(type),
+        key,
+        assetName,
+        function(asset)
+            cb(asset)
+        end
+    )
+end
+function AssetManager.LoadAll(type,key)
+    local assets = CSAssetUtil:LoadAllAsset(typeof(type), key)
+    return table.csArrayToTable(assets);
+end
+function AssetManager.LoadAllAsync(type,key,cb)
+    CSAssetUtil:LoadAllAssetAsync(
+        typeof(type),
+        key,
+        function(assets)
+            cb(table.csArrayToTable(assets))
+        end
+    )
+end
+function AssetManager.Reset()
+    AssetManager.PreLoadAssetMap = {}
+    CSAssetUtil:Reset()
+end
+-- 根据AssetID加载资源
+---@param assetID AssetID
+function AssetManager.LoadInID(assetID)
+    local asset = AssetManager.PreLoadAssetMap[assetID]
+    if(asset~=nil) then
+        return asset
+    end
+    asset = AssetManager.Load(assetID.type.type,assetID.key,assetID.assetName)
+    if(asset~=nil and assetID.isPreLoad) then
+        AssetManager.PreLoadAssetMap[assetID] = asset
+    end
+    return asset
+end
+-- 根据AssetID异步加载资源
+---@param assetID AssetID
+function AssetManager.LoadInIDAsync(assetID,cb)
+    local asset = AssetManager.PreLoadAssetMap[assetID]
+    if(asset~=nil) then
+        cb(asset)
+        return
+    end
+    AssetManager.LoadAsync(assetID.type.type,assetID.key,assetID.assetName,function (asset)
+        if(asset~=nil and assetID.isPreLoad) then
+            AssetManager.PreLoadAssetMap[assetID] = asset
+        end
+        cb(asset)
+    end)
+end
+-- 加载类型资源函数动态创建
+for k, info in pairs(ASSET_TYPE) do
+    if(k~="Bytes" and k~="String") then         -- Bytes、String此处不处理，另外写加载规则
+        AssetManager[string.format("Load%s",info.key)] = function(key,assetName)
+            return AssetManager.Load(info.type,key,assetName)
+        end
+        AssetManager[string.format("Load%sAsync",info.key)] = function(key,assetName,cb)
+            return AssetManager.LoadAsync(info.type,key,assetName,cb)
+        end
+        AssetManager[string.format("LoadAll%s",info.key)] = function(key)
+            return AssetManager.LoadAll(info.type,key)
+        end
+        AssetManager[string.format("LoadAll%sAsync",info.key)] = function(key,cb)
+            return AssetManager.LoadAllAsync(info.type,key,cb)
+        end
+    end
+end
+
+function AssetManager.LoadString(key, assetName)
+    local asset = AssetManager.Load(CS.UnityEngine.Object, key, assetName)
+    if (asset == nil) then
+        return nil
+    end
+    local result = asset:ToString()
+    AssetManager.UnLoadAsset(asset)
+    return result
+end
+function AssetManager.LoadStringAsync(key, assetName, cb)
+    AssetManager.LoadAsync(
+        CS.UnityEngine.Object,
+        key,
+        assetName,
+        function(asset)
+            if (asset == nil) then
+                cb(nil)
+                return
+            end
+            local result = asset:ToString()
+            -- 异步直接卸载时容易出现并发问题，暂不自动卸载
+            -- AssetManager.UnLoadAsset(asset)
+            cb(result)
+        end
+    )
+end
+function AssetManager.LoadAllString(key)
+    local assets = AssetManager.LoadAll(CS.UnityEngine.Object,key);
+    local result = {}
+    for index, asset in ipairs(assets) do
+        table.insert(result,asset:ToString())
+    end
+    return result
+end
+function AssetManager.LoadAllStringAsync(key, cb)
+    AssetManager.LoadAllAsync(
+        CS.UnityEngine.Object,
+        key,
+        function(assets)
+            local result = {}
+            for index, asset in ipairs(assets) do
+                table.insert(result,asset:ToString())
+            end
+            cb(result)
+        end
+    )
+end
+function AssetManager.LoadBytes(key, assetName)
+    local asset = AssetManager.Load(CS.UnityEngine.Object, key, assetName)
+    if (asset == nil) then
+        return nil
+    end
+    local result = asset.bytes
+    AssetManager.UnLoadAsset(asset)
+    return result
+end
+function AssetManager.LoadBytesAsync(key, assetName, cb)
+    AssetManager.LoadAsync(
+        CS.UnityEngine.Object,
+        key,
+        assetName,
+        function(asset)
+            if (asset == nil) then
+                cb(nil)
+                return
+            end
+            local result = asset.bytes
+            -- 异步直接卸载时容易出现并发问题，暂不自动卸载
+            -- AssetManager.UnLoadAsset(asset)
+            cb(result)
+        end
+    )
+end
+function AssetManager.LoadAllBytes(key)
+    local assets = AssetManager.LoadAll(CS.UnityEngine.Object,key);
+    local result = {}
+    for index, asset in ipairs(assets) do
+        table.insert(result,asset.bytes)
+    end
+    return result
+end
+function AssetManager.LoadAllBytesAsync(key, cb)
+    AssetManager.LoadAllAsync(
+        CS.UnityEngine.Object,
+        key,
+        function(assets)
+            local result = {}
+            for index, asset in ipairs(assets) do
+                table.insert(result,asset.bytes)
+            end
+            cb(result)
+        end
+    )
+end
+
+function AssetManager.UnLoadAsset(asset)
+    CSAssetUtil:UnloadAsset(asset)
+end
+
+return AssetManager

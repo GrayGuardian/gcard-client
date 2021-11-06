@@ -15,7 +15,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
     public byte[] ReadBytes(string path)
     {
         byte[] data = FileUtil.Instance.ReadBytes(path);
-        return AesDecrypt(data);
+        return AesDecryptBytes(data);
     }
     public void ReadBytesAsync(string path, Action<byte[]> cb)
     {
@@ -31,7 +31,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
     public string ReadString(string path)
     {
         string str = FileUtil.Instance.ReadString(path);
-        return AesDecrypt(str);
+        return AesDecryptString(str);
     }
     public void ReadStringAsync(string path, Action<string> cb)
     {
@@ -46,7 +46,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
     /// <returns></returns>
     public void WriteBytes(string path, byte[] data)
     {
-        data = AesEncrypt(data);
+        data = AesEncryptBytes(data);
         File.WriteAllBytes(path, data);
     }
     public void WriteBytesAsync(string path, byte[] data, Action cb = null)
@@ -67,7 +67,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
     /// <returns></returns>
     public void WriteString(string path, string data)
     {
-        data = AesEncrypt(data, null);
+        data = AesEncryptString(data, null);
         File.WriteAllText(path, data);
     }
     public void WriteStringAsync(string path, string data, Action cb = null)
@@ -84,7 +84,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
     /// <param name="data">明文（待加密）</param>
     /// <param name="key">密钥 32位</param>
     /// <returns></returns>
-    public byte[] AesEncrypt(byte[] data, string key = null)
+    public byte[] AesEncryptBytes(byte[] data, string key = null)
     {
         try
         {
@@ -111,7 +111,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
     /// <param name="data">密文（待解密）</param>
     /// <param name="key">密钥 32位</param>
     /// <returns></returns>
-    public byte[] AesDecrypt(byte[] data, string key = null)
+    public byte[] AesDecryptBytes(byte[] data, string key = null)
     {
         try
         {
@@ -138,7 +138,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
     /// <param name="str">明文（待加密）</param>
     /// <param name="key">密钥</param>
     /// <returns></returns>
-    public string AesEncrypt(string str, string key = null)
+    public string AesEncryptString(string str, string key = null)
     {
         try
         {
@@ -146,7 +146,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
             key = key == null ? DEFAULT_KEY : key;
             byte[] data;
             data = Encoding.UTF8.GetBytes(str);
-            data = AesEncrypt(data, key);
+            data = AesEncryptBytes(data, key);
             return Convert.ToBase64String(data, 0, data.Length);
         }
         catch
@@ -160,7 +160,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
     /// <param name="data">明文（待解密）</param>
     /// <param name="key">密钥</param>
     /// <returns></returns>
-    public string AesDecrypt(string str, string key = null)
+    public string AesDecryptString(string str, string key = null)
     {
         try
         {
@@ -168,7 +168,7 @@ public class EncryptUtil : Singleton<EncryptUtil>
             key = key == null ? DEFAULT_KEY : key;
             byte[] data;
             data = Convert.FromBase64String(str);
-            data = AesDecrypt(data, key);
+            data = AesDecryptBytes(data, key);
             return Encoding.UTF8.GetString(data);
         }
         catch
@@ -183,8 +183,8 @@ public class EncryptUtil : Singleton<EncryptUtil>
         Thread thread = null;
         thread = new Thread(new ThreadStart(() =>
         {
-            var bytes = AesEncrypt(data, key);
-            GameConst.PostMainThreadAction<byte[]>(cb, bytes);
+            var bytes = AesEncryptBytes(data, key);
+            ThreadUtil.Instance.PostMainThreadAction<byte[]>(cb, bytes);
         }));
         thread.Start();
     }
@@ -193,8 +193,8 @@ public class EncryptUtil : Singleton<EncryptUtil>
         Thread thread = null;
         thread = new Thread(new ThreadStart(() =>
         {
-            var bytes = AesDecrypt(data, key);
-            GameConst.PostMainThreadAction<byte[]>(cb, bytes);
+            var bytes = AesDecryptBytes(data, key);
+            ThreadUtil.Instance.PostMainThreadAction<byte[]>(cb, bytes);
         }));
         thread.Start();
     }
@@ -203,8 +203,8 @@ public class EncryptUtil : Singleton<EncryptUtil>
         Thread thread = null;
         thread = new Thread(new ThreadStart(() =>
         {
-            var str = AesEncrypt(data, key);
-            GameConst.PostMainThreadAction<string>(cb, str);
+            var str = AesEncryptString(data, key);
+            ThreadUtil.Instance.PostMainThreadAction<string>(cb, str);
         }));
         thread.Start();
     }
@@ -213,8 +213,8 @@ public class EncryptUtil : Singleton<EncryptUtil>
         Thread thread = null;
         thread = new Thread(new ThreadStart(() =>
         {
-            var str = AesDecrypt(data, key);
-            GameConst.PostMainThreadAction<string>(cb, str);
+            var str = AesDecryptString(data, key);
+            ThreadUtil.Instance.PostMainThreadAction<string>(cb, str);
         }));
         thread.Start();
     }

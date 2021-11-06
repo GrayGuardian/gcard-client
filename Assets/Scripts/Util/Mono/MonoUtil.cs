@@ -13,8 +13,7 @@ public class MonoUtil : Singleton<MonoUtil>
     }
     public MonoComponent MonoComponent;
 
-    [RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Init()
+    public void Load()
     {
         var go = new GameObject("MonoGo");
         MonoUtil.Instance.MonoGo = go;

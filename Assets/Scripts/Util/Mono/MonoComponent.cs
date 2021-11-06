@@ -1,104 +1,123 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 public class MonoComponent : MonoBehaviour
 {
-    /// <summary>
-    /// 绑定的Lua脚本名
-    /// </summary>
-    public string LuaName = "";
-    private event Action<string, object[]> _onListenEvent = null;
-    public void AddListenEvent(Action<string, object[]> e)
-    {
-        _onListenEvent += e;
-    }
-    public void DelListenEvent(Action<string, object[]> e)
-    {
-        _onListenEvent -= e;
-    }
+    public event Action AwakeEvent;
+    public event Action StartEvent;
+    public event Action OnEnableEvent;
+    public event Action OnDisableEvent;
+    public event Action OnDestroyEvent;
+    public event Action UpdateEvent;
+    public event Action FixedUpdateEvent;
+
+    public event Action<bool> OnPauseEvent;
+    public event Action<bool> OnFocusEvent;
+
+    public event Action<Collider> OnTriggerEnterEvent;
+    public event Action<Collider> OnTriggerStayEvent;
+    public event Action<Collider> OnTriggerExitEvent;
+    public event Action<Collision> OnCollisionEnterEvent;
+    public event Action<Collision> OnCollisionStayEvent;
+    public event Action<Collision> OnCollisionExitEvent;
+
+    public event Action<Collider2D> OnTriggerEnter2DEvent;
+    public event Action<Collider2D> OnTriggerStay2DEvent;
+    public event Action<Collider2D> OnTriggerExit2DEvent;
+    public event Action<Collision2D> OnCollisionEnter2DEvent;
+    public event Action<Collision2D> OnCollisionStay2DEvent;
+    public event Action<Collision2D> OnCollisionExit2DEvent;
+
+
+    #region 生命周期函数
     protected void Awake()
     {
-        if (_onListenEvent != null) _onListenEvent("Awake", null);
+        if (AwakeEvent != null) AwakeEvent();
     }
     protected void Start()
     {
-        if (_onListenEvent != null) _onListenEvent("Start", null);
+        if (StartEvent != null) StartEvent();
     }
     protected void OnEnable()
     {
-        if (_onListenEvent != null) _onListenEvent("OnEnable", null);
+        if (OnEnableEvent != null) OnEnableEvent();
     }
     protected void OnDisable()
     {
-        if (_onListenEvent != null) _onListenEvent("OnDisable", null);
+        if (OnDisableEvent != null) OnDisableEvent();
     }
     protected void OnDestroy()
     {
-        if (_onListenEvent != null) _onListenEvent("OnDestroy", null);
+        if (OnDestroyEvent != null) OnDestroyEvent();
     }
     protected void Update()
     {
-        if (_onListenEvent != null) _onListenEvent("Update", null);
+        if (UpdateEvent != null) UpdateEvent();
     }
     protected void FixedUpdate()
     {
-        if (_onListenEvent != null) _onListenEvent("FixedUpdate", null);
+        if (FixedUpdateEvent != null) FixedUpdateEvent();
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnTriggerEnter", new object[] { other });
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnTriggerStay", new object[] { other });
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnTriggerExit", new object[] { other });
-    }
-    private void OnCollisionEnter(Collision other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnCollisionEnter", new object[] { other });
-    }
-    private void OnCollisionStay(Collision other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnCollisionStay", new object[] { other });
-    }
-    private void OnCollisionExit(Collision other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnCollisionExit", new object[] { other });
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnTriggerEnter2D", new object[] { other });
-    }
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnTriggerStay2D", new object[] { other });
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnTriggerExit2D", new object[] { other });
-    }
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnCollisionEnter2D", new object[] { other });
-    }
-    private void OnCollisionStay2D(Collision2D other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnCollisionStay2D", new object[] { other });
-    }
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (_onListenEvent != null) _onListenEvent("OnCollisionExit2D", new object[] { other });
-    }
+
     private void OnApplicationPause(bool pauseStatus)
     {
-        if (_onListenEvent != null) _onListenEvent("OnPause", new object[] { pauseStatus });
+        if (OnPauseEvent != null) OnPauseEvent(pauseStatus);
     }
     private void OnApplicationFocus(bool focusStatus)
     {
-        if (_onListenEvent != null) _onListenEvent("OnFocus", new object[] { focusStatus });
+        if (OnFocusEvent != null) OnFocusEvent(focusStatus);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (OnTriggerEnterEvent != null) OnTriggerEnterEvent(other);
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (OnTriggerStayEvent != null) OnTriggerStayEvent(other);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (OnTriggerExitEvent != null) OnTriggerExitEvent(other);
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        if (OnCollisionEnterEvent != null) OnCollisionEnterEvent(other);
+    }
+    private void OnCollisionStay(Collision other)
+    {
+        if (OnCollisionStayEvent != null) OnCollisionStayEvent(other);
+    }
+    private void OnCollisionExit(Collision other)
+    {
+        if (OnCollisionExitEvent != null) OnCollisionExitEvent(other);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (OnTriggerEnter2DEvent != null) OnTriggerEnter2DEvent(other);
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (OnTriggerStay2DEvent != null) OnTriggerStay2DEvent(other);
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (OnTriggerExit2DEvent != null) OnTriggerExit2DEvent(other);
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (OnCollisionEnter2DEvent != null) OnCollisionEnter2DEvent(other);
+    }
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (OnCollisionStay2DEvent != null) OnCollisionStay2DEvent(other);
+    }
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (OnCollisionExit2DEvent != null) OnCollisionExit2DEvent(other);
+    }
+    #endregion
+
 }

@@ -1,0 +1,56 @@
+local Event = {}
+
+--场景生命周期
+-- 开始加载场景
+Event.SCENE_LOAD_START = 'SCENE_LOAD_START'
+-- 正在加载场景
+Event.SCENE_LOADING = 'SCENE_LOADING'
+-- 加载场景完毕
+Event.SCENE_LOAD_END = 'SCENE_LOAD_END'
+-- 进入场景
+Event.SCENE_LOAD = 'SCENE_LOAD'
+-- 卸载场景
+Event.SCENE_UNLOAD = 'SCENE_UNLOAD'
+--Mono生命周期
+---@type MonoLifecycle.Global
+Event.MONO = function(type)
+    return string.format("MONO_%s",string.upper(type))
+end
+-- 错误回调
+-- 作为函数代表key时，可触发所有错误
+---@type template_error error
+---@type table data
+---@type string rpcRouter
+---@type table rpcData
+-- 作为函数调用代表key时，可触发指定的错误
+---@type template_error error
+---@type table data
+---@type string rpcRouter
+---@type table rpcData
+Event.ERROR = function(error)
+    return string.format("ERROR_%s",string.upper(error:get_id()))
+end
+
+-- HTTP接收回调
+-- 作为函数代表key时，可触发所有Http接收
+---@type string router
+---@type table data
+---@type string rpcRouter
+---@type table rpcData
+-- 作为函数调用代表key时，可触发指定的Http接收
+---@type table data
+---@type string rpcRouter
+---@type table rpcData
+Event.HTTP_RECEIVE = function(router)
+    return string.format("HTTP_RECEIVE_%s",string.upper(router))
+end
+
+
+-- logic
+
+Event.RefreshVersion = enum(0)                              -- 更新资源版本文件
+
+
+
+
+return Event

@@ -1,0 +1,25 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+local Base = require('template_manager_base')
+local Manager = class('template_textManager', Base)
+
+function Manager:ctor()
+    self.name = 'text'
+    self.field = 'id'
+    self:init()
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+function Manager:getText(id,...)
+    local model = self.baseInfo[id]
+    if(model~=nil) then
+        if(#{...}>0) then
+            return string.format(model:get_text(),...)
+        else
+            return model:get_text()
+        end
+    end
+    return ""
+end
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return Manager

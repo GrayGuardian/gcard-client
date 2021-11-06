@@ -1,0 +1,15 @@
+local base = require('comp_base')
+local CompTest1 = class('comp_test1', base)
+
+
+function CompTest1:onLoad(arg1,arg2)
+    log.print('test1 onLoad',arg1,arg2)
+end
+function CompTest1:log()
+    log.print("Test1 log><><><><><><><><><><><><><")
+end
+function CompTest1:close()
+    log.print("Test1 close")
+end
+
+return CompTest1

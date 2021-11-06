@@ -1,0 +1,39 @@
+
+À
+
+http.protohttpmodel.protodb.protoerror.proto"¿
+rpc
+router (	Rrouter"
+error (2.error.ErrorRerror*
+registerd (2.http.registerRregister3
+registerRete (2.http.registerRetRregisterRet!
+loginf (2.http.loginRlogin*
+loginRetg (2.http.loginRetRloginRet-
+	enterAreah (2.http.enterAreaR	enterArea6
+enterAreaReti (2.http.enterAreaRetRenterAreaRet-
+	enterGamej (2.http.enterGameR	enterGame6
+enterGameRetk (2.http.enterGameRetRenterGameRet"B
+register
+username (	Rusername
+password (	Rpassword"o
+registerRet#
+info (2.model.UserInfoRinfo
+token (	Rtoken%
+areas (2.model.AreaInfoRareas"?
+login
+username (	Rusername
+password (	Rpassword"l
+loginRet#
+info (2.model.UserInfoRinfo
+token (	Rtoken%
+areas (2.model.AreaInfoRareas"
+	enterArea
+aid (Raid"Q
+enterAreaRet
+token (	Rtoken+
+players (2.model.PlayerInfoRplayers"
+	enterGame
+pid (	Rpid"Q
+enterGameRet
+token (	Rtoken+
+config (2.model.ServerConfigRconfig

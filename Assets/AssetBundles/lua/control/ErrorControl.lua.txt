@@ -1,0 +1,11 @@
+local ErrorControl = {}
+local this = ErrorControl
+
+-- 接收错误
+function ErrorControl.Receive(error, data, ...)
+    EventManager.Dispatch(Event.ERROR, error, data, ...)
+    EventManager.Dispatch(Event.ERROR(error), data, ...)
+    ShowStyleControl.ShowMsg(SHOW_STYLE_MSG[error:get_showStyle()], error, data, ...)
+end
+
+return ErrorControl

@@ -1,0 +1,25 @@
+-- 资源类型
+_G.ASSET_TYPE = {
+    String = { key = "String" , type = CS.UnityEngine.Object },         -- 字符串加载部分特殊处理
+    Bytes = { key = "Bytes" , type = CS.UnityEngine.Object },           -- 字节流加载部分特殊处理
+    Prefab = { key = "Prefab" , type = CS.UnityEngine.GameObject },
+    Sprite = { key = "Sprite" , type = CS.UnityEngine.Sprite },
+    Texture = { key = "Texture" , type = CS.UnityEngine.Texture },
+    Animator = { key = "Animator" , type = CS.UnityEngine.RuntimeAnimatorController },
+}
+
+
+-- 信息显示样式
+_G.SHOW_STYLE_MSG = {
+    NONE = enum(0),                    -- 不显示
+    UI_ERROR  = enum(),                -- 错误信息框
+    UI_TIP = enum(),                   -- 提示信息框
+}
+
+-- 资源更新状态
+_G.ASSET_UPDATE_STATE = {
+    NONE = enum(0),             -- 不需要更新
+    CLIENT = enum(),            -- 更新客户端
+    HOTUPDATE = enum(),         -- 热更新资源文件
+    HOTFIX = enum(),            -- 热修复资源文件
+}

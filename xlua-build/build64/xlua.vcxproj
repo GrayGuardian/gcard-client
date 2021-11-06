@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BE1A6DC1-6EC9-398F-89EF-9D29F3235DED}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>xlua</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\testtttt\xlua-build\build64\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">xlua.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">xlua</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\testtttt\xlua-build\build64\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">xlua.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">xlua</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\testtttt\xlua-build\build64\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">xlua.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">xlua</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\testtttt\xlua-build\build64\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">xlua.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">xlua</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;LUA_BUILD_AS_DLL;CMAKE_INTDIR="Debug";xlua_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;LUA_BUILD_AS_DLL;CMAKE_INTDIR=\"Debug\";xlua_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/testtttt/xlua-build/build64/Debug/xlua.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/testtttt/xlua-build/build64/Debug/xlua.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;LUA_BUILD_AS_DLL;CMAKE_INTDIR="Release";xlua_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;LUA_BUILD_AS_DLL;CMAKE_INTDIR=\"Release\";xlua_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/testtttt/xlua-build/build64/Release/xlua.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/testtttt/xlua-build/build64/Release/xlua.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LUA_BUILD_AS_DLL;CMAKE_INTDIR="MinSizeRel";xlua_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LUA_BUILD_AS_DLL;CMAKE_INTDIR=\"MinSizeRel\";xlua_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/testtttt/xlua-build/build64/MinSizeRel/xlua.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/testtttt/xlua-build/build64/MinSizeRel/xlua.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LUA_BUILD_AS_DLL;CMAKE_INTDIR="RelWithDebInfo";xlua_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LUA_BUILD_AS_DLL;CMAKE_INTDIR=\"RelWithDebInfo\";xlua_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\testtttt\xlua-build;D:\testtttt\xlua-build\lua-5.3.5\src;D:\testtttt\xlua-build\build64;D:\testtttt\xlua-build\lua-rapidjson\include;D:\testtttt\xlua-build\lua-protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/testtttt/xlua-build/build64/RelWithDebInfo/xlua.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/testtttt/xlua-build/build64/RelWithDebInfo/xlua.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\testtttt\xlua-build\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/testtttt/xlua-build/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+D:\Soft\CMake\bin\cmake.exe -SD:/testtttt/xlua-build -BD:/testtttt/xlua-build/build64 --check-stamp-file D:/testtttt/xlua-build/build64/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCCompilerABI.c;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXCompilerABI.cpp;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCommonLanguageInclude.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCompilerIdDetection.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCXXCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompileFeatures.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompilerABI.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompilerId.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineRCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineSystem.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeFindBinUtils.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeGenericSystem.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeInitializeConfigs.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeLanguageInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseImplicitLinkInfo.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseLibraryArchitecture.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeRCCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeRCInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystem.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystemSpecificInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystemSpecificInitialize.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCXXCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCompilerCommon.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestRCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-C.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ROCMClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\TI-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CompilerId\VS-10.vcxproj.in;D:\Soft\CMake\share\cmake-3.21\Modules\Internal\FeatureTesting.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-Determine-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC-C.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\WindowsPaths.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeCCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeCXXCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeRCCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeSystem.cmake;D:\testtttt\xlua-build\lua-5.3.5\src\luaconf.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\testtttt\xlua-build\build64\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/testtttt/xlua-build/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+D:\Soft\CMake\bin\cmake.exe -SD:/testtttt/xlua-build -BD:/testtttt/xlua-build/build64 --check-stamp-file D:/testtttt/xlua-build/build64/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCCompilerABI.c;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXCompilerABI.cpp;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCommonLanguageInclude.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCompilerIdDetection.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCXXCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompileFeatures.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompilerABI.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompilerId.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineRCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineSystem.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeFindBinUtils.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeGenericSystem.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeInitializeConfigs.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeLanguageInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseImplicitLinkInfo.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseLibraryArchitecture.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeRCCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeRCInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystem.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystemSpecificInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystemSpecificInitialize.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCXXCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCompilerCommon.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestRCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-C.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ROCMClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\TI-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CompilerId\VS-10.vcxproj.in;D:\Soft\CMake\share\cmake-3.21\Modules\Internal\FeatureTesting.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-Determine-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC-C.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\WindowsPaths.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeCCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeCXXCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeRCCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeSystem.cmake;D:\testtttt\xlua-build\lua-5.3.5\src\luaconf.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\testtttt\xlua-build\build64\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/testtttt/xlua-build/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+D:\Soft\CMake\bin\cmake.exe -SD:/testtttt/xlua-build -BD:/testtttt/xlua-build/build64 --check-stamp-file D:/testtttt/xlua-build/build64/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCCompilerABI.c;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXCompilerABI.cpp;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCommonLanguageInclude.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCompilerIdDetection.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCXXCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompileFeatures.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompilerABI.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompilerId.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineRCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineSystem.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeFindBinUtils.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeGenericSystem.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeInitializeConfigs.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeLanguageInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseImplicitLinkInfo.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseLibraryArchitecture.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeRCCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeRCInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystem.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystemSpecificInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystemSpecificInitialize.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCXXCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCompilerCommon.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestRCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-C.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ROCMClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\TI-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CompilerId\VS-10.vcxproj.in;D:\Soft\CMake\share\cmake-3.21\Modules\Internal\FeatureTesting.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-Determine-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC-C.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\WindowsPaths.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeCCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeCXXCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeRCCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeSystem.cmake;D:\testtttt\xlua-build\lua-5.3.5\src\luaconf.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\testtttt\xlua-build\build64\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/testtttt/xlua-build/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+D:\Soft\CMake\bin\cmake.exe -SD:/testtttt/xlua-build -BD:/testtttt/xlua-build/build64 --check-stamp-file D:/testtttt/xlua-build/build64/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCCompilerABI.c;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXCompilerABI.cpp;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCXXInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCommonLanguageInclude.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeCompilerIdDetection.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCXXCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompileFeatures.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompilerABI.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineCompilerId.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineRCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeDetermineSystem.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeFindBinUtils.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeGenericSystem.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeInitializeConfigs.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeLanguageInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseImplicitLinkInfo.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeParseLibraryArchitecture.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeRCCompiler.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeRCInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystem.cmake.in;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystemSpecificInformation.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeSystemSpecificInitialize.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCXXCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestCompilerCommon.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CMakeTestRCCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-C.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\ROCMClang-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\TI-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\CompilerId\VS-10.vcxproj.in;D:\Soft\CMake\share\cmake-3.21\Modules\Internal\FeatureTesting.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-Determine-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC-C.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows-MSVC.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\Windows.cmake;D:\Soft\CMake\share\cmake-3.21\Modules\Platform\WindowsPaths.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeCCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeCXXCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeRCCompiler.cmake;D:\testtttt\xlua-build\build64\CMakeFiles\3.21.2\CMakeSystem.cmake;D:\testtttt\xlua-build\lua-5.3.5\src\luaconf.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\testtttt\xlua-build\build64\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lapi.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lauxlib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lbaselib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lbitlib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lcode.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lcorolib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lctype.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ldblib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ldebug.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ldo.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ldump.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lfunc.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lgc.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\linit.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\liolib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\llex.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lmathlib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lmem.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\loadlib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lobject.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lopcodes.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\loslib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lparser.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lstate.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lstring.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lstrlib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ltable.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ltablib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\ltm.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lundump.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lutf8lib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lvm.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-5.3.5\src\lzio.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\i64lib.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\xlua.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\memory_leak_checker.c" />
+    <ClCompile Include="D:\testtttt\xlua-build\lua-rapidjson\source\Document.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-rapidjson\source\rapidjson.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-rapidjson\source\Schema.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-rapidjson\source\values.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="D:\testtttt\xlua-build\lua-protobuf\pb.c">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(PreprocessorDefinitions);LUA_LIB</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\testtttt\xlua-build\build64\ZERO_CHECK.vcxproj">
+      <Project>{D3794B84-9277-3AEB-BBF9-FB6A51014F1F}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

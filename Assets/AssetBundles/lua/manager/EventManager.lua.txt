@@ -1,0 +1,92 @@
+local EventManager = {}
+
+local callBackInfoMap = {}
+
+function EventManager.Dispatch(key,...)
+    if EventManager.Exist(key) == false then
+        return false
+    end
+    local removeList = {}
+    for i, v in pairs(callBackInfoMap[key]) do
+        Common.call(v.this,v.callback,...)
+        if v.isOnce then
+            table.insert(removeList, v.callback)
+        end
+    end
+    --将使用一次即删除的卸载
+    for i, v in pairs(removeList) do
+        EventManager.Out(key, v)
+    end
+    return true
+end
+function EventManager.On(key, callback, this, order, isOnce)
+    local info = {}
+    info.callback = callback
+    info.order = order or 0
+    info.isOnce = isOnce or false
+    info.this = this
+
+    local list = {}
+    if EventManager.Exist(key) == false then
+        -- 键值不存在则新建
+        table.insert(list, info)
+        callBackInfoMap[key] = list
+    -- elseif EventManager.Exist(key, callback) then
+    --     -- 重复则不注册
+    --     return false
+    else
+        list = callBackInfoMap[key]
+        local index = nil
+        for i, o in pairs(list) do
+            if o.order > info.order then
+                index = i
+                break
+            end
+        end
+        index = index or (#list+1)
+        table.insert(list, index, info)
+    end
+    return true
+end
+
+function EventManager.Out(key, callback)
+    if EventManager.Exist(key, callback) == false then
+        return false
+    end
+    local list = callBackInfoMap[key]
+    for i, v in pairs(list) do
+        if v.callback == callback then
+            table.remove(list, i)
+            return true
+        end
+    end
+    return false
+end
+
+function EventManager.Clear(key)
+    if EventManager.Exist(key) == true then
+        callBackInfoMap[key] = nil
+        return true
+    end
+    return false
+end
+
+function EventManager.Exist(key, callback)
+    if callBackInfoMap[key] ~= nil then
+        if callback == nil then
+            return true
+        else
+            local list = callBackInfoMap[key]
+
+            for k, v in pairs(list) do
+                if v.callback == callback then
+                    return true
+                end
+            end
+            return false
+        end
+    end
+    return false
+end
+
+return EventManager

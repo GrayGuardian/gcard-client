@@ -1,0 +1,50 @@
+-- node基类 将Lua代码绑定至某游戏物体
+local base = require('lifecycle_base')
+local NodeBase = class('NodeBase', base)
+
+NodeBase.override = {close = false}
+-------------------- 继承重写 --------------------
+-- 卸载
+function NodeBase:close()
+end
+-------------------- 继承重写 --------------------
+-- 构造函数只是为了方便快速绑定物体，主要入口逻辑应该写在bind函数
+function NodeBase:ctor(node,...)
+    -- 确定传入Transform才绑定
+    if(node~=nil and node.GetType~=nil) then
+        local typeName = node:GetType().Name
+        if( typeName == "Transform" or typeName == "RectTransform" ) then
+            self:bind(node)
+        end
+    end
+end
+-- 主入口 绑定后才进行各种操作
+function NodeBase:bind(node)
+    self.node = node
+end
+-- 播放省略号文字动画
+---@param control UIControl Text容器
+---@param text string 文本
+---@param time number 单次时间/s
+---@param len int 结尾单个文本长度
+---@param sum int 结尾文本数量
+function NodeBase:showEllipsisText(control,text,time,len,sum)
+    time = time or 0.3
+    len = len or 1
+    sum = sum or 3
+    local texts = {}
+    for i = 0, sum do
+        table.insert(texts,string.sub(text,1,#text - len*(sum-i)))
+    end
+    control:SetText(texts[1])
+    return self:TimerOn(time,function(o,info)
+        local index = (info.overCount+1)%(sum+1)
+        index = index==0 and (sum+1) or index
+        control:SetText(texts[index])
+    end,true)
+end
+-- 停止省略号文字动画
+function NodeBase:stopEllipsisText(timer)
+    self:TimerOut(timer)
+end
+return NodeBase

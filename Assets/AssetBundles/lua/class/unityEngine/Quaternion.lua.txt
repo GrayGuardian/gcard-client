@@ -1,0 +1,90 @@
+local Quaternion = {}
+
+local _getter = {}
+local unity_quaternion = CS.UnityEngine.Quaternion
+
+Quaternion.__index = function(t,k)
+	local var = rawget(Quaternion, k)
+	if var ~= nil then
+		return var
+	end
+
+	var = rawget(_getter, k)
+	if var ~= nil then
+		return var(t)
+	end
+
+	return rawget(unity_quaternion, k)
+end
+Quaternion.__add = function(a, b)
+	return Quaternion(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w)
+end
+
+Quaternion.__sub = function(a, b)
+	return Quaternion(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w)
+end
+Quaternion.__mul = function(a, b)
+	if type(b) == "number" then
+		return Quaternion(a.x * b, a.y * b, a.z * b, a.w * b)
+	elseif getmetatable(b) == Quaternion then
+		return Quaternion(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w)
+	end
+end
+Quaternion.__unm = function(a)
+	return Quaternion(-a.x, -a.y, -a.z, -a.w)
+end
+Quaternion.__mod = function(a,d)
+	return Quaternion(a.x%d, a.y%d, a.z%d, a.w%d)
+end
+Quaternion.__pow = function(a,d)
+	return Quaternion(a.x^d, a.y^d, a.z^d, a.w%d)
+end
+Quaternion.__eq = function(a,b)
+	return Quaternion.Dot(a, b) > 0.999999
+end
+Quaternion.__call = function (t,x,y,z,w)
+    return Quaternion:new(x,y,z,w)
+end
+-- __tostring
+Quaternion.__tostring = function (t)
+	local str = ''
+	if(t:Get()) then
+		str = table.concat({'Quaternion'})
+	else
+		str = "class Quaternion"
+	end
+	return str
+end
+
+-- 常量定义
+
+-- 静态函数
+
+
+
+
+-- 构造函数
+function Quaternion:new(x,y,z,w)
+    local v = nil
+    if (type(x)=='userdata' or type(x)=='table') then
+        v = {x = x.x, y = x.y, z = x.z, w = x.w}
+    else
+        v = {x = x, y = y, z = z, w = w}
+    end
+    return setmetatable(v, Quaternion)
+end
+function Quaternion:Set(x,y,z,w)
+	self.x = x
+    self.y = y
+    self.z = z
+    self.w = w
+end
+function Quaternion:Get()
+	return self.x, self.y, self.z, self.w
+end
+function Quaternion:Dot(a, b)
+	return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w
+end
+
+setmetatable(Quaternion, Quaternion)
+return Quaternion

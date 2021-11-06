@@ -1,0 +1,8 @@
+local base = require('scene_base')
+local SceneGame = class('scene_game', base)
+
+function SceneGame:onLoad()
+
+end
+
+return SceneGame

@@ -1,0 +1,33 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+local Base = require('template_model_base')
+local Model = class('template_errorModel', Base)
+
+function Model:ctor(data)
+    self.name = 'error'
+    self:init(data)
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+-- 获得错误文本
+function Model:getTip(data)
+    local text = self:get_tip():get_text()
+    if (data ~= nil and ErrorTipControl[self:get_id()] ~= nil) then
+        data = ErrorTipControl[self:get_id()](data)
+    end
+    return string.formatTable(text, data)
+end
+
+function Model:equal(error)
+    local result = false
+    try {
+        function()
+            result = self:get_id() == error:get_id()
+        end
+    }
+    return result
+end
+
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return Model

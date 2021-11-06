@@ -1,0 +1,15 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+local Base = require('template_manager_base')
+local Manager = class('template_propsManager', Base)
+
+function Manager:ctor()
+    self.name = 'props'
+    self.field = 'id'
+    self:init()
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return Manager

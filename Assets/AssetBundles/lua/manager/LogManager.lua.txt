@@ -1,0 +1,83 @@
+local LogManager = {}
+
+local STACK_CNT = 1 -- 显示堆栈层级数量
+
+local getColorText = function(color, text)
+    local result = ''
+    if (type(text) == 'string') then
+        result = string.getColorText(color, text)
+    else
+        result = string.getColorText(color, table.toString(text))
+    end
+    return result
+end
+
+local getStackInfo = function(offset)
+    offset = offset or 0
+    local START = 4 -- 初始底层堆栈数量
+    local info = debug.getinfo(offset + START)
+    if (info == nil) then
+        return ' - '
+    end
+    if (info.currentline == -1) then
+        return ' - '
+    end
+    local from = string.gsub(info.source,'@','')
+    local t = string.split(from, '\\')
+    local fileName =  t[#t]..'.lua.txt'
+    return fileName .. ':' .. info.currentline
+end
+local getDateInfo = function()
+    return Date.getTimeText('%Y年%m月%d日 %H:%M:%S', Date.unix())
+end
+local getTopText = function(tag, color)
+    local arr = {}
+    -- 类型
+    table.insert(arr, {color = Color.Green, text = '[LUA]'})
+    -- 时间
+    table.insert(arr, {color = Color.Gray, text = string.format('[%s]', getDateInfo())})
+    -- 标签
+    table.insert(arr, {color = color, text = string.format('[%s]', tag)})
+    -- 堆栈信息
+    for i = 0, STACK_CNT - 1 do
+        table.insert(arr, {color = Color.Purple, text = string.format('[%s]', getStackInfo(i))})
+    end
+    local strArr = {}
+    for index, info in ipairs(arr) do
+        table.insert(strArr, getColorText(info.color, info.text))
+    end
+    return table.concat(strArr, ' ')
+end
+LogManager.print = function(...)
+    local arr = {}
+    table.insert(arr, getTopText('Print', Color.White))
+    local param = {...}
+    local len = select('#',...)
+    for i = 1, len do
+        table.insert(arr, getColorText(Color.White, param[i]))
+    end
+    CS.UnityEngine.Debug.Log(table.concat(arr, '  '))
+end
+LogManager.error = function(...)
+    local arr = {}
+    table.insert(arr, getTopText('Error', Color.Red))
+    local param = {...}
+    local len = select('#',...)
+    for i = 1, len do
+        table.insert(arr, getColorText(Color.Red, param[i]))
+    end
+    CS.UnityEngine.Debug.LogError(table.concat(arr, '  '))
+end
+
+LogManager.warn = function(...)
+    local arr = {}
+    table.insert(arr, getTopText('Warn', Color.Yellow))
+    local param = {...}
+    local len = select('#',...)
+    for i = 1, len do
+        table.insert(arr, getColorText(Color.Yellow, param[i]))
+    end
+    CS.UnityEngine.Debug.LogWarning(table.concat(arr, '  '))
+end
+
+return LogManager

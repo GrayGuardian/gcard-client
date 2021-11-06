@@ -1,0 +1,91 @@
+local Vector2 = {}
+
+local _getter = {}
+local unity_vector3 = CS.UnityEngine.Vector2
+
+Vector2.__index = function(t,k)
+	local var = rawget(Vector2, k)
+	if var ~= nil then
+		return var
+	end
+
+	var = rawget(_getter, k)
+	if var ~= nil then
+		return var(t)
+	end
+
+	return rawget(unity_vector3, k)
+end
+Vector2.__add = function(a, b)
+	return Vector2(a.x + b.x, a.y + b.y)
+end
+
+Vector2.__sub = function(a, b)
+	return Vector2(a.x - b.x, a.y - b.y)
+end
+Vector2.__mul = function(a, b)
+	if type(b) == "number" then
+		return Vector2(a.x * b, a.y * b)
+	elseif getmetatable(b) == Vector2 then
+		return Vector2(a.x * b.x, a.y * b.y)
+	end
+end
+Vector2.__div = function(a, d)
+	return Vector2(a.x / d, a.y / d)
+end
+Vector2.__unm = function(a)
+	return Vector2(-a.x, -a.y)
+end
+Vector2.__mod = function(a,d)
+	return Vector2(a.x%d, a.y%d)
+end
+Vector2.__pow = function(a,d)
+	return Vector2(a.x^d, a.y^d)
+end
+Vector2.__eq = function(a,b)
+	return ((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2) < 9.999999e-11
+end
+Vector2.__call = function (t,x,y)
+    return Vector2:new(x,y)
+end
+-- __tostring
+Vector2.__tostring = function (t)
+	local str = ''
+	if(t:Get()) then
+		str = table.concat({'Vector2'})
+	else
+		str = "class Vector2"
+	end
+	return str
+end
+-- 常量定义
+_getter.up 		= function() return Vector2(0, 1) end
+_getter.right	= function() return Vector2(1, 0) end
+_getter.zero	= function() return Vector2(0, 0) end
+_getter.one		= function() return Vector2(1, 1) end
+-- 静态函数
+
+
+
+
+-- 构造函数
+function Vector2:new(x,y)
+    local v3 = nil
+    if (type(x)=='userdata' or type(x)=='table') then
+        v3 = {x = x.x, y = x.y}
+    else
+        v3 = {x = x, y = y}
+    end
+    return setmetatable(v3, Vector2)
+end
+function Vector2:Set(x,y)
+	self.x = x
+    self.y = y
+end
+function Vector2:Get()
+	return self.x, self.y
+end
+
+
+setmetatable(Vector2, Vector2)
+return Vector2

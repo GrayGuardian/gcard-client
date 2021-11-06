@@ -58,11 +58,11 @@ public class DownloadFile
     /// 异步查询文件大小
     /// </summary>
     /// <param name="onTrigger"></param>
-    public void GetFileSizeAsyn(Action<long> onTrigger = null)
+    public void GetFileSizeAsync(Action<long> onTrigger = null)
     {
         ThreadStart threadStart = new ThreadStart(() =>
         {
-            GameConst.PostMainThreadAction<long>(onTrigger, GetFileSize());
+            ThreadUtil.Instance.PostMainThreadAction<long>(onTrigger, GetFileSize());
         });
         Thread thread = new Thread(threadStart);
         thread.Start();
@@ -83,7 +83,7 @@ public class DownloadFile
 
 
         // 下载逻辑
-        GetFileSizeAsyn((size) =>
+        GetFileSizeAsync((size) =>
         {
             if (size == -1) return;
             // 准备工作
@@ -124,7 +124,7 @@ public class DownloadFile
             {
                 csize += rsize;
                 tempFileFileStreams[index].Write(rbytes, 0, (int)rsize);
-                GameConst.PostMainThreadAction<long, long>(onDownloading, csize, size);
+                ThreadUtil.Instance.PostMainThreadAction<long, long>(onDownloading, csize, size);
             };
             // 单线程下载完毕回调函数
             Action<int, byte[]> t_onTrigger = (index, data) =>
@@ -152,7 +152,7 @@ public class DownloadFile
                         File.Delete(tempPath);
                     }
                     fs.Close();
-                    GameConst.PostMainThreadAction<byte[]>(onTrigger, File.ReadAllBytes(filePath));
+                    ThreadUtil.Instance.PostMainThreadAction<byte[]>(onTrigger, File.ReadAllBytes(filePath));
                 }
             };
             // 分割文件尺寸，多线程下载
@@ -188,14 +188,14 @@ public class DownloadFile
         int ocnt = 0;   // 完成线程数
         byte[] cdata;  // 已下载数据
         // 下载逻辑
-        GetFileSizeAsyn((size) =>
+        GetFileSizeAsync((size) =>
         {
             cdata = new byte[size];
             // 单线程下载过程回调函数
             Action<int, long, byte[], byte[]> t_onDownloading = (index, rsize, rbytes, data) =>
             {
                 csize += rsize;
-                GameConst.PostMainThreadAction<long, long>(onDownloading, csize, size);
+                ThreadUtil.Instance.PostMainThreadAction<long, long>(onDownloading, csize, size);
             };
             // 单线程下载完毕回调函数
             Action<int, byte[]> t_onTrigger = (index, data) =>
@@ -206,7 +206,7 @@ public class DownloadFile
                 ocnt++;
                 if (ocnt >= threadCount)
                 {
-                    GameConst.PostMainThreadAction<byte[]>(onTrigger, cdata);
+                    ThreadUtil.Instance.PostMainThreadAction<byte[]>(onTrigger, cdata);
                 }
             };
             // 分割文件尺寸，多线程下载
@@ -307,7 +307,7 @@ public class DownloadFile
     private void onError(Exception ex)
     {
         Close();
-        GameConst.PostMainThreadAction<Exception>(OnError, ex);
+        ThreadUtil.Instance.PostMainThreadAction<Exception>(OnError, ex);
     }
 
 

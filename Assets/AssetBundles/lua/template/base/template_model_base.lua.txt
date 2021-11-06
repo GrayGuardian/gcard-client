@@ -1,0 +1,61 @@
+local Base = class("template_model_base");
+
+function Base:init(data)
+	self.manager = Template[string.format("template_%s",self.name)]
+    self.Data = require(string.format("template_%s",self.name))
+
+    self:refresh(data);
+end
+
+function Base:getFieldValue(type,value)
+	-- 复杂参数处理
+	local i,j,temp = nil
+	i,j,temp = string.find(type,"^table%[(.*)%]$")
+	if(temp~=nil) then
+		-- table处理
+		local tarr = string.split(temp,'&')
+		local data = {}
+		for index, element in pairs(tarr) do
+			local temp = string.split(element,'=')
+			local field = temp[1]
+			local type = temp[2]
+			local val = value[field]
+			if(val~=nil) then
+				data[field] = self:getFieldValue(type,val);
+			end
+		end
+		return data
+	end
+	i,j,temp = string.find(type,"^array%[(.*)%]$")
+	if (temp ~= nil) then
+		-- array处理
+		local type = temp
+		local datas = {}
+		for index, data in pairs(value) do
+			table.insert(datas,self:getFieldValue(type,data))
+		end
+		return datas
+	end
+	temp = string.split(type,'$')
+	if(#temp > 1) then
+		local manager = Template[string.format("template_%s",temp[1])]
+		local keyTable = {}
+		keyTable[temp[2]] = value
+		return manager:getTplModel(keyTable)
+	end
+	return value
+end
+
+function Base:refresh(data)
+	self.baseInfo = {}
+	for key, field in pairs(self.Data.fields) do
+		local value = data[field]
+		self.baseInfo[field] = self:getFieldValue(self.Data.types[field], value)
+	end
+	for key, value in pairs(self.baseInfo) do
+		self[string.format("get_%s",key)] = function()
+			return self.baseInfo[key];
+		end
+	end
+end
+return Base

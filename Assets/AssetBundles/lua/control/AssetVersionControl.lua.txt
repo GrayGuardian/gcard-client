@@ -1,0 +1,101 @@
+local rapidjson = require('rapidjson')
+
+local AssetVersionControl = {}
+-- 本地Version
+AssetVersionControl.Version =
+    rapidjson.decode(CS.EncryptUtil.Instance:AesDecryptString(CS.AssetUtil.Instance:GetAssetFileBytes('Version')))
+if (AssetVersionControl.Version == nil) then
+    -- 若本地资源版本文件出问题，则删除
+    CS.FileUtil.Instance:DeleteFile(GameConst.VERSION_PATH)
+    -- 读取包体自带的资源版本文件
+    AssetVersionControl.Version =
+        rapidjson.decode(CS.EncryptUtil.Instance:AesDecryptString(CS.AssetUtil.Instance:GetAssetFileBytes('Version')))
+end
+-- 服务端Version加密文本
+AssetVersionControl.WebDecryptVersionText = nil
+-- 服务端Version
+AssetVersionControl.WebVersion = nil
+-- 下载信息
+AssetVersionControl.DownloadInfo = nil
+-- 更新状态
+AssetVersionControl.UpdateState = ASSET_UPDATE_STATE.NONE
+function AssetVersionControl.Refresh(this, cb, errorFunc)
+    HttpManager.GetAsync(
+        GameConst.VERSION_URL,
+        function(t, result)
+            AssetVersionControl.WebDecryptVersionText = result.bytes
+            AssetVersionControl.WebVersion = rapidjson.decode(CS.EncryptUtil.Instance:AesDecryptString(result.bytes))
+            AssetVersionControl.Check()
+            Common.call(t, cb)
+        end,
+        errorFunc,
+        this
+    )
+end
+
+function AssetVersionControl.RefreshVersion()
+    AssetVersionControl.Version = AssetVersionControl.WebVersion
+    CS.FileUtil.Instance:WriteString(GameConst.VERSION_PATH, AssetVersionControl.WebDecryptVersionText)
+    EventManager.Dispatch(Event.RefreshVersion)
+end
+
+-- 检查更新
+function AssetVersionControl.Check()
+    local version = AssetVersionControl.WebVersion
+    AssetVersionControl.UpdateState = ASSET_UPDATE_STATE.NONE
+    -- 判断客户端版本
+    if (version.ClientVersion ~= CS.UnityEngine.Application.version) then
+        AssetVersionControl.UpdateState = ASSET_UPDATE_STATE.CLIENT
+        return
+    end
+    -- 检查资源文件缺省正确情况
+    local updateAssets = {}
+    local errorAssets = AssetVersionControl.CheckAllAssetFile(GameConst.ASSET_ROOT)
+    for index, asset in ipairs(version.Assets) do
+        local filePath = table.concat({GameConst.ASSET_ROOT, '/', asset.fileName})
+        if (CS.AssetUtil.Instance:GetAssetFileBytes(asset.fileName) == '') then
+            -- 不存在则直接添加更新文件列表
+            table.insert(updateAssets, asset)
+        end
+    end
+    if (#updateAssets > 0) then
+        AssetVersionControl.UpdateState = ASSET_UPDATE_STATE.HOTUPDATE
+    elseif (#errorAssets > 0) then
+        AssetVersionControl.UpdateState = ASSET_UPDATE_STATE.HOTFIX
+    end
+    -- 计算下载信息
+    local assets = table.merge({}, updateAssets, errorAssets)
+    local downloadInfo = {}
+    downloadInfo.size = 0
+    downloadInfo.assets = assets
+    local rootUrl = GameConst.DOWNLOAD_URL
+    for index, asset in ipairs(assets) do
+        downloadInfo.size = downloadInfo.size + asset.size
+        asset.url = table.concat({rootUrl, '/', asset.fileName})
+    end
+    AssetVersionControl.DownloadInfo = downloadInfo
+    return AssetVersionControl.UpdateState
+end
+-- 检查所有文件有效性
+function AssetVersionControl.CheckAllAssetFile(root)
+    local assets = {}
+    for index, asset in ipairs(AssetVersionControl.WebVersion.Assets) do
+        if (not AssetVersionControl.CheckAssetFile(root, asset)) then
+            -- 验证不通过则直接添加错误文件列表
+            table.insert(assets, asset)
+        end
+    end
+    return assets
+end
+-- 检查单个文件有效性
+function AssetVersionControl.CheckAssetFile(root, asset)
+    local filePath = table.concat({root, '/', asset.fileName})
+    if (CS.System.IO.File.Exists(filePath)) then
+        local bytes = CS.FileUtil.Instance:ReadBytes(filePath)
+        if (#bytes ~= asset.size or CS.FileUtil.Instance:ComputeHash(bytes) ~= asset.hash) then
+            return false
+        end
+    end
+    return true
+end
+return AssetVersionControl

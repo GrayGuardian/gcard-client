@@ -1,0 +1,10 @@
+require("common_util")
+require("string_util")
+require("table_util")
+require("date_util")
+
+local enumVal = 0
+_G.enum = function(num)
+    enumVal = num or enumVal+1
+    return enumVal
+end
