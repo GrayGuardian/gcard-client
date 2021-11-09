@@ -35,6 +35,7 @@ tpl.data = {
 	{ id="GAMENAME_EXIST", code=50020, tip=300122, showStyle="UI_ERROR", },
 	{ id="GAMENAME_NOTVALID", code=50021, tip=300123, showStyle="UI_ERROR", },
 	{ id="PLAYER_SUM_MAX", code=50022, tip=300124, showStyle="UI_ERROR", },
+	{ id="VERSION_GET_ERROR", code=50023, tip=300125, showStyle="UI_ERROR", },
 }
 
 return tpl

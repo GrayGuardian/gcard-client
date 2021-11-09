@@ -262,9 +262,15 @@ end
 function UIControl:SetFillAmount(value)
     self.image.fillAmount = value
 end
+function UIControl:SetSpriteColor(color)
+    self.image.color = color
+end
 --- RawImage
 function UIControl:SetTexture(texture)
     self.rawImage.texture = texture
+end
+function UIControl:SetTextureColor(color)
+    self.rawImage.color = color
 end
 --- Text
 function UIControl:GetText()

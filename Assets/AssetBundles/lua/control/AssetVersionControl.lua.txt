@@ -22,11 +22,15 @@ AssetVersionControl.UpdateState = ASSET_UPDATE_STATE.NONE
 function AssetVersionControl.Refresh(this, cb, errorFunc)
     HttpManager.GetAsync(
         GameConst.VERSION_URL,
-        function(t, result)
+        function(_, result)
             AssetVersionControl.WebDecryptVersionText = result.bytes
             AssetVersionControl.WebVersion = rapidjson.decode(CS.EncryptUtil.Instance:AesDecryptString(result.bytes))
-            AssetVersionControl.Check()
-            Common.call(t, cb)
+            if(AssetVersionControl.WebVersion == nil) then
+                Common.call(this, errorFunc)
+            else
+                AssetVersionControl.Check()
+                Common.call(this, cb)
+            end
         end,
         errorFunc,
         this

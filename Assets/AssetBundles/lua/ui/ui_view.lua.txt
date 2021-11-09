@@ -10,8 +10,10 @@ end
 -- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 function UI_VIEW:onLoad(assetID)
 	assetID = next(assetID) and assetID or AssetID.BG_VIEW1
+	self.bg:SetTextureColor(Color.Black)
 	self:LoadInIDAsync(assetID,function (asset)
 		self.bg:SetTexture(asset)
+		self.bg:SetTextureColor(Color.White)
 	end)
 end
 -- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑

@@ -61,7 +61,7 @@ function UI_HOTUPDATE:checkAssetVersionOver()
 			UIID.UI_MSG,
 			{
 				title = Template.template_text:getText(400101),
-				msg = Template.template_text:getText(400108),
+				msg = ERROR_INFO.VERSION_GET_ERROR:getTip(),
 				btnTitles = Template.template_text:getText(400102),
 				isShowCloseBtn = false,
 				this = self,

@@ -71,7 +71,7 @@ public static class ExampleConfig
         "ClusterInput", "Motion",
         "UnityEngine.UI.ReflectionMethodsCache", "NativeLeakDetection",
         "NativeLeakDetectionMode", "WWWAudioExtensions", "UnityEngine.Experimental",
-        "ClusterNetwork","GUIStyleState","iPhoneUtils","TerrainData"
+        "ClusterNetwork","GUIStyleState","iPhoneUtils","TerrainData","AndroidInput"
     };
     /// <summary>
     /// CSharpCallLua 扩展Type

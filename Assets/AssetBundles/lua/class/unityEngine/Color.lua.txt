@@ -58,7 +58,7 @@ _getter.Red = function () return Color('#FF0000') end
 _getter.Purple = function () return Color('#BE81F7') end
 _getter.Green = function () return Color('#01DF74') end
 _getter.Yellow = function () return  Color('#FFFF00') end
-
+_getter.Black = function () return  Color('#000000') end
 -- 静态函数
 -- 十六进制颜色转RGBA
 ---@return rgba 0-1

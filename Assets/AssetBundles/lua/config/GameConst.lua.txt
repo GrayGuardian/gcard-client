@@ -4,7 +4,7 @@ setmetatable(GameConst, {__index = CS.GameConst})
 _G.ENV_TYPE = CS.ENV_TYPE
 -- HTTP API URL
 if (GameConst.PRO_ENV == ENV_TYPE.MASTER) then
-    GameConst.API_URL = 'http://127.0.0.1:8200'
+    GameConst.API_URL = 'http://10.42.3.132:8200'
 else
     GameConst.API_URL = 'http://127.0.0.1:8200'
 end
@@ -13,7 +13,11 @@ GameConst.SOCKET_HOST = nil
 -- SOCKET PORT
 GameConst.SOCKET_PORT = nil
 -- 资源下载URL
-GameConst.DOWNLOAD_URL = 'http://127.0.0.1/Download'
+if (GameConst.PRO_ENV == ENV_TYPE.MASTER) then
+    GameConst.DOWNLOAD_URL = 'http://10.42.3.132/Download'
+else
+    GameConst.DOWNLOAD_URL = 'http://127.0.0.1/Download'
+end
 -- 资源版本URL
 GameConst.VERSION_URL = table.concat({GameConst.DOWNLOAD_URL, '/', 'Version'})
 -- 资源文件下载临时文件目录
