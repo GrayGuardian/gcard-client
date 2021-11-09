@@ -66,6 +66,7 @@ function UIManager.Load(id,loadArg,cb,...)
     AssetManager.LoadPrefabAsync(
         uiclass.ASSET_CONFIG.key,
         uiclass.ASSET_CONFIG.assetName,
+        nil,
         function(prefab)
             if UIManager.UICount[uiclass.LOAD_ARG.Layer] then
                 UIManager.UICount[uiclass.LOAD_ARG.Layer] =  UIManager.UICount[uiclass.LOAD_ARG.Layer] + 1

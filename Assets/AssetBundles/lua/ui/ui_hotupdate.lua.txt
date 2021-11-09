@@ -37,7 +37,7 @@ end
 -- 检查资源版本
 function UI_HOTUPDATE:checkAssetVersion()
 	AssetVersionControl.Refresh(self, self.checkAssetVersionSuccess, self.checkAssetVersionError)
-	-- 采取伪检查形式 防止一闪而过的情况
+	-- 采取伪进度条检查形式 防止一闪而过的情况
 	self.checkTextAniTimer = self:showEllipsisText(self.progressText, Template.template_text:getText(400106), 0.25, 3, 3)
 	self.progressText:SetActive(true)
 	self:TimerOn(2, self, self.checkAssetVersionOver)

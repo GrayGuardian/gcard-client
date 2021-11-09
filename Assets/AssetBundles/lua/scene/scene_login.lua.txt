@@ -2,6 +2,8 @@ local base = require('scene_base')
 local SceneLogin = class('scene_login', base)
 
 function SceneLogin:onLoad()
+    UIManager.Show(UIID.UI_VIEW)
+
 end
 
 return SceneLogin
