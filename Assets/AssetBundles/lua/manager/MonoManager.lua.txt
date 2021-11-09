@@ -37,7 +37,7 @@ monoEventMap['Start']()
 
 Regist()
 
-EventManager.On(Event.MONO("OnDisable"),function()
+EventManager.On(Event.MONO("OnDisable"),nil,function()
     -- 由于Mono调用顺序不可控，导致OnDestroy不一定会成功调用 因此监听OnDisable来手动调用
     monoEventMap['OnDestroy']()
     UnRegist()

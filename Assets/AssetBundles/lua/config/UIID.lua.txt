@@ -4,7 +4,10 @@ local UIID = {
     UI_VIEW = "ui_view",                        -- 底图UI
     UI_MSG = "ui_msg",                          -- 提示弹窗
 
-    UI_HOTUPDATE = "ui_hotupdate"               -- 热更UI
+    UI_HOTUPDATE = "ui_hotupdate",              -- 热更UI
+    UI_PRELOAD = "ui_preload",                  -- 预加载资源UI
+
+    UI_LOGIN = "ui_login",                      -- 登录UI
 }
 
 for key, value in pairs(UIID) do

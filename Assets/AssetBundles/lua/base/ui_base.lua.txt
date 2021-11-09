@@ -40,7 +40,7 @@ function UIBase:ctor(loadArg,...)
     self.arg = {...}
     self.node = nil
     -- 此处是游戏结束时销毁组件的处理
-    self:EventOn(Event.MONO("OnDestroy"),self.closeSelf,self)
+    self:EventOn(Event.MONO("OnDestroy"),self,self.closeSelf)
 end
 -- 卸载UI
 function UIBase:close()

@@ -8,7 +8,7 @@ local event = function()
     end
 end
 CSSceneManager.sceneLoaded("+", event)
-EventManager.On(Event.MONO("OnDestroy"),function()
+EventManager.On(Event.MONO("OnDestroy"),nil,function()
     CSSceneManager.sceneLoaded("-", event)
 end)
 
@@ -28,11 +28,11 @@ end
 local onSceneLoad = function (...)
     nowScene:onLoad(...)
 end
-EventManager.On(Event.SCENE_UNLOAD,onSceneUnLoad)
-EventManager.On(Event.SCENE_LOAD_START,onSceneLoadStart)
-EventManager.On(Event.SCENE_LOADING,onSceneLoading)
-EventManager.On(Event.SCENE_LOAD_END,onSceneLoadEnd)
-EventManager.On(Event.SCENE_LOAD,onSceneLoad)
+EventManager.On(Event.SCENE_UNLOAD,nil,onSceneUnLoad)
+EventManager.On(Event.SCENE_LOAD_START,nil,onSceneLoadStart)
+EventManager.On(Event.SCENE_LOADING,nil,onSceneLoading)
+EventManager.On(Event.SCENE_LOAD_END,nil,onSceneLoadEnd)
+EventManager.On(Event.SCENE_LOAD,nil,onSceneLoad)
 
 
 function SceneManager.Load(name,loadArg,cb,...)

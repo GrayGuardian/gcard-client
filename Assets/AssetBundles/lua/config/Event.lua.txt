@@ -50,7 +50,8 @@ end
 
 Event.RefreshVersion = enum(0)                              -- 更新资源版本文件
 
-
-
+Event.HotupdateAssetSuccess = enum()                        -- 资源热更成功
+Event.ShowLoginView = enum()                                -- 显示登录界面
+Event.LoginSuccess = enum()                                 -- 登录成功
 
 return Event

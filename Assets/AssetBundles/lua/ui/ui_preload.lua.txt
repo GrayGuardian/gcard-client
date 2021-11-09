@@ -1,0 +1,44 @@
+-- 该文件通过工具生成，只可以修改可编辑区块中的内容
+
+local base = require('ui_base')
+local UI_PRELOAD = class('ui_preload', base)
+
+function UI_PRELOAD:initUIControl()
+	self.progressBarNode = UIControl:new(self.node,"progressBarNode")
+	self.progressBarValueImage = UIControl:new(self.node,"progressBarNode/progressBarValueImage")
+	self.assetVersionText = UIControl:new(self.node,"assetVersionText")
+	self.clientVersionText = UIControl:new(self.node,"clientVersionText")
+	self.progressText = UIControl:new(self.node,"progressText")
+end
+
+-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+UI_PRELOAD.getter.LOAD_ARG = function () return { ALLOW_SCENE_ACTIVATION = true , Layer = 'UI_Default' , MaskInfo = {isMask=false, color=Color(0,0,0,0.5)} } end
+function UI_PRELOAD:onLoad(arg)
+	self:registerEvent()
+
+	self:refresh()
+end
+function UI_PRELOAD:registerEvent()
+	self:EventOn(Event.RefreshVersion,self, self.refreshVersion)
+end
+function UI_PRELOAD:refresh()
+	self:refreshVersion()
+	self.progressBarNode:SetActive(false)
+	self.progressText:SetActive(false)
+end
+function UI_PRELOAD:showBarText(text)
+	self.progressText:SetActive(true)
+	self.progressText:SetText(text)
+end
+function UI_PRELOAD:showBarValue(value)
+	self.progressBarNode:SetActive(true)
+	self.progressBarValueImage:SetFillAmount(value)
+end
+function UI_PRELOAD:refreshVersion()
+	local version = AssetVersionControl.Version
+	self.assetVersionText:SetText(Template.template_text:getText(400104, version.Version))
+	self.clientVersionText:SetText(Template.template_text:getText(400105, version.ClientVersion))
+end
+-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 可编辑区块 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+return UI_PRELOAD

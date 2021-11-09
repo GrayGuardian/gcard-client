@@ -41,7 +41,7 @@ function CompBase:ctor(node,...)
 
     self:RegistMonoLifecycle();
     -- 此处是游戏结束时集中销毁组件的处理
-    self:EventOn(Event.MONO("OnDestroy"),function()
+    self:EventOn(Event.MONO("OnDestroy"),nil,function()
         -- 游戏结束时集中销毁组件的Mono调用顺序随机，销毁函数手动调用
         monoEventMap['OnDisable']()
         monoEventMap['OnDestroy']()

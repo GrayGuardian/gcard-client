@@ -19,7 +19,7 @@ function EventManager.Dispatch(key,...)
     end
     return true
 end
-function EventManager.On(key, callback, this, order, isOnce)
+function EventManager.On(key,this, callback,  order, isOnce)
     local info = {}
     info.callback = callback
     info.order = order or 0

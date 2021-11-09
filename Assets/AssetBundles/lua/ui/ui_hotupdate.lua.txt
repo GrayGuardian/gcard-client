@@ -12,6 +12,8 @@ function UI_HOTUPDATE:initUIControl()
 end
 
 -- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 可编辑区块 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+UI_HOTUPDATE.getter.LOAD_ARG = function () return { ALLOW_SCENE_ACTIVATION = true , Layer = 'UI_Default' , MaskInfo = {isMask=false, color=Color(0,0,0,0.5)} } end
+
 function UI_HOTUPDATE:onLoad(arg)
 	self:registerEvent()
 
@@ -19,7 +21,7 @@ function UI_HOTUPDATE:onLoad(arg)
 	self:checkAssetVersion()
 end
 function UI_HOTUPDATE:registerEvent()
-	self:EventOn(Event.RefreshVersion, self.refreshVersion, self)
+	self:EventOn(Event.RefreshVersion,self, self.refreshVersion)
 end
 function UI_HOTUPDATE:refresh()
 	self:refreshVersion()
@@ -232,7 +234,7 @@ end
 function UI_HOTUPDATE:updateOver()
 	AssetVersionControl.RefreshVersion()
 	self:clearInvalidAssetFiles()
-	SceneManager.Load('Login')
+	EventManager.Dispatch(Event.HotupdateAssetSuccess)
 end
 
 -- 清理冗余文件

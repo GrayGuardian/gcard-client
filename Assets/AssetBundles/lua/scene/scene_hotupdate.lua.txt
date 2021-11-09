@@ -2,8 +2,14 @@ local base = require('scene_base')
 local SceneHotupdate = class('scene_hotupdate', base)
 
 function SceneHotupdate:onLoad()
+    self:EventOn(Event.HotupdateAssetSuccess,self,self.HotupdateAssetSuccess)
+
     UIManager.Show(UIID.UI_VIEW)
     UIManager.Show(UIID.UI_HOTUPDATE)
+end
+-- 资源热更成功
+function SceneHotupdate:HotupdateAssetSuccess()
+    SceneManager.Load('Login')
 end
 
 return SceneHotupdate

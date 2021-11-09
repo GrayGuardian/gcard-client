@@ -34,8 +34,8 @@ function LifecycleBase:ClearAllTimer()
     end
     self.timerMap = {}
 end
-function LifecycleBase:EventOn(key, callback, this, order, isOnce)
-    local flag = EventManager.On(key, callback, this, order, isOnce)
+function LifecycleBase:EventOn(key,  this,callback, order, isOnce)
+    local flag = EventManager.On(key,  this,callback, order, isOnce)
     if flag then
         local info = {key = key, callback = callback}
         table.insert(self.eventMap, info)

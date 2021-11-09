@@ -1,8 +1,27 @@
 local base = require('scene_base')
 local SceneLogin = class('scene_login', base)
 
+local Index = 0
+
 function SceneLogin:onLoad()
+    self:EventOn(Event.ShowLoginView,self,self.ShowLoginView)
+    self:EventOn(Event.LoginSuccess,self,self.LoginSuccess)
+
+    Index = Index + 1
     UIManager.Show(UIID.UI_VIEW)
+    if(Index==1) then               -- 第一次进入场景
+        -- 预加载逻辑
+        UIManager.Show(UIID.UI_PRELOAD)
+    else
+        EventManager.Dispatch(Event.ShowLoginView)
+    end
+end
+-- 显示登录界面
+function SceneLogin:ShowLoginView()
+    UIManager.Show(UIID.UI_LOGIN)
+end
+-- 登录成功
+function SceneLogin:LoginSuccess()
 
 end
 

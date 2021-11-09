@@ -50,7 +50,7 @@ local update = function()
     timerDelTempList = {}
 end
 
-EventManager.On(Event.MONO("Update"),update)
+EventManager.On(Event.MONO("Update"),nil,update)
 
 --生成时钟
 function TimerManager.On(time,this,onTrigger,loopCount)
