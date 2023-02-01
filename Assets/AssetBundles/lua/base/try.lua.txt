@@ -20,7 +20,7 @@ return function(block)
     local finallyFunc = block['finally']
 
     local params = {}
-    if #block > 0 then
+    if #block > 1 then
     	for i = 2, #block do
     		table.insert(params, block[i])
     	end
