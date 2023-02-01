@@ -1,37 +1,39 @@
 -- 使用案例
 -- 若success为true，result为try返回值，若success为false，result为错误信息
 -- local result = try {
--- 	function ()         -- 必须存在
+-- 	function (param1,param2)         -- 必须存在
 -- 		error("123")    -- 主动抛出异常
 -- 	end,
--- 	catch = function (error)       -- 异常捕获 可缺省
+-- 	catch = function (error,param1,param2)       -- 异常捕获 可缺省
 -- 		print(error)
 -- 	end,
--- 	finally = function (success,result)      -- 必然执行 可缺省
+-- 	finally = function (success,result,param1,param2)      -- 必然执行 可缺省
 -- 		print(success,result)
--- 	end
+-- 	end,
+--  param1,param2
 -- }
 -- print(result);
 
 return function(block)
+    local tryFunc = block[1]
     local catchFunc = block['catch']
     local finallyFunc = block['finally']
 
-    local arr = {}
+    local params = {}
     if #block > 0 then
-    	for i = 1, #block do
-    		table.insert(arr, block[i])
+    	for i = 2, #block do
+    		table.insert(params, block[i])
     	end
     end
 
-    local success, result = pcall(unpack(arr))
+    local success, result = pcall(tryFunc,unpack(params))
 
     if not success and catchFunc then
-        catchFunc(result)
+        catchFunc(result,unpack(params))
     end
 
     if finallyFunc then
-        finallyFunc(success, result)
+        finallyFunc(success, result,unpack(params))
     end
 
     if success then
