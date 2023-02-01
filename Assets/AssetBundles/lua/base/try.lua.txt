@@ -14,11 +14,17 @@
 -- print(result);
 
 return function(block)
-    local tryFunc = block[1]
     local catchFunc = block['catch']
     local finallyFunc = block['finally']
 
-    local success, result = pcall(tryFunc)
+    local arr = {}
+    if #block > 0 then
+    	for i = 1, #block do
+    		table.insert(arr, block[i])
+    	end
+    end
+
+    local success, result = pcall(unpack(arr))
 
     if not success and catchFunc then
         catchFunc(result)
